@@ -1,0 +1,42 @@
+{
+  "breadcrumb": {
+    "home": "الرئيسية"
+  },
+  "sidebar": {
+    "menu": "القائمة",
+    "others": "أخرى",
+    "toggleSidebar": "تبديل الشريط الجانبي"
+  },
+  "theme": {
+    "settings": "إعدادات المظهر",
+    "primary": "اللون الأساسي",
+    "surface": "لون السطح",
+    "setPrimaryColor": "تعيين اللون الأساسي إلى {color}",
+    "setSurfaceColor": "تعيين لون السطح إلى {surface}"
+  },
+  "notifications": {
+    "title": "الإشعارات",
+    "viewAll": "عرض كل الإشعارات",
+    "requestsPermission": "يطلب إذنًا لتغيير",
+    "project": "المشروع",
+    "minutesAgo": "قبل {count} دقيقة",
+    "hourAgo": "قبل {count} ساعة"
+  },
+  "userMenu": {
+    "editProfile": "تعديل الملف الشخصي",
+    "accountSettings": "إعدادات الحساب",
+    "support": "الدعم",
+    "signOut": "تسجيل الخروج"
+  },
+  "language": {
+    "label": "اللغة",
+    "en": "الإنجليزية",
+    "ar": "العربية"
+  },
+  "notFound": {
+    "title": "خطأ",
+    "message": "لا يمكننا العثور على الصفحة التي تبحث عنها!",
+    "backHome": "العودة إلى الصفحة الرئيسية",
+    "footer": "© {year} - I-fikra"
+  }
+}

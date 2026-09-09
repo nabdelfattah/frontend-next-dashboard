@@ -3,14 +3,20 @@ import ThemeTogglerTwo from "@/components/common/ThemeTogglerTwo";
 
 import { ThemeProvider } from "@core/context/ThemeContext";
 import Image from "next/image";
-import Link from "next/link";
+import { Link } from "@/i18n/navigation";
+import { getTranslations } from "next-intl/server";
+import { DropdownGroupProvider } from "@layout/header/DropdownGroupContext";
+import LanguageSwitcher from "@layout/header/LanguageSwitcher";
+import ThemeConfigurator from "@layout/header/ThemeConfigurator";
 import React from "react";
 
-export default function AuthLayout({
+export default async function AuthLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
+  const t = await getTranslations("auth.layout");
+
   return (
     <div className="relative p-6 bg-white z-1 dark:bg-gray-900 sm:p-0">
       <ThemeProvider>
@@ -30,12 +36,16 @@ export default function AuthLayout({
                   />
                 </Link>
                 <p className="text-center text-gray-400 dark:text-white/60">
-                  Free and Open-Source Tailwind CSS Admin Dashboard Template
+                  {t("tagline")}
                 </p>
               </div>
             </div>
           </div>
-          <div className="fixed bottom-6 right-6 z-50 hidden sm:block">
+          <div className="fixed bottom-6 end-6 z-50 hidden items-center gap-3 sm:flex">
+            <DropdownGroupProvider>
+              <ThemeConfigurator />
+              <LanguageSwitcher />
+            </DropdownGroupProvider>
             <ThemeTogglerTwo />
           </div>
         </div>

@@ -1,0 +1,42 @@
+{
+  "breadcrumb": {
+    "home": "Home"
+  },
+  "sidebar": {
+    "menu": "Menu",
+    "others": "Others",
+    "toggleSidebar": "Toggle Sidebar"
+  },
+  "theme": {
+    "settings": "Theme settings",
+    "primary": "Primary",
+    "surface": "Surface",
+    "setPrimaryColor": "Set primary color to {color}",
+    "setSurfaceColor": "Set surface color to {surface}"
+  },
+  "notifications": {
+    "title": "Notification",
+    "viewAll": "View All Notifications",
+    "requestsPermission": "requests permission to change",
+    "project": "Project",
+    "minutesAgo": "{count} min ago",
+    "hourAgo": "{count} hr ago"
+  },
+  "userMenu": {
+    "editProfile": "Edit profile",
+    "accountSettings": "Account settings",
+    "support": "Support",
+    "signOut": "Sign out"
+  },
+  "language": {
+    "label": "Language",
+    "en": "English",
+    "ar": "Arabic"
+  },
+  "notFound": {
+    "title": "ERROR",
+    "message": "We can't seem to find the page you are looking for!",
+    "backHome": "Back to Home Page",
+    "footer": "© {year} - I-fikra"
+  }
+}

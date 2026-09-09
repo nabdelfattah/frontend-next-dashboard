@@ -1,16 +1,20 @@
 "use client";
 import { ThemeToggleButton } from "@/components/common/ThemeToggleButton";
+import { DropdownGroupProvider } from "@layout/header/DropdownGroupContext";
+import LanguageSwitcher from "@layout/header/LanguageSwitcher";
 import NotificationDropdown from "@layout/header/NotificationDropdown";
 import ThemeConfigurator from "@layout/header/ThemeConfigurator";
 import UserDropdown from "@layout/header/UserDropdown";
 import { useSidebar } from "@core/context/SidebarContext";
 import Image from "next/image";
-import Link from "next/link";
+import { Link } from "@/i18n/navigation";
+import { useTranslations } from "next-intl";
 import React, { useState ,useEffect,useRef} from "react";
 import { X, Menu, Ellipsis } from "@/icons";
 
 const AppHeader: React.FC = () => {
   const [isApplicationMenuOpen, setApplicationMenuOpen] = useState(false);
+  const t = useTranslations("common");
 
   const { isMobileOpen, toggleSidebar, toggleMobileSidebar } = useSidebar();
 
@@ -33,7 +37,7 @@ const AppHeader: React.FC = () => {
           <button
             className="items-center justify-center w-10 h-10 text-gray-500 border-gray-200 rounded-lg z-99999 dark:border-gray-800 lg:flex dark:text-gray-400 lg:h-11 lg:w-11 lg:border transition hover:text-dark-900 hover:bg-gray-100 hover:text-gray-700 dark:hover:bg-gray-800 dark:hover:text-white"
             onClick={handleToggle}
-            aria-label="Toggle Sidebar"
+            aria-label={t("sidebar.toggleSidebar")}
           >
             {isMobileOpen ? (
               <X  />
@@ -74,19 +78,23 @@ const AppHeader: React.FC = () => {
             isApplicationMenuOpen ? "flex" : "hidden"
           } items-center justify-between w-full gap-4 px-5 py-4 lg:flex shadow-theme-md lg:justify-end lg:px-0 lg:shadow-none`}
         >
-          <div className="flex items-center gap-2 2xsm:gap-3">
-            {/* <!-- Dark Mode Toggler --> */}
-            <ThemeToggleButton />
-            
-            {/* <!-- Theme Configurator --> */}
-            <ThemeConfigurator />
-          
-          
-           <NotificationDropdown />
-            {/* <!-- Notification Menu Area --> */}
-          </div>
-          {/* <!-- User Area --> */}
-          <UserDropdown /> 
+          <DropdownGroupProvider>
+            <div className="flex items-center gap-2 2xsm:gap-3">
+              {/* <!-- Dark Mode Toggler --> */}
+              <ThemeToggleButton />
+
+              {/* <!-- Theme Configurator --> */}
+              <ThemeConfigurator />
+
+              {/* <!-- Language Switcher --> */}
+              <LanguageSwitcher />
+
+              <NotificationDropdown />
+              {/* <!-- Notification Menu Area --> */}
+            </div>
+            {/* <!-- User Area --> */}
+            <UserDropdown />
+          </DropdownGroupProvider>
         </div>
       </div>
     </header>

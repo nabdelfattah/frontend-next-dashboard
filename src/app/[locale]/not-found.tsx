@@ -1,29 +1,14 @@
-// Fallback for the rare case where Next.js can't resolve the `[locale]` segment
-// before rendering (so `src/app/[locale]/not-found.tsx` never gets a chance to run).
-
 import GridShape from "@/components/common/GridShape";
 import NotFoundIllustration from "@/components/common/NotFoundIllustration";
 import { Link } from "@/i18n/navigation";
 import { getTranslations } from "next-intl/server";
+import React from "react";
 
-// This must be fully self-contained since the root layout has no <html>/<body>.
-export default async function GlobalNotFound() {
+export default async function NotFound() {
   const t = await getTranslations("common.notFound");
+
   return (
-    <html lang="en" dir="ltr">
-      <body
-        style={{
-          margin: 0,
-          minHeight: "100vh",
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "center",
-          justifyContent: "center",
-          fontFamily: "system-ui, sans-serif",
-          gap: "1rem",
-        }}
-      >
-        <div className="relative flex flex-col items-center justify-center min-h-screen p-6 overflow-hidden z-1">
+    <div className="relative flex flex-col items-center justify-center min-h-screen p-6 overflow-hidden z-1">
       <GridShape />
       <div className="mx-auto w-full max-w-[242px] text-center sm:max-w-[472px]">
         <h1 className="mb-8 font-bold text-gray-800 text-title-md dark:text-white/90 xl:text-title-2xl">
@@ -48,7 +33,5 @@ export default async function GlobalNotFound() {
         {t("footer", { year: new Date().getFullYear() })}
       </p>
     </div>
-      </body>
-    </html>
   );
 }
