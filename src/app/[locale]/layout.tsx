@@ -4,15 +4,35 @@ import "flatpickr/dist/flatpickr.css";
 import { hasLocale, NextIntlClientProvider } from "next-intl";
 import { getMessages, setRequestLocale } from "next-intl/server";
 import { notFound } from "next/navigation";
+import Script from "next/script";
 import { routing } from "@/i18n/routing";
 import { SidebarProvider } from "@core/context/SidebarContext";
 import { ThemeProvider } from "@core/context/ThemeContext";
 import { ThemeConfigProvider } from "@core/context/ThemeConfigContext";
+import { THEME_CONFIG_STORAGE_KEY } from "@/lib/theme-config";
 import { LucideProvider } from "lucide-react";
 
 const outfit = Outfit({
   subsets: ["latin"],
 });
+
+// Applies the persisted primary/surface colors to <html> before first paint, so there's no
+// flash of the default theme while React hydrates (same trick used for dark-mode class toggles).
+// Uses next/script with beforeInteractive (not a plain <script> tag) so React doesn't warn about
+// encountering a raw script element on client re-renders; it must live alongside the actual
+// <head> below for its hoisting to resolve, which is why it can't sit in the disconnected
+// true root layout (src/app/layout.tsx has no <html>/<head> of its own).
+const themeConfigInitScript = `
+(function () {
+  try {
+    var stored = JSON.parse(localStorage.getItem('${THEME_CONFIG_STORAGE_KEY}') || 'null');
+    var config = Object.assign({ primary: 'violet', surface: 'zinc' }, stored || {});
+    var root = document.documentElement;
+    root.setAttribute('data-primary', config.primary);
+    root.setAttribute('data-surface', config.surface);
+  } catch (e) {}
+})();
+`;
 
 export function generateStaticParams() {
   return routing.locales.map((locale) => ({ locale }));
@@ -36,6 +56,13 @@ export default async function LocaleLayout({
 
   return (
     <html lang={locale} dir={dir} suppressHydrationWarning>
+      <head>
+        <Script
+          id="theme-config-init"
+          strategy="beforeInteractive"
+          dangerouslySetInnerHTML={{ __html: themeConfigInitScript }}
+        />
+      </head>
       <body className={`${outfit.className} dark:bg-gray-900`}>
         <NextIntlClientProvider messages={messages}>
           <ThemeProvider>
