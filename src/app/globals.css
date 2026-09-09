@@ -5,7 +5,6 @@
 
 @theme {
   --font-*: initial;
-  --font-outfit: Outfit, sans-serif;
 
   --breakpoint-*: initial;
   --breakpoint-2xsm: 375px;
@@ -169,6 +168,19 @@
 }
 
 /*
+ * --font-outfit is set at runtime by next/font on <html> (src/app/[locale]/layout.tsx):
+ * Outfit's font file for locale "en", Cairo's for locale "ar". Mapping it into the
+ * `--font-sans` theme token here (rather than reusing the name directly) avoids a
+ * self-referential CSS variable, and lets the `font-sans` utility resolve to whichever
+ * font is active without any per-locale branching in components. This block must come
+ * after the `@theme { --font-*: initial; ... }` block above, since theme declarations
+ * are applied in file order and an earlier `--font-sans` would otherwise be reset by it.
+ */
+@theme inline {
+  --font-sans: var(--font-outfit), sans-serif;
+}
+
+/*
   The default border color has changed to `currentColor` in Tailwind CSS v4,
   so we've added these compatibility styles to make sure everything still
   looks the same as it did with Tailwind CSS v3.
@@ -189,7 +201,7 @@
     cursor: pointer;
   }
   body {
-    @apply relative font-normal font-outfit z-1 bg-gray-50;
+    @apply relative font-normal font-sans z-1 bg-gray-50;
   }
 }
 

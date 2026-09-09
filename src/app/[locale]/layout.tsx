@@ -1,4 +1,4 @@
-import { Outfit } from "next/font/google";
+import { Outfit, Cairo } from "next/font/google";
 import "../globals.css";
 import "flatpickr/dist/flatpickr.css";
 import { hasLocale, NextIntlClientProvider } from "next-intl";
@@ -14,6 +14,14 @@ import { LucideProvider } from "lucide-react";
 
 const outfit = Outfit({
   subsets: ["latin"],
+  display: "swap",
+  variable: "--font-outfit",
+});
+
+const cairo = Cairo({
+  subsets: ["arabic", "latin"],
+  display: "swap",
+  variable: "--font-outfit",
 });
 
 // Applies the persisted primary/surface colors to <html> before first paint, so there's no
@@ -53,9 +61,15 @@ export default async function LocaleLayout({
   setRequestLocale(locale);
   const messages = await getMessages();
   const dir = locale === "ar" ? "rtl" : "ltr";
+  const fontVariable = locale === "ar" ? cairo.variable : outfit.variable;
 
   return (
-    <html lang={locale} dir={dir} suppressHydrationWarning>
+    <html
+      lang={locale}
+      dir={dir}
+      suppressHydrationWarning
+      className={fontVariable}
+    >
       <head>
         <Script
           id="theme-config-init"
@@ -63,7 +77,7 @@ export default async function LocaleLayout({
           dangerouslySetInnerHTML={{ __html: themeConfigInitScript }}
         />
       </head>
-      <body className={`${outfit.className} dark:bg-gray-900`}>
+      <body className="dark:bg-gray-900">
         <NextIntlClientProvider messages={messages}>
           <ThemeProvider>
             <ThemeConfigProvider>
