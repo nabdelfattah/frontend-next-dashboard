@@ -7,7 +7,7 @@ import { routing, type Locale } from "@/i18n/routing";
 import { Dropdown } from "@/components/ui/dropdown/Dropdown";
 import { DropdownItem } from "@/components/ui/dropdown/DropdownItem";
 import { useDropdownGroup } from "@layout/header/DropdownGroupContext";
-import { Languages } from "@/icons";
+import { Languages } from "@/assets/icons";
 
 export default function LanguageSwitcher({
   position = "top",

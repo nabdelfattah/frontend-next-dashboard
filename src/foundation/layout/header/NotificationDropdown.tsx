@@ -6,7 +6,7 @@ import { useTranslations } from "next-intl";
 import { Dropdown } from "@/components/ui/dropdown/Dropdown";
 import { DropdownItem } from "@/components/ui/dropdown/DropdownItem";
 import { useDropdownGroup } from "@layout/header/DropdownGroupContext";
-import { Bell } from "@/icons";
+import { Bell } from "@/assets/icons";
 
 export default function NotificationDropdown() {
   const { isOpen, toggle, close } = useDropdownGroup("notifications");

@@ -3,7 +3,7 @@ import Checkbox from "@/components/form/input/Checkbox";
 import Input from "@/components/form/input/InputField";
 import Label from "@/components/form/Label";
 import Button from "@/components/ui/button/Button";
-import { ChevronLeft, EyeOff, Eye } from "@/icons";
+import { ChevronLeft, EyeOff, Eye } from "@/assets/icons";
 import { Link } from "@/i18n/navigation";
 import { useTranslations } from "next-intl";
 import React, { useState } from "react";

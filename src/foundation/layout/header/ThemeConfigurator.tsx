@@ -11,7 +11,7 @@ import {
   getSwatchColor,
   getSurfaceSwatchColor,
 } from "@/lib/theme-config";
-import { Palette } from "@/icons";
+import { Palette } from "@/assets/icons";
 
 export default function ThemeConfigurator({
   position = "top",

@@ -8,7 +8,7 @@ import {
   ChevronDown,
   LayoutDashboard ,
   Ellipsis ,
-} from "@/icons/index";
+} from "@/assets/icons";
 
 type NavItem = {
   name: string;

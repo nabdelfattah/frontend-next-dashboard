@@ -6,7 +6,7 @@ import { useTranslations } from "next-intl";
 import { Dropdown } from "@/components/ui/dropdown/Dropdown";
 import { DropdownItem } from "@/components/ui/dropdown/DropdownItem";
 import { useDropdownGroup } from "@layout/header/DropdownGroupContext";
-import { ChevronDown,  CircleUserRound, Settings, Info,LogOut, UserRound   } from "@/icons";
+import { ChevronDown,  CircleUserRound, Settings, Info,LogOut, UserRound   } from "@/assets/icons";
 
 export default function UserDropdown() {
   const { isOpen, toggle, close } = useDropdownGroup("user");
