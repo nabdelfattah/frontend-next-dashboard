@@ -47,7 +47,7 @@ function toggleDropdown(e: React.MouseEvent<HTMLButtonElement, MouseEvent>) {
           )}
         </span>
 
-        <span className="block me-1 font-medium text-theme-sm">{user.name}</span>
+        <span className="hidden me-1 font-medium text-theme-sm lg:block">{user.name}</span>
 
         <ChevronDown className={`stroke-gray-500 dark:stroke-gray-400 transition-transform duration-200 ${
             isOpen ? "rotate-180" : ""
