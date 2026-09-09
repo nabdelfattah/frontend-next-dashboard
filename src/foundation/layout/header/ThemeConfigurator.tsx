@@ -28,7 +28,7 @@ export default function ThemeConfigurator() {
     <div className="relative">
       <button
         onClick={toggleDropdown}
-        className="dropdown-toggle relative flex items-center justify-center text-white transition-colors bg-brand-500 border border-gray-200 rounded-full hover:bg-gray-100 hover:text-gray-700 h-11 w-11 dark:border-gray-800 dark:bg-gray-900 dark:text-gray-400 dark:hover:bg-gray-800 dark:hover:text-white"
+        className="dropdown-toggle relative flex items-center justify-center text-white transition-colors bg-brand-500 border border-gray-200 rounded-full transition hover:bg-brand-600 h-11 w-11 dark:border-gray-800 dark:bg-gray-900 dark:text-gray-400 dark:hover:bg-gray-800 dark:hover:text-white"
         aria-label="Theme settings"
       >
         <Palette />
