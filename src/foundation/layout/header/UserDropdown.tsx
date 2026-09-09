@@ -1,7 +1,7 @@
 "use client";
 import Image from "next/image";
 import { Link } from "@/i18n/navigation";
-import React from "react";
+import React, { useRef } from "react";
 import { useTranslations } from "next-intl";
 import { Dropdown } from "@/components/ui/dropdown/Dropdown";
 import { DropdownItem } from "@/components/ui/dropdown/DropdownItem";
@@ -11,6 +11,7 @@ import { ChevronDown,  CircleUserRound, Settings, Info,LogOut, UserRound   } fro
 export default function UserDropdown() {
   const { isOpen, toggle, close } = useDropdownGroup("user");
   const t = useTranslations("common.userMenu");
+  const anchorRef = useRef<HTMLButtonElement>(null);
 
   // TODO: replace with real auth/user state management
   const user = {
@@ -31,7 +32,8 @@ function toggleDropdown(e: React.MouseEvent<HTMLButtonElement, MouseEvent>) {
   return (
     <div className="relative">
       <button
-        onClick={toggleDropdown} 
+        ref={anchorRef}
+        onClick={toggleDropdown}
         className="flex items-center text-gray-700 dark:text-gray-400 dropdown-toggle"
       >
         <span className="flex items-center justify-center me-2 text-gray-500 transition-colors bg-white border border-gray-200 rounded-full hover:text-dark-900 h-11 w-11 hover:bg-gray-100 hover:text-gray-700 dark:border-gray-800 dark:bg-gray-900 dark:text-gray-400 dark:hover:bg-gray-800 dark:hover:text-white">
@@ -58,7 +60,8 @@ function toggleDropdown(e: React.MouseEvent<HTMLButtonElement, MouseEvent>) {
       <Dropdown
         isOpen={isOpen}
         onClose={closeDropdown}
-        className="absolute end-0 mt-[17px] flex w-[260px] flex-col rounded-2xl border border-gray-200 bg-white p-3 shadow-theme-lg dark:border-gray-800 dark:bg-gray-dark"
+        anchorRef={anchorRef}
+        className="flex w-[260px] flex-col rounded-2xl border border-gray-200 bg-white p-3 shadow-theme-lg dark:border-gray-800 dark:bg-gray-dark"
       >
         <div>
           <span className="block font-medium text-gray-700 text-theme-sm dark:text-gray-400">

@@ -1,48 +1,93 @@
 "use client";
 import type React from "react";
-import { useEffect, useRef } from "react";
+import { useEffect } from "react";
+import {
+  FloatingPortal,
+  autoUpdate,
+  flip,
+  offset,
+  shift,
+  size,
+  useFloating,
+  type Placement,
+} from "@floating-ui/react";
 
 interface DropdownProps {
   isOpen: boolean;
   onClose: () => void;
+  /** Ref to the trigger element the menu is anchored to. */
+  anchorRef: React.RefObject<HTMLElement | null>;
   children: React.ReactNode;
   className?: string;
+  /** Preferred side/alignment; flips/shifts automatically to stay in the viewport. */
+  placement?: Placement;
 }
 
 export const Dropdown: React.FC<DropdownProps> = ({
   isOpen,
   onClose,
+  anchorRef,
   children,
   className = "",
+  placement = "bottom-end",
 }) => {
-  const dropdownRef = useRef<HTMLDivElement>(null);
+  const { refs, floatingStyles } = useFloating({
+    open: isOpen,
+    placement,
+    strategy: "fixed",
+    whileElementsMounted: autoUpdate,
+    middleware: [
+      offset(8),
+      flip({ padding: 8 }),
+      shift({ padding: 8 }),
+      size({
+        padding: 8,
+        apply({ availableWidth, availableHeight, elements }) {
+          Object.assign(elements.floating.style, {
+            maxWidth: `${availableWidth}px`,
+            maxHeight: `${availableHeight}px`,
+          });
+        },
+      }),
+    ],
+  });
 
- useEffect(() => {
-  const handleClickOutside = (event: MouseEvent) => {
-    if (
-      dropdownRef.current &&
-      !dropdownRef.current.contains(event.target as Node) &&
-      !(event.target as HTMLElement).closest('.dropdown-toggle')
-    ) {
-      onClose();
-    }
-  };
+  useEffect(() => {
+    refs.setReference(anchorRef.current);
+  }, [anchorRef, refs]);
 
-  document.addEventListener("mousedown", handleClickOutside);
-  return () => {
-    document.removeEventListener("mousedown", handleClickOutside);
-  };
-}, [onClose]);
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      const floatingEl = refs.floating.current;
+      if (
+        floatingEl &&
+        !floatingEl.contains(event.target as Node) &&
+        !(event.target as HTMLElement).closest(".dropdown-toggle")
+      ) {
+        onClose();
+      }
+    };
 
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+    // `refs` is a stable object identity from useFloating; only `onClose` can change.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [onClose]);
 
   if (!isOpen) return null;
 
   return (
-    <div
-      ref={dropdownRef}
-      className={`absolute z-40  end-0 mt-2  rounded-xl border border-gray-200 bg-white  shadow-theme-lg dark:border-gray-800 dark:bg-gray-dark ${className}`}
-    >
-      {children}
-    </div>
+    <FloatingPortal>
+      <div
+        // eslint-disable-next-line react-hooks/refs -- documented floating-ui callback-ref API
+        ref={refs.setFloating}
+        style={floatingStyles}
+        className={`z-99999 overflow-y-auto rounded-xl border border-gray-200 bg-white shadow-theme-lg dark:border-gray-800 dark:bg-gray-dark ${className}`}
+      >
+        {children}
+      </div>
+    </FloatingPortal>
   );
 };

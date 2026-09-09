@@ -1,7 +1,7 @@
 "use client";
 import Image from "next/image";
 import { Link } from "@/i18n/navigation";
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import { useTranslations } from "next-intl";
 import { Dropdown } from "@/components/ui/dropdown/Dropdown";
 import { DropdownItem } from "@/components/ui/dropdown/DropdownItem";
@@ -12,6 +12,7 @@ export default function NotificationDropdown() {
   const { isOpen, toggle, close } = useDropdownGroup("notifications");
   const [notifying, setNotifying] = useState(true);
   const t = useTranslations("common.notifications");
+  const anchorRef = useRef<HTMLButtonElement>(null);
 
   function toggleDropdown() {
     toggle();
@@ -28,6 +29,7 @@ export default function NotificationDropdown() {
   return (
     <div className="relative">
       <button
+        ref={anchorRef}
         className="relative dropdown-toggle flex items-center justify-center text-gray-500 transition-colors bg-white border border-gray-200 rounded-full hover:text-gray-700 h-11 w-11 hover:bg-gray-100 dark:border-gray-800 dark:bg-gray-900 dark:text-gray-400 dark:hover:bg-gray-800 dark:hover:text-white"
         onClick={handleClick}
       >
@@ -43,7 +45,8 @@ export default function NotificationDropdown() {
       <Dropdown
         isOpen={isOpen}
         onClose={closeDropdown}
-        className="absolute -end-[240px] mt-[17px] flex h-[480px] w-[350px] flex-col rounded-2xl border border-gray-200 bg-white p-3 shadow-theme-lg dark:border-gray-800 dark:bg-gray-dark sm:w-[361px] lg:end-0"
+        anchorRef={anchorRef}
+        className="flex h-[480px] w-[350px] flex-col rounded-2xl border border-gray-200 bg-white p-3 shadow-theme-lg dark:border-gray-800 dark:bg-gray-dark sm:w-[361px]"
       >
         <div className="flex items-center justify-between pb-3 mb-3 border-b border-gray-100 dark:border-gray-700">
           <h5 className="text-lg font-semibold text-gray-800 dark:text-gray-200">

@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useRef } from "react";
 import { useLocale, useTranslations } from "next-intl";
 import { usePathname, useRouter } from "@/i18n/navigation";
 import { routing, type Locale } from "@/i18n/routing";
@@ -9,18 +9,13 @@ import { DropdownItem } from "@/components/ui/dropdown/DropdownItem";
 import { useDropdownGroup } from "@layout/header/DropdownGroupContext";
 import { Languages } from "@/assets/icons";
 
-export default function LanguageSwitcher({
-  position = "top",
-}: {
-  /** Where the trigger sits in the viewport: "top" opens the panel downward
-   *  (default, header usage), "bottom" opens it upward (e.g. auth pages). */
-  position?: "top" | "bottom";
-}) {
+export default function LanguageSwitcher() {
   const { isOpen, toggle, close } = useDropdownGroup("language");
   const locale = useLocale();
   const pathname = usePathname();
   const router = useRouter();
   const t = useTranslations("common.language");
+  const anchorRef = useRef<HTMLButtonElement>(null);
 
   function toggleDropdown(e: React.MouseEvent<HTMLButtonElement, MouseEvent>) {
     e.stopPropagation();
@@ -39,6 +34,7 @@ export default function LanguageSwitcher({
   return (
     <div className="relative">
       <button
+        ref={anchorRef}
         onClick={toggleDropdown}
         className="dropdown-toggle relative flex items-center justify-center text-gray-500 transition-colors bg-white border border-gray-200 rounded-full hover:text-gray-700 h-11 w-11 hover:bg-gray-100 dark:border-gray-800 dark:bg-gray-900 dark:text-gray-400 dark:hover:bg-gray-800 dark:hover:text-white"
         aria-label={t("label")}
@@ -49,9 +45,8 @@ export default function LanguageSwitcher({
       <Dropdown
         isOpen={isOpen}
         onClose={closeDropdown}
-        className={`absolute end-0 flex w-40 flex-col rounded-2xl border border-gray-200 bg-white p-3 shadow-theme-lg dark:border-gray-800 dark:bg-gray-dark ${
-          position === "bottom" ? "bottom-full !mt-0 mb-[17px]" : "mt-[17px]"
-        }`}
+        anchorRef={anchorRef}
+        className="flex w-40 flex-col rounded-2xl border border-gray-200 bg-white p-3 shadow-theme-lg dark:border-gray-800 dark:bg-gray-dark"
       >
         <span className="block px-3 pb-2 text-xs font-semibold uppercase text-gray-400">
           {t("label")}

@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useRef } from "react";
 import { useTranslations } from "next-intl";
 import { Dropdown } from "@/components/ui/dropdown/Dropdown";
 import { useThemeConfig } from "@core/context/ThemeConfigContext";
@@ -13,16 +13,11 @@ import {
 } from "@/lib/theme-config";
 import { Palette } from "@/assets/icons";
 
-export default function ThemeConfigurator({
-  position = "top",
-}: {
-  /** Where the trigger sits in the viewport: "top" opens the panel downward
-   *  (default, header usage), "bottom" opens it upward (e.g. auth pages). */
-  position?: "top" | "bottom";
-}) {
+export default function ThemeConfigurator() {
   const { isOpen, toggle, close } = useDropdownGroup("theme");
   const { config, setPrimary, setSurface } = useThemeConfig();
   const t = useTranslations("common.theme");
+  const anchorRef = useRef<HTMLButtonElement>(null);
 
   function toggleDropdown(e: React.MouseEvent<HTMLButtonElement, MouseEvent>) {
     e.stopPropagation();
@@ -36,6 +31,7 @@ export default function ThemeConfigurator({
   return (
     <div className="relative">
       <button
+        ref={anchorRef}
         onClick={toggleDropdown}
         className="dropdown-toggle relative flex items-center justify-center text-white transition-colors bg-brand-500 rounded-full transition hover:bg-brand-600 h-11 w-11 dark:border-gray-800 dark:bg-gray-900 dark:text-gray-400 dark:hover:bg-gray-800 dark:hover:text-white"
         aria-label={t("settings")}
@@ -46,9 +42,8 @@ export default function ThemeConfigurator({
       <Dropdown
         isOpen={isOpen}
         onClose={closeDropdown}
-        className={`absolute end-0 flex w-64 flex-col gap-4 rounded-2xl border border-gray-200 bg-white p-4 shadow-theme-lg dark:border-gray-800 dark:bg-gray-dark ${
-          position === "bottom" ? "bottom-full !mt-0 mb-[17px]" : "mt-[17px]"
-        }`}
+        anchorRef={anchorRef}
+        className="flex w-64 flex-col gap-4 rounded-2xl border border-gray-200 bg-white p-4 shadow-theme-lg dark:border-gray-800 dark:bg-gray-dark"
       >
         <div>
           <span className="text-sm font-semibold text-gray-700 dark:text-gray-300">

@@ -43,8 +43,8 @@ export default async function AuthLayout({
           </div>
           <div className="fixed bottom-6 end-6 z-50 hidden items-center gap-3 sm:flex">
             <DropdownGroupProvider>
-              <ThemeConfigurator position="bottom" />
-              <LanguageSwitcher position="bottom" />
+              <ThemeConfigurator />
+              <LanguageSwitcher />
             </DropdownGroupProvider>
             <ThemeToggleButton />
           </div>
