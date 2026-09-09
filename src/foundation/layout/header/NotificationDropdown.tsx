@@ -6,13 +6,25 @@ import { useTranslations } from "next-intl";
 import { Dropdown } from "@/components/ui/dropdown/Dropdown";
 import { DropdownItem } from "@/components/ui/dropdown/DropdownItem";
 import { useDropdownGroup } from "@layout/header/DropdownGroupContext";
-import { Bell } from "@/assets/icons";
+import { Bell, UserRound } from "@/assets/icons";
 
 export default function NotificationDropdown() {
   const { isOpen, toggle, close } = useDropdownGroup("notifications");
   const [notifying, setNotifying] = useState(true);
   const t = useTranslations("common.notifications");
   const anchorRef = useRef<HTMLButtonElement>(null);
+
+  // TODO: replace with real notifications data
+  const notifications = [
+    { name: "Terry Franci", avatar: null as string | null, status: "success" as const, time: t("minutesAgo", { count: 5 }) },
+    { name: "Alena Franci", avatar: null as string | null, status: "success" as const, time: t("minutesAgo", { count: 8 }) },
+    { name: "Jocelyn Kenter", avatar: null as string | null, status: "success" as const, time: t("minutesAgo", { count: 15 }) },
+    { name: "Brandon Philips", avatar: null as string | null, status: "error" as const, time: t("hourAgo", { count: 1 }) },
+    { name: "Terry Franci", avatar: null as string | null, status: "success" as const, time: t("minutesAgo", { count: 5 }) },
+    { name: "Alena Franci", avatar: null as string | null, status: "success" as const, time: t("minutesAgo", { count: 8 }) },
+    { name: "Jocelyn Kenter", avatar: null as string | null, status: "success" as const, time: t("minutesAgo", { count: 15 }) },
+    { name: "Brandon Philips", avatar: null as string | null, status: "error" as const, time: t("hourAgo", { count: 1 }) },
+  ];
 
   function toggleDropdown() {
     toggle();
@@ -73,297 +85,57 @@ export default function NotificationDropdown() {
           </button>
         </div>
         <ul className="flex flex-col h-auto overflow-y-auto custom-scrollbar">
-          {/* Example notification items */}
-          <li>
-            <DropdownItem
-              onItemClick={closeDropdown}
-              className="flex gap-3 rounded-lg border-b border-gray-100 p-3 px-4.5 py-3 hover:bg-gray-100 dark:border-gray-800 dark:hover:bg-white/5"
-            >
-              <span className="relative block w-full h-10 rounded-full z-1 max-w-10">
-                <Image
-                  width={40}
-                  height={40}
-                  src="/images/user/user-02.jpg"
-                  alt="User"
-                  className="w-full overflow-hidden rounded-full"
-                />
-                <span className="absolute bottom-0 end-0 z-10 h-2.5 w-full max-w-2.5 rounded-full border-[1.5px] border-white bg-success-500 dark:border-gray-900"></span>
-              </span>
-
-              <span className="block">
-                <span className="mb-1.5 space-x-1 block text-theme-sm text-gray-500 dark:text-gray-400">
-                  <span className="font-medium text-gray-800 dark:text-white/90">
-                    Terry Franci
+          {notifications.map((notification, index) => (
+            <li key={index}>
+              <DropdownItem
+                onItemClick={closeDropdown}
+                className="flex gap-3 rounded-lg border-b border-gray-100 p-3 px-4.5 py-3 hover:bg-gray-100 dark:border-gray-800 dark:hover:bg-white/5"
+              >
+                <span className="relative block w-full h-10 max-w-10 rounded-full z-1">
+                  <span
+                    className={`flex items-center justify-center w-full h-full overflow-hidden rounded-full bg-gray-50 dark:bg-gray-800 ${
+                      notification.avatar ? "" : "border border-gray-200 dark:border-gray-700"
+                    }`}
+                  >
+                    {notification.avatar ? (
+                      <Image
+                        width={40}
+                        height={40}
+                        src={notification.avatar}
+                        alt={notification.name}
+                        className="w-full h-full object-cover"
+                      />
+                    ) : (
+                      <UserRound className="text-gray-500 dark:text-gray-400" />
+                    )}
                   </span>
-                  <span>{t("requestsPermission")}</span>
-                  <span className="font-medium text-gray-800 dark:text-white/90">
-                    Project - Nganter App
-                  </span>
+                  <span
+                    className={`absolute bottom-0 end-0 z-10 h-2.5 w-full max-w-2.5 rounded-full border-[1.5px] border-white dark:border-gray-900 ${
+                      notification.status === "error" ? "bg-error-500" : "bg-success-500"
+                    }`}
+                  ></span>
                 </span>
 
-                <span className="flex items-center gap-2 text-gray-500 text-theme-xs dark:text-gray-400">
-                  <span>{t("project")}</span>
-                  <span className="w-1 h-1 bg-gray-400 rounded-full"></span>
-                  <span>{t("minutesAgo", { count: 5 })}</span>
-                </span>
-              </span>
-            </DropdownItem>
-          </li>
-
-          <li>
-            <DropdownItem
-              onItemClick={closeDropdown}
-              className="flex gap-3 rounded-lg border-b border-gray-100 p-3 px-4.5 py-3 hover:bg-gray-100 dark:border-gray-800 dark:hover:bg-white/5"
-            >
-              <span className="relative block w-full h-10 rounded-full z-1 max-w-10">
-                <Image
-                  width={40}
-                  height={40}
-                  src="/images/user/user-03.jpg"
-                  alt="User"
-                  className="w-full overflow-hidden rounded-full"
-                />
-                <span className="absolute bottom-0 end-0 z-10 h-2.5 w-full max-w-2.5 rounded-full border-[1.5px] border-white bg-success-500 dark:border-gray-900"></span>
-              </span>
-
-              <span className="block">
-                <span className="mb-1.5 block space-x-1  text-theme-sm text-gray-500 dark:text-gray-400">
-                  <span className="font-medium text-gray-800 dark:text-white/90">
-                    Alena Franci
+                <span className="block">
+                  <span className="mb-1.5 space-x-1 block text-theme-sm text-gray-500 dark:text-gray-400">
+                    <span className="font-medium text-gray-800 dark:text-white/90">
+                      {notification.name}
+                    </span>
+                    <span>{t("requestsPermission")}</span>
+                    <span className="font-medium text-gray-800 dark:text-white/90">
+                      Project - Nganter App
+                    </span>
                   </span>
-                  <span> {t("requestsPermission")}</span>
-                  <span className="font-medium text-gray-800 dark:text-white/90">
-                    Project - Nganter App
+
+                  <span className="flex items-center gap-2 text-gray-500 text-theme-xs dark:text-gray-400">
+                    <span>{t("project")}</span>
+                    <span className="w-1 h-1 bg-gray-400 rounded-full"></span>
+                    <span>{notification.time}</span>
                   </span>
                 </span>
-
-                <span className="flex items-center gap-2 text-gray-500 text-theme-xs dark:text-gray-400">
-                  <span>{t("project")}</span>
-                  <span className="w-1 h-1 bg-gray-400 rounded-full"></span>
-                  <span>{t("minutesAgo", { count: 8 })}</span>
-                </span>
-              </span>
-            </DropdownItem>
-          </li>
-
-          <li>
-            <DropdownItem
-              onItemClick={closeDropdown}
-              className="flex gap-3 rounded-lg border-b border-gray-100 p-3 px-4.5 py-3 hover:bg-gray-100 dark:border-gray-800 dark:hover:bg-white/5"
-              href="#"
-            >
-              <span className="relative block w-full h-10 rounded-full z-1 max-w-10">
-                <Image
-                  width={40}
-                  height={40}
-                  src="/images/user/user-04.jpg"
-                  alt="User"
-                  className="w-full overflow-hidden rounded-full"
-                />
-                <span className="absolute bottom-0 end-0 z-10 h-2.5 w-full max-w-2.5 rounded-full border-[1.5px] border-white bg-success-500 dark:border-gray-900"></span>
-              </span>
-
-              <span className="block">
-                <span className="mb-1.5 block space-x-1 text-theme-sm text-gray-500 dark:text-gray-400">
-                  <span className="font-medium text-gray-800 dark:text-white/90">
-                    Jocelyn Kenter
-                  </span>
-                  <span>{t("requestsPermission")}</span>
-                  <span className="font-medium text-gray-800 dark:text-white/90">
-                    Project - Nganter App
-                  </span>
-                </span>
-
-                <span className="flex items-center gap-2 text-gray-500 text-theme-xs dark:text-gray-400">
-                  <span>{t("project")}</span>
-                  <span className="w-1 h-1 bg-gray-400 rounded-full"></span>
-                  <span>{t("minutesAgo", { count: 15 })}</span>
-                </span>
-              </span>
-            </DropdownItem>
-          </li>
-
-          <li>
-            <DropdownItem
-              onItemClick={closeDropdown}
-              className="flex gap-3 rounded-lg border-b border-gray-100 p-3 px-4.5 py-3 hover:bg-gray-100 dark:border-gray-800 dark:hover:bg-white/5"
-              href="#"
-            >
-              <span className="relative block w-full h-10 rounded-full z-1 max-w-10">
-                <Image
-                  width={40}
-                  height={40}
-                  src="/images/user/user-05.jpg"
-                  alt="User"
-                  className="w-full overflow-hidden rounded-full"
-                />
-                <span className="absolute bottom-0 end-0 z-10 h-2.5 w-full max-w-2.5 rounded-full border-[1.5px] border-white bg-error-500 dark:border-gray-900"></span>
-              </span>
-
-              <span className="block">
-                <span className="mb-1.5 space-x-1 block text-theme-sm text-gray-500 dark:text-gray-400">
-                  <span className="font-medium text-gray-800 dark:text-white/90">
-                    Brandon Philips
-                  </span>
-                  <span> {t("requestsPermission")}</span>
-                  <span className="font-medium text-gray-800 dark:text-white/90">
-                    Project - Nganter App
-                  </span>
-                </span>
-
-                <span className="flex items-center gap-2 text-gray-500 text-theme-xs dark:text-gray-400">
-                  <span>{t("project")}</span>
-                  <span className="w-1 h-1 bg-gray-400 rounded-full"></span>
-                  <span>{t("hourAgo", { count: 1 })}</span>
-                </span>
-              </span>
-            </DropdownItem>
-          </li>
-
-          <li>
-            <DropdownItem
-              className="flex gap-3 rounded-lg border-b border-gray-100 p-3 px-4.5 py-3 hover:bg-gray-100 dark:border-gray-800 dark:hover:bg-white/5"
-              onItemClick={closeDropdown}
-            >
-              <span className="relative block w-full h-10 rounded-full z-1 max-w-10">
-                <Image
-                  width={40}
-                  height={40}
-                  src="/images/user/user-02.jpg"
-                  alt="User"
-                  className="w-full overflow-hidden rounded-full"
-                />
-                <span className="absolute bottom-0 end-0 z-10 h-2.5 w-full max-w-2.5 rounded-full border-[1.5px] border-white bg-success-500 dark:border-gray-900"></span>
-              </span>
-
-              <span className="block">
-                <span className="mb-1.5 space-x-1 block text-theme-sm text-gray-500 dark:text-gray-400">
-                  <span className="font-medium text-gray-800 dark:text-white/90">
-                    Terry Franci
-                  </span>
-                  <span>{t("requestsPermission")}</span>
-                  <span className="font-medium text-gray-800 dark:text-white/90">
-                    Project - Nganter App
-                  </span>
-                </span>
-
-                <span className="flex items-center gap-2 text-gray-500 text-theme-xs dark:text-gray-400">
-                  <span>{t("project")}</span>
-                  <span className="w-1 h-1 bg-gray-400 rounded-full"></span>
-                  <span>{t("minutesAgo", { count: 5 })}</span>
-                </span>
-              </span>
-            </DropdownItem>
-          </li>
-
-          <li>
-            <DropdownItem
-              onItemClick={closeDropdown}
-              className="flex gap-3 rounded-lg border-b border-gray-100 p-3 px-4.5 py-3 hover:bg-gray-100 dark:border-gray-800 dark:hover:bg-white/5"
-            >
-              <span className="relative block w-full h-10 rounded-full z-1 max-w-10">
-                <Image
-                  width={40}
-                  height={40}
-                  src="/images/user/user-03.jpg"
-                  alt="User"
-                  className="w-full overflow-hidden rounded-full"
-                />
-                <span className="absolute bottom-0 end-0 z-10 h-2.5 w-full max-w-2.5 rounded-full border-[1.5px] border-white bg-success-500 dark:border-gray-900"></span>
-              </span>
-
-              <span className="block">
-                <span className="mb-1.5 space-x-1 block text-theme-sm text-gray-500 dark:text-gray-400">
-                  <span className="font-medium text-gray-800 dark:text-white/90">
-                    Alena Franci
-                  </span>
-                  <span>{t("requestsPermission")}</span>
-                  <span className="font-medium text-gray-800 dark:text-white/90">
-                    Project - Nganter App
-                  </span>
-                </span>
-
-                <span className="flex items-center gap-2 text-gray-500 text-theme-xs dark:text-gray-400">
-                  <span>{t("project")}</span>
-                  <span className="w-1 h-1 bg-gray-400 rounded-full"></span>
-                  <span>{t("minutesAgo", { count: 8 })}</span>
-                </span>
-              </span>
-            </DropdownItem>
-          </li>
-
-          <li>
-            <DropdownItem
-              onItemClick={closeDropdown}
-              className="flex gap-3 rounded-lg border-b border-gray-100 p-3 px-4.5 py-3 hover:bg-gray-100 dark:border-gray-800 dark:hover:bg-white/5"
-            >
-              <span className="relative block w-full h-10 rounded-full z-1 max-w-10">
-                <Image
-                  width={40}
-                  height={40}
-                  src="/images/user/user-04.jpg"
-                  alt="User"
-                  className="w-full overflow-hidden rounded-full"
-                />
-                <span className="absolute bottom-0 end-0 z-10 h-2.5 w-full max-w-2.5 rounded-full border-[1.5px] border-white bg-success-500 dark:border-gray-900"></span>
-              </span>
-
-              <span className="block">
-                <span className="mb-1.5 space-x-1 block text-theme-sm text-gray-500 dark:text-gray-400">
-                  <span className="font-medium text-gray-800 dark:text-white/90">
-                    Jocelyn Kenter
-                  </span>
-                  <span>{t("requestsPermission")}</span>
-                  <span className="font-medium text-gray-800 dark:text-white/90">
-                    Project - Nganter App
-                  </span>
-                </span>
-
-                <span className="flex items-center gap-2 text-gray-500 text-theme-xs dark:text-gray-400">
-                  <span>{t("project")}</span>
-                  <span className="w-1 h-1 bg-gray-400 rounded-full"></span>
-                  <span>{t("minutesAgo", { count: 15 })}</span>
-                </span>
-              </span>
-            </DropdownItem>
-          </li>
-
-          <li>
-            <DropdownItem
-              onItemClick={closeDropdown}
-              className="flex gap-3 rounded-lg border-b border-gray-100 p-3 px-4.5 py-3 hover:bg-gray-100 dark:border-gray-800 dark:hover:bg-white/5"
-              href="#"
-            >
-              <span className="relative block w-full h-10 rounded-full z-1 max-w-10">
-                <Image
-                  width={40}
-                  height={40}
-                  src="/images/user/user-05.jpg"
-                  alt="User"
-                  className="overflow-hidden rounded-full"
-                />
-                <span className="absolute bottom-0 end-0 z-10 h-2.5 w-full max-w-2.5 rounded-full border-[1.5px] border-white bg-error-500 dark:border-gray-900"></span>
-              </span>
-
-              <span className="block">
-                <span className="mb-1.5 space-x-1 block text-theme-sm text-gray-500 dark:text-gray-400">
-                  <span className="font-medium text-gray-800 dark:text-white/90">
-                    Brandon Philips
-                  </span>
-                  <span>{t("requestsPermission")}</span>
-                  <span className="font-medium text-gray-800 dark:text-white/90">
-                    Project - Nganter App
-                  </span>
-                </span>
-
-                <span className="flex items-center gap-2 text-gray-500 text-theme-xs dark:text-gray-400">
-                  <span>{t("project")}</span>
-                  <span className="w-1 h-1 bg-gray-400 rounded-full"></span>
-                  <span>{t("hourAgo", { count: 1 })}</span>
-                </span>
-              </span>
-            </DropdownItem>
-          </li>
+              </DropdownItem>
+            </li>
+          ))}
           {/* Add more items as needed */}
         </ul>
         <Link
