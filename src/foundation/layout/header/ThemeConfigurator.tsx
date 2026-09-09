@@ -13,7 +13,13 @@ import {
 } from "@/lib/theme-config";
 import { Palette } from "@/icons";
 
-export default function ThemeConfigurator() {
+export default function ThemeConfigurator({
+  position = "top",
+}: {
+  /** Where the trigger sits in the viewport: "top" opens the panel downward
+   *  (default, header usage), "bottom" opens it upward (e.g. auth pages). */
+  position?: "top" | "bottom";
+}) {
   const { isOpen, toggle, close } = useDropdownGroup("theme");
   const { config, setPrimary, setSurface } = useThemeConfig();
   const t = useTranslations("common.theme");
@@ -31,7 +37,7 @@ export default function ThemeConfigurator() {
     <div className="relative">
       <button
         onClick={toggleDropdown}
-        className="dropdown-toggle relative flex items-center justify-center text-white transition-colors bg-brand-500 border border-gray-200 rounded-full transition hover:bg-brand-600 h-11 w-11 dark:border-gray-800 dark:bg-gray-900 dark:text-gray-400 dark:hover:bg-gray-800 dark:hover:text-white"
+        className="dropdown-toggle relative flex items-center justify-center text-white transition-colors bg-brand-500 rounded-full transition hover:bg-brand-600 h-11 w-11 dark:border-gray-800 dark:bg-gray-900 dark:text-gray-400 dark:hover:bg-gray-800 dark:hover:text-white"
         aria-label={t("settings")}
       >
         <Palette />
@@ -40,7 +46,9 @@ export default function ThemeConfigurator() {
       <Dropdown
         isOpen={isOpen}
         onClose={closeDropdown}
-        className="absolute end-0 mt-[17px] flex w-64 flex-col gap-4 rounded-2xl border border-gray-200 bg-white p-4 shadow-theme-lg dark:border-gray-800 dark:bg-gray-dark"
+        className={`absolute end-0 flex w-64 flex-col gap-4 rounded-2xl border border-gray-200 bg-white p-4 shadow-theme-lg dark:border-gray-800 dark:bg-gray-dark ${
+          position === "bottom" ? "bottom-full !mt-0 mb-[17px]" : "mt-[17px]"
+        }`}
       >
         <div>
           <span className="text-sm font-semibold text-gray-700 dark:text-gray-300">

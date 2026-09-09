@@ -1,5 +1,5 @@
 import GridShape from "@/components/common/GridShape";
-import ThemeTogglerTwo from "@/components/common/ThemeTogglerTwo";
+import {ThemeToggleButton} from "@/components/common/ThemeToggleButton";
 
 import { ThemeProvider } from "@core/context/ThemeContext";
 import Image from "next/image";
@@ -43,10 +43,10 @@ export default async function AuthLayout({
           </div>
           <div className="fixed bottom-6 end-6 z-50 hidden items-center gap-3 sm:flex">
             <DropdownGroupProvider>
-              <ThemeConfigurator />
-              <LanguageSwitcher />
+              <ThemeConfigurator position="bottom" />
+              <LanguageSwitcher position="bottom" />
             </DropdownGroupProvider>
-            <ThemeTogglerTwo />
+            <ThemeToggleButton />
           </div>
         </div>
       </ThemeProvider>

@@ -9,7 +9,13 @@ import { DropdownItem } from "@/components/ui/dropdown/DropdownItem";
 import { useDropdownGroup } from "@layout/header/DropdownGroupContext";
 import { Languages } from "@/icons";
 
-export default function LanguageSwitcher() {
+export default function LanguageSwitcher({
+  position = "top",
+}: {
+  /** Where the trigger sits in the viewport: "top" opens the panel downward
+   *  (default, header usage), "bottom" opens it upward (e.g. auth pages). */
+  position?: "top" | "bottom";
+}) {
   const { isOpen, toggle, close } = useDropdownGroup("language");
   const locale = useLocale();
   const pathname = usePathname();
@@ -43,7 +49,9 @@ export default function LanguageSwitcher() {
       <Dropdown
         isOpen={isOpen}
         onClose={closeDropdown}
-        className="absolute end-0 mt-[17px] flex w-40 flex-col rounded-2xl border border-gray-200 bg-white p-3 shadow-theme-lg dark:border-gray-800 dark:bg-gray-dark"
+        className={`absolute end-0 flex w-40 flex-col rounded-2xl border border-gray-200 bg-white p-3 shadow-theme-lg dark:border-gray-800 dark:bg-gray-dark ${
+          position === "bottom" ? "bottom-full !mt-0 mb-[17px]" : "mt-[17px]"
+        }`}
       >
         <span className="block px-3 pb-2 text-xs font-semibold uppercase text-gray-400">
           {t("label")}
