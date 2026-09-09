@@ -75,7 +75,17 @@ We follow a **clean architecture** style: shared/reusable pieces live in `founda
 
 * Locales live in `src/i18n/routing.ts` — currently `en` and `ar`.
 * Every page is nested under `/[locale]/...`, so new pages should stay inside that folder.
-* Translation strings go through `next-intl` — check existing pages under `domains/auth/presentation` for usage examples.
+* Translation strings go through `next-intl`. They live in `messages/<locale>/<feature>.json` (e.g. `messages/en/auth.json`, `messages/ar/auth.json`).
+* **Every new feature must add its own translation file** for each locale (e.g. `messages/en/billing.json` + `messages/ar/billing.json`) — don't dump strings into `common.json`.
+
+## Documentation
+
+We keep written docs next to the code they describe, under `docs/`:
+
+* `docs/shared/` — one doc per shared/reusable component (anything living in `foundation`). Explain what it does, its props, and a usage example.
+* `docs/features/` — one doc per feature/domain (anything living in `domains`). Explain what the feature does and how its pieces fit together.
+
+Adding a new shared component or feature? Add its doc in the matching folder as part of the same PR.
 
 ## Theming
 
