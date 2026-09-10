@@ -10,6 +10,7 @@ import { SidebarProvider } from "@core/context/SidebarContext";
 import { ThemeProvider } from "@core/context/ThemeContext";
 import { ThemeConfigProvider } from "@core/context/ThemeConfigContext";
 import { THEME_CONFIG_STORAGE_KEY } from "@/lib/theme-config";
+import { Providers } from "./providers";
 
 const outfit = Outfit({
   subsets: ["latin"],
@@ -78,11 +79,13 @@ export default async function LocaleLayout({
       </head>
       <body className="dark:bg-gray-900">
         <NextIntlClientProvider messages={messages}>
-          <ThemeProvider>
-            <ThemeConfigProvider>
-              <SidebarProvider>{children}</SidebarProvider>
-            </ThemeConfigProvider>
-          </ThemeProvider>
+          <Providers direction={dir}>
+            <ThemeProvider>
+              <ThemeConfigProvider>
+                <SidebarProvider>{children}</SidebarProvider>
+              </ThemeConfigProvider>
+            </ThemeProvider>
+          </Providers>
         </NextIntlClientProvider>
       </body>
     </html>

@@ -7,17 +7,47 @@ This project is a customized version of the free **TailAdmin** Next.js dashboard
 * 🌐 **Localization + RTL** — supports English and Arabic (`en`, `ar`) via `next-intl`. Arabic text uses the Cairo font.
 * 🎨 **Theme color picker** — users can change the primary and surface colors, not just light/dark mode.
 * 🏗️ **Clean architecture folder structure** — code is organized by feature/domain instead of TailAdmin's original layout.
-* ✨ **Lucide icons** — replaced the original icon set with [lucide-react](https://lucide.dev/) for a bigger icon library.
+* ✨ **Custom icon set** — a small set of local SVG icons (`src/assets/icons`) instead of an icon font/library.
 
 ## Tech Stack
 
-* **Framework:** Next.js 16 (App Router) + React 19 + TypeScript
-* **Styling:** Tailwind CSS 4
-* **Localization:** next-intl
-* **Charts:** ApexCharts
-* **Calendar:** FullCalendar
-* **Icons:** lucide-react
-* **Linting:** ESLint
+**Core**
+* **Next.js 16** (App Router) + **React 19** + **TypeScript**
+* **Tailwind CSS 4** — utility-first styling
+* **next-intl** — localization and RTL routing
+
+**Data & Forms**
+* **TanStack Query** — fetching, caching, and syncing server data
+* **Zustand** — lightweight global state for client-only UI state
+* **nuqs** — type-safe state synced to the URL query string
+* **React Hook Form + Zod** — form state and schema-based validation
+
+**UI Components**
+* **shadcn/ui** — owned (copy-in) UI components built on Radix primitives and Tailwind, RTL-aware
+* Legacy hand-built components from the original TailAdmin template (`src/components/ui`) — see note below
+
+**Charts & Media**
+* **ApexCharts** — charts
+* **FullCalendar** — calendar
+* **react-dnd** — drag and drop (e.g. Kanban boards)
+* **react-dropzone** — file upload drop zones
+* **flatpickr** — date picker
+* **swiper** — carousels/sliders
+* **@react-jvectormap** — interactive maps
+
+**Tooling**
+* **ESLint** — linting
+* **@floating-ui/react** — positioning for dropdowns/tooltips/popovers
+
+> ℹ️ **Two UI kits, on purpose (for now):** `src/components/ui` holds the original hand-built TailAdmin components (Button, Table, Modal, etc.), while `src/foundation/shared/components/ui` holds new components added via `npx shadcn@latest add <name>`. Prefer shadcn for new work — it's Radix-based, RTL-aware out of the box, and easier to extend. Don't mix the two inside the same component.
+
+### Using TanStack Query, Zustand, and nuqs
+
+These don't need extra setup per feature — just import and use:
+
+* **TanStack Query**: `useQuery` / `useMutation` from `@tanstack/react-query` anywhere — the provider is already wired in `src/app/[locale]/providers.tsx`.
+* **Zustand**: create a store where you need one, e.g. `export const useMyStore = create<MyState>((set) => ({ ... }))` — no provider needed since it's just client-only UI state.
+* **nuqs**: `useQueryState` from `nuqs` to sync a piece of state to the URL — the adapter is already wired in the same `providers.tsx`.
 
 ## Getting Started
 

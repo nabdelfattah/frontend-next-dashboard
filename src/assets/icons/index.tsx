@@ -16,6 +16,7 @@ import Eye from "./eye.svg";
 import EyeOff from "./eye-off.svg";
 import UserRound from "./user-round.svg";
 import Languages from "./language.svg";
+import Check from "./check.svg";
 
 export {
   ChevronLeft,
@@ -36,4 +37,5 @@ export {
   EyeOff,
   UserRound,
   Languages,
+  Check,
 };

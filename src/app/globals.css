@@ -1,5 +1,7 @@
 @import 'tailwindcss';
 @import './theme-colors.css';
+@import "tw-animate-css";
+@import "shadcn/tailwind.css";
 
 @custom-variant dark (&:is(.dark *));
 
@@ -178,6 +180,38 @@
  */
 @theme inline {
   --font-sans: var(--font-outfit), sans-serif;
+  --font-heading: var(--font-sans);
+  --color-sidebar-ring: var(--sidebar-ring);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar: var(--sidebar);
+  --color-chart-5: var(--chart-5);
+  --color-chart-4: var(--chart-4);
+  --color-chart-3: var(--chart-3);
+  --color-chart-2: var(--chart-2);
+  --color-chart-1: var(--chart-1);
+  --color-ring: var(--ring);
+  --color-input: var(--input);
+  --color-border: var(--border);
+  --color-destructive: var(--destructive);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-accent: var(--accent);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-muted: var(--muted);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-secondary: var(--secondary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-primary: var(--primary);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-popover: var(--popover);
+  --color-card-foreground: var(--card-foreground);
+  --color-card: var(--card);
+  --color-foreground: var(--foreground);
+  --color-background: var(--background);
 }
 
 /*
@@ -201,7 +235,10 @@
     cursor: pointer;
   }
   body {
-    @apply relative font-normal font-sans z-1 bg-gray-50;
+    @apply relative font-normal font-sans z-1 bg-background text-foreground;
+  }
+  * {
+    @apply outline-ring/50;
   }
 }
 
@@ -291,8 +328,6 @@
 .dark .custom-scrollbar::-webkit-scrollbar-thumb {
   background-color: #344054;
 }
-
-
 
 @layer utilities {
   /* For Remove Date Icon */
@@ -762,4 +797,83 @@ span.flatpickr-weekday,
     0 1px 2px 0 rgba(16, 24, 40, 0.06);
   opacity: 0.8;
   cursor: grabbing; /* Changes the cursor to indicate dragging */
+}
+
+/*
+ ---break---
+ */
+
+/*
+ * shadcn/ui semantic tokens, mapped onto the existing TailAdmin palette (defined in the
+ * @theme block above) instead of shadcn's default neutral oklch values — so components
+ * added via `shadcn add` match the app's brand color, grays, and dark mode instead of
+ * looking like an unstyled, generic shadcn app.
+ */
+:root {
+  --background: var(--color-gray-50);
+  --foreground: var(--color-gray-900);
+  --card: var(--color-white);
+  --card-foreground: var(--color-gray-900);
+  --popover: var(--color-white);
+  --popover-foreground: var(--color-gray-900);
+  --primary: var(--color-brand-500);
+  --primary-foreground: var(--color-white);
+  --secondary: var(--color-gray-100);
+  --secondary-foreground: var(--color-gray-700);
+  --muted: var(--color-gray-100);
+  --muted-foreground: var(--color-gray-500);
+  --accent: var(--color-brand-50);
+  --accent-foreground: var(--color-brand-500);
+  --destructive: var(--color-error-500);
+  --border: var(--color-gray-200);
+  --input: var(--color-gray-200);
+  --ring: var(--color-brand-500);
+  --chart-1: var(--color-brand-500);
+  --chart-2: var(--color-blue-light-500);
+  --chart-3: var(--color-orange-500);
+  --chart-4: var(--color-success-500);
+  --chart-5: var(--color-warning-500);
+  --radius: 0.625rem;
+  --sidebar: var(--color-white);
+  --sidebar-foreground: var(--color-gray-900);
+  --sidebar-primary: var(--color-brand-500);
+  --sidebar-primary-foreground: var(--color-white);
+  --sidebar-accent: var(--color-brand-50);
+  --sidebar-accent-foreground: var(--color-brand-500);
+  --sidebar-border: var(--color-gray-200);
+  --sidebar-ring: var(--color-brand-500);
+}
+
+.dark {
+  --background: var(--color-gray-900);
+  --foreground: var(--color-white);
+  --card: var(--color-gray-800);
+  --card-foreground: var(--color-white);
+  --popover: var(--color-gray-800);
+  --popover-foreground: var(--color-white);
+  --primary: var(--color-brand-500);
+  --primary-foreground: var(--color-white);
+  --secondary: var(--color-gray-800);
+  --secondary-foreground: var(--color-gray-300);
+  --muted: var(--color-gray-800);
+  --muted-foreground: var(--color-gray-400);
+  --accent: color-mix(in oklch, var(--color-brand-500) 12%, transparent);
+  --accent-foreground: var(--color-brand-400);
+  --destructive: var(--color-error-500);
+  --border: var(--color-gray-800);
+  --input: var(--color-gray-800);
+  --ring: var(--color-brand-500);
+  --chart-1: var(--color-brand-400);
+  --chart-2: var(--color-blue-light-400);
+  --chart-3: var(--color-orange-400);
+  --chart-4: var(--color-success-400);
+  --chart-5: var(--color-warning-400);
+  --sidebar: var(--color-gray-900);
+  --sidebar-foreground: var(--color-white);
+  --sidebar-primary: var(--color-brand-500);
+  --sidebar-primary-foreground: var(--color-white);
+  --sidebar-accent: color-mix(in oklch, var(--color-brand-500) 12%, transparent);
+  --sidebar-accent-foreground: var(--color-brand-400);
+  --sidebar-border: var(--color-gray-800);
+  --sidebar-ring: var(--color-brand-500);
 }
