@@ -10,7 +10,6 @@ import { SidebarProvider } from "@core/context/SidebarContext";
 import { ThemeProvider } from "@core/context/ThemeContext";
 import { ThemeConfigProvider } from "@core/context/ThemeConfigContext";
 import { THEME_CONFIG_STORAGE_KEY } from "@/lib/theme-config";
-import { LucideProvider } from "lucide-react";
 
 const outfit = Outfit({
   subsets: ["latin"],
@@ -81,9 +80,7 @@ export default async function LocaleLayout({
         <NextIntlClientProvider messages={messages}>
           <ThemeProvider>
             <ThemeConfigProvider>
-              <LucideProvider strokeWidth={1.5}>
-                <SidebarProvider>{children}</SidebarProvider>
-              </LucideProvider>
+              <SidebarProvider>{children}</SidebarProvider>
             </ThemeConfigProvider>
           </ThemeProvider>
         </NextIntlClientProvider>
