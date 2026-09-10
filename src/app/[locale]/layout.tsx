@@ -1,14 +1,11 @@
 import { Outfit, Cairo } from "next/font/google";
 import "../globals.css";
 import "flatpickr/dist/flatpickr.css";
-import { hasLocale, NextIntlClientProvider } from "next-intl";
+import { hasLocale } from "next-intl";
 import { getMessages, setRequestLocale } from "next-intl/server";
 import { notFound } from "next/navigation";
 import Script from "next/script";
 import { routing } from "@/i18n/routing";
-import { SidebarProvider } from "@core/context/SidebarContext";
-import { ThemeProvider } from "@core/context/ThemeContext";
-import { ThemeConfigProvider } from "@core/context/ThemeConfigContext";
 import { THEME_CONFIG_STORAGE_KEY } from "@/lib/theme-config";
 import { Providers } from "./providers";
 
@@ -78,15 +75,9 @@ export default async function LocaleLayout({
         />
       </head>
       <body className="dark:bg-gray-900">
-        <NextIntlClientProvider messages={messages}>
-          <Providers direction={dir}>
-            <ThemeProvider>
-              <ThemeConfigProvider>
-                <SidebarProvider>{children}</SidebarProvider>
-              </ThemeConfigProvider>
-            </ThemeProvider>
-          </Providers>
-        </NextIntlClientProvider>
+        <Providers direction={dir} locale={locale} messages={messages}>
+          {children}
+        </Providers>
       </body>
     </html>
   );

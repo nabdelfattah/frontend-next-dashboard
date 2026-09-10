@@ -7,7 +7,7 @@ This project is a customized version of the free **TailAdmin** Next.js dashboard
 * 🌐 **Localization + RTL** — supports English and Arabic (`en`, `ar`) via `next-intl`. Arabic text uses the Cairo font.
 * 🎨 **Theme color picker** — users can change the primary and surface colors, not just light/dark mode.
 * 🏗️ **Clean architecture folder structure** — code is organized by feature/domain instead of TailAdmin's original layout.
-* ✨ **Custom icon set** — a small set of local SVG icons (`src/assets/icons`) instead of an icon font/library.
+* ✨ **Custom icon set** — local Font Awesome SVGs (`src/assets/icons`) instead of an icon component library.
 
 ## Tech Stack
 
@@ -116,6 +116,23 @@ We keep written docs next to the code they describe, under `docs/`:
 * `docs/features/` — one doc per feature/domain (anything living in `domains`). Explain what the feature does and how its pieces fit together.
 
 Adding a new shared component or feature? Add its doc in the matching folder as part of the same PR.
+
+## Icons
+
+**Font Awesome only** — don't add another icon library (lucide, heroicons, etc.), even as a dependency of a third-party component. If a component you add pulls in its own icon library, swap those icons out for the ones below before merging.
+
+To add a new icon:
+
+1. Download the SVG from [here](https://drive.google.com/file/d/1aKMby-MSYDqTjScApVByYi0SDq2Ag6_4/view?usp=sharing) and drop it into `src/assets/icons` (e.g. `trash.svg`).
+2. Export it from `src/assets/icons/index.tsx`:
+   ```ts
+   import Trash from "./trash.svg";
+   export { Trash, /* ...other icons */ };
+   ```
+3. Import it from the barrel file, not the `.svg` directly:
+   ```ts
+   import { Trash } from "@/assets/icons";
+   ```
 
 ## Theming
 
