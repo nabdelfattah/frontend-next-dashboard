@@ -7,9 +7,9 @@ import { NextIntlClientProvider } from "next-intl";
 import type { getMessages } from "next-intl/server";
 import type { Locale } from "@/i18n/routing";
 import { DirectionProvider } from "@shared/components/ui/direction";
-import { SidebarProvider } from "@core/context/SidebarContext";
-import { ThemeProvider } from "@core/context/ThemeContext";
-import { ThemeConfigProvider } from "@core/context/ThemeConfigContext";
+import { SidebarProvider } from "@core/context/sidebar-context";
+import { ThemeProvider } from "@core/context/theme-context";
+import { ThemeConfigProvider } from "@core/context/theme-config-context";
 
 export function Providers({
   children,

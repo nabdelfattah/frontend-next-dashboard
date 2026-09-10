@@ -1,4 +1,4 @@
-import SignInForm from "@/domains/auth/presentation/SignInForm";
+import SignInForm from "@/domains/auth/presentation/sign-in-form";
 import { Metadata } from "next";
 import { getTranslations } from "next-intl/server";
 import type { Locale } from "@/i18n/routing";

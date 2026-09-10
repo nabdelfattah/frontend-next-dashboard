@@ -1,8 +1,8 @@
 // Fallback for the rare case where Next.js can't resolve the `[locale]` segment
 // before rendering (so `src/app/[locale]/not-found.tsx` never gets a chance to run).
 
-import GridShape from "@/components/common/GridShape";
-import NotFoundIllustration from "@/components/common/NotFoundIllustration";
+import GridShape from "@/components/common/grid-shape";
+import NotFoundIllustration from "@/components/common/not-found-illustration";
 import { Link } from "@/i18n/navigation";
 import { getTranslations } from "next-intl/server";
 

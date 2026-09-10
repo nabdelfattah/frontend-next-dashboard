@@ -1,4 +1,4 @@
-import SignUpForm from "@/domains/auth/presentation/SignUpForm";
+import SignUpForm from "@/domains/auth/presentation/sign-up-form";
 import { Metadata } from "next";
 import { getTranslations } from "next-intl/server";
 import type { Locale } from "@/i18n/routing";

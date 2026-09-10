@@ -101,6 +101,33 @@ We follow a **clean architecture** style: shared/reusable pieces live in `founda
 
 > 💡 **Rule of thumb:** if code is reused across multiple features, put it in `foundation/shared`. If it belongs to one feature, put it in its own folder under `domains`.
 
+## Naming Conventions
+
+| What | Convention | Example |
+|---|---|---|
+| File names | `kebab-case` | `user-profile.tsx`, `use-mobile.ts`, `date-utils.ts` |
+| Folder names | `kebab-case` | `user-management/`, `trip-management/` |
+| React components (inside the file) | `PascalCase` | `export function UserProfile() {}` in `user-profile.tsx` |
+| Hook functions (inside the file) | `camelCase`, prefixed `use` | `export function useMobile() {}` in `use-mobile.ts` |
+| Utility/helper functions | `camelCase` | `formatDate()` in `date-utils.ts` |
+| Types & interfaces | `PascalCase` | `type ThemeConfig`, `interface UserProfile` |
+| Constants (fixed values) | `UPPER_SNAKE_CASE` | `THEME_CONFIG_STORAGE_KEY` |
+
+**File name ≠ export name.** The file is always `kebab-case`; what's exported from it follows its own rule (component → `PascalCase`, hook/util function → `camelCase`, type → `PascalCase`, constant → `UPPER_SNAKE_CASE`). Don't rename the export to match the file, and don't name the file after the export's casing.
+
+```
+✅ user-profile.tsx   → export function UserProfile() {}
+✅ use-auth.ts        → export function useAuth() {}
+✅ date-utils.ts      → export function formatDate() {}
+✅ theme-config.ts    → export const THEME_CONFIG_STORAGE_KEY = "...";
+
+❌ UserProfile.tsx    (file names never use PascalCase)
+❌ userProfile.tsx    (or camelCase)
+❌ user_profile.tsx   (or snake_case)
+```
+
+This applies everywhere under `src`, including the legacy `src/components` tree — if you touch a file there, rename it to match while you're in it.
+
 ## Localization
 
 * Locales live in `src/i18n/routing.ts` — currently `en` and `ar`.

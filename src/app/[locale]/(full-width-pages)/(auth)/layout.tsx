@@ -1,13 +1,13 @@
-import GridShape from "@/components/common/GridShape";
-import {ThemeToggleButton} from "@/components/common/ThemeToggleButton";
+import GridShape from "@/components/common/grid-shape";
+import {ThemeToggleButton} from "@/components/common/theme-toggle-button";
 
-import { ThemeProvider } from "@core/context/ThemeContext";
+import { ThemeProvider } from "@core/context/theme-context";
 import Image from "next/image";
 import { Link } from "@/i18n/navigation";
 import { getTranslations } from "next-intl/server";
-import { DropdownGroupProvider } from "@layout/header/DropdownGroupContext";
-import LanguageSwitcher from "@layout/header/LanguageSwitcher";
-import ThemeConfigurator from "@layout/header/ThemeConfigurator";
+import { DropdownGroupProvider } from "@layout/header/dropdown-group-context";
+import LanguageSwitcher from "@layout/header/language-switcher";
+import ThemeConfigurator from "@layout/header/theme-configurator";
 import React from "react";
 
 export default async function AuthLayout({
