@@ -1,7 +1,7 @@
 import { ReactNode } from 'react'
 import H1 from './h1';
 import Breadcrumb from './breadcrumb';
-import { BreadcrumbEntry, TableData } from '../types/props';
+import { BreadcrumbEntry, PageActionItem } from '../types/props';
 import PageActions from './page-actions';
 
 /**
@@ -10,25 +10,22 @@ import PageActions from './page-actions';
  * @param children - Page title, rendered inside `H1`.
  * @param breadCrumbItems - Items passed to `Breadcrumb`. When omitted, no breadcrumb is rendered.
  * @param breadCrumbMaxItems - `maxItems` passed to `Breadcrumb`.
- * @param add - Handler passed to `PageActions`. When neither this nor `tableToExport` is provided, no page actions are rendered.
- * @param tableToExport - Table export data passed to `PageActions`.
+ * @param actions - Dropdown menu items passed to `PageActions`. When omitted, no page actions are rendered.
  *
  * @example
- * <PageHeading breadCrumbItems={[{ label: "Home", path: "/" }, { label: "Users" }]} add={() => {}}>
+ * <PageHeading breadCrumbItems={[{ label: "Home", path: "/" }, { label: "Users" }]} actions={[{ label: "Add", action: addNew }]}>
  *   Users
  * </PageHeading>
  */
 export default function PageHeading({
   breadCrumbItems,
   breadCrumbMaxItems,
-  add,
-  tableToExport,
+  actions,
   children,
 }: {
   breadCrumbItems?: BreadcrumbEntry[];
   breadCrumbMaxItems?: number;
-  add?: () => void;
-  tableToExport?: TableData;
+  actions?: PageActionItem[];
   children: ReactNode;
 }) {
   return (
@@ -39,9 +36,7 @@ export default function PageHeading({
         {breadCrumbItems && (
           <Breadcrumb items={breadCrumbItems} maxItems={breadCrumbMaxItems} />
         )}
-        {(add || tableToExport) && (
-          <PageActions add={add} tableToExport={tableToExport} />
-        )}
+        {actions && <PageActions actions={actions} />}
       </div>
     </div>
   )

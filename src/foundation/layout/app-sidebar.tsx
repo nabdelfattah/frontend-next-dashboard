@@ -3,7 +3,7 @@ import React, { useEffect, useRef, useState,useCallback } from "react";
 import { Link, usePathname } from "@/i18n/navigation";
 import Image from "next/image";
 import { useLocale, useTranslations } from "next-intl";
-import { useSidebar } from "@core/context/sidebar-context";
+import { useSidebar } from "@core/providers/sidebar-provider";
 import {
   ChevronDown,
   LayoutDashboard ,

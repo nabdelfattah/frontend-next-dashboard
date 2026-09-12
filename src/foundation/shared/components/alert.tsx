@@ -2,7 +2,7 @@ import { Link } from "@/i18n/navigation";
 import React from "react";
 
 interface AlertProps {
-  variant: "success" | "error" | "warning" | "info"; // Alert type
+  variant?: "success" | "error" | "warning" | "info"; // Alert type
   title: string; // Title of the alert
   message: string; // Message of the alert
   showLink?: boolean; // Whether to show the "Learn More" link
@@ -11,7 +11,7 @@ interface AlertProps {
 }
 
 const Alert: React.FC<AlertProps> = ({
-  variant,
+  variant = "info",
   title,
   message,
   showLink = false,

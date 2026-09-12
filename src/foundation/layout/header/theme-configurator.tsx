@@ -3,7 +3,7 @@
 import React, { useRef } from "react";
 import { useTranslations } from "next-intl";
 import { Dropdown } from "@shared/components/dropdown/dropdown";
-import { useThemeConfig } from "@core/context/theme-config-context";
+import { useThemeConfig } from "@core/providers/theme-config-provider";
 import { useDropdownGroup } from "@layout/header/dropdown-group-context";
 import {
   PRIMARY_COLORS,

@@ -6,10 +6,11 @@ import { NuqsAdapter } from "nuqs/adapters/next/app";
 import { NextIntlClientProvider } from "next-intl";
 import type { getMessages } from "next-intl/server";
 import type { Locale } from "@/i18n/routing";
-import { DirectionProvider } from "@shared/components/ui/direction";
-import { SidebarProvider } from "@core/context/sidebar-context";
-import { ThemeProvider } from "@core/context/theme-context";
-import { ThemeConfigProvider } from "@core/context/theme-config-context";
+import { DirectionProvider } from "./direction-provider";
+import { ToastProvider } from "./toast-provider";
+import { SidebarProvider } from "./sidebar-provider";
+import { ThemeProvider } from "./theme-provider";
+import { ThemeConfigProvider } from "./theme-config-provider";
 
 export function Providers({
   children,
@@ -31,7 +32,9 @@ export function Providers({
           <NuqsAdapter>
             <ThemeProvider>
               <ThemeConfigProvider>
-                <SidebarProvider>{children}</SidebarProvider>
+                <SidebarProvider>
+                  <ToastProvider>{children}</ToastProvider>
+                </SidebarProvider>
               </ThemeConfigProvider>
             </ThemeProvider>
           </NuqsAdapter>

@@ -1,6 +1,6 @@
 "use client";
 import React from "react";
-import { useTheme } from "@core/context/theme-context";
+import { useTheme } from "@core/providers/theme-provider";
 import { Moon, Sun } from "@/assets/icons";
 
 export const ThemeToggleButton: React.FC = () => {

@@ -11,6 +11,23 @@ interface DropdownItemProps {
   children: React.ReactNode;
 }
 
+/**
+ * A single selectable entry inside a `Dropdown` panel. Renders as a `Link` when `tag="a"`
+ * and `href` is provided, otherwise as a `button`.
+ *
+ * @param tag - `"a"` to render a link, `"button"` to render a button. Defaults to `"button"`.
+ * @param href - Target path. Required (together with `tag="a"`) to render as a link.
+ * @param onClick - Handler for the item's own action.
+ * @param onItemClick - Called after `onClick`, regardless of `tag` — typically used to close the parent `Dropdown`.
+ * @param baseClassName - Base classes for the item. Defaults to the standard dropdown item look.
+ * @param className - Additional classes merged onto `baseClassName`.
+ * @param children - Item content (label, optionally preceded by an icon).
+ *
+ * @example
+ * <DropdownItem tag="a" href="/profile" onItemClick={closeDropdown}>
+ *   Edit profile
+ * </DropdownItem>
+ */
 export const DropdownItem: React.FC<DropdownItemProps> = ({
   tag = "button",
   href,

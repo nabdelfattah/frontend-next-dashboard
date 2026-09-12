@@ -9,7 +9,14 @@ export interface BreadcrumbEntry {
   path?: string;
 }
 
-export interface TableData {
+interface PageActionItemBase {
   label: string;
-  path?: string;
+  icon?: ReactNode;
 }
+
+/**
+ * A single entry in a `PageActions` dropdown menu.
+ * `action` and `path` are mutually exclusive: provide exactly one of them.
+ */
+export type PageActionItem = PageActionItemBase &
+  ({ action: () => void; path?: undefined } | { path: string; action?: undefined });

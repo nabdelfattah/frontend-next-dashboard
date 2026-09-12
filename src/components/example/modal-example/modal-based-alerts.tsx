@@ -3,7 +3,7 @@ import React from "react";
 import ComponentCard from "../../common/component-card";
 
 import { Modal } from "../../ui/modal";
-import { useModal } from "@/hooks/use-modal";
+import { useModal } from "@shared/hooks/use-modal";
 
 export default function ModalBasedAlerts() {
   const successModal = useModal();

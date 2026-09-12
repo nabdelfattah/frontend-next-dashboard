@@ -7,7 +7,7 @@ import { notFound } from "next/navigation";
 import Script from "next/script";
 import { routing } from "@/i18n/routing";
 import { THEME_CONFIG_STORAGE_KEY } from "@/lib/theme-config";
-import { Providers } from "./providers";
+import { Providers } from "@core/providers/providers";
 
 const outfit = Outfit({
   subsets: ["latin"],

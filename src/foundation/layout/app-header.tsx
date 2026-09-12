@@ -5,7 +5,7 @@ import LanguageSwitcher from "@layout/header/language-switcher";
 import NotificationDropdown from "@layout/header/notification-dropdown";
 import ThemeConfigurator from "@layout/header/theme-configurator";
 import UserDropdown from "@layout/header/user-dropdown";
-import { useSidebar } from "@core/context/sidebar-context";
+import { useSidebar } from "@core/providers/sidebar-provider";
 import Image from "next/image";
 import { Link } from "@/i18n/navigation";
 import { useTranslations } from "next-intl";

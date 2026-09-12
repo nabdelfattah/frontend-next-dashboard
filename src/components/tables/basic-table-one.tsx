@@ -7,7 +7,7 @@ import {
   TableRow,
 } from "../ui/table";
 
-import Badge from "../ui/badge/badge";
+import Badge from "../../foundation/shared/components/badge";
 import Image from "next/image";
 
 interface Order {
@@ -200,7 +200,6 @@ export default function BasicTableOne() {
                   </TableCell>
                   <TableCell className="px-4 py-3 text-gray-500 text-start text-theme-sm dark:text-gray-400">
                     <Badge
-                      size="sm"
                       color={
                         order.status === "Active"
                           ? "success"
