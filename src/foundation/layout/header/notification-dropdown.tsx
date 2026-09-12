@@ -3,8 +3,8 @@ import Image from "next/image";
 import { Link } from "@/i18n/navigation";
 import React, { useRef, useState } from "react";
 import { useTranslations } from "next-intl";
-import { Dropdown } from "@/components/ui/dropdown/dropdown";
-import { DropdownItem } from "@/components/ui/dropdown/dropdown-item";
+import { Dropdown } from "@shared/components/dropdown/dropdown";
+import { DropdownItem } from "@shared/components/dropdown/dropdown-item";
 import { useDropdownGroup } from "@layout/header/dropdown-group-context";
 import { Bell, UserRound } from "@/assets/icons";
 

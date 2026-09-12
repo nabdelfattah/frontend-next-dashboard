@@ -4,8 +4,8 @@ import React, { useRef } from "react";
 import { useLocale, useTranslations } from "next-intl";
 import { usePathname, useRouter } from "@/i18n/navigation";
 import { routing, type Locale } from "@/i18n/routing";
-import { Dropdown } from "@/components/ui/dropdown/dropdown";
-import { DropdownItem } from "@/components/ui/dropdown/dropdown-item";
+import { Dropdown } from "@shared/components/dropdown/dropdown";
+import { DropdownItem } from "@shared/components/dropdown/dropdown-item";
 import { useDropdownGroup } from "@layout/header/dropdown-group-context";
 import { Languages } from "@/assets/icons";
 

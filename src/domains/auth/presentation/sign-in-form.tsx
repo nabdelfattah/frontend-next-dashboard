@@ -2,7 +2,7 @@
 import Checkbox from "@/components/form/input/checkbox";
 import Input from "@/components/form/input/input-field";
 import Label from "@/components/form/label";
-import Button from "@/components/ui/button/button";
+import Button from "@/foundation/shared/components/button";
 import { ChevronLeft, EyeOff, Eye } from "@/assets/icons";
 import { Link } from "@/i18n/navigation";
 import { useTranslations } from "next-intl";

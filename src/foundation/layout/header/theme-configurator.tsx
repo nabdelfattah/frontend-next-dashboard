@@ -2,7 +2,7 @@
 
 import React, { useRef } from "react";
 import { useTranslations } from "next-intl";
-import { Dropdown } from "@/components/ui/dropdown/dropdown";
+import { Dropdown } from "@shared/components/dropdown/dropdown";
 import { useThemeConfig } from "@core/context/theme-config-context";
 import { useDropdownGroup } from "@layout/header/dropdown-group-context";
 import {

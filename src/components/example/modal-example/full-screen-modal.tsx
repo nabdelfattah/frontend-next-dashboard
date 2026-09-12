@@ -1,8 +1,8 @@
 "use client";
-import { useModal } from "@/hooks/use-modal";
+import { useModal } from "@shared/hooks/use-modal";
 import ComponentCard from "../../common/component-card";
 
-import Button from "../../ui/button/button";
+import Button from "../../../foundation/shared/components/button";
 import { Modal } from "../../ui/modal";
 
 export default function FullScreenModal() {

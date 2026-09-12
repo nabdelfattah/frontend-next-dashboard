@@ -1,9 +1,9 @@
 "use client";
 import React from "react";
 import ComponentCard from "../../common/component-card";
-import Button from "../../ui/button/button";
+import Button from "../../../foundation/shared/components/button";
 import { Modal } from "../../ui/modal";
-import { useModal } from "@/hooks/use-modal";
+import { useModal } from "@shared/hooks/use-modal";
 
 export default function VerticallyCenteredModal() {
   const { isOpen, openModal, closeModal } = useModal();

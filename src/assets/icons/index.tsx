@@ -1,4 +1,5 @@
 import ChevronLeft from "./chevron-left.svg";
+import ChevronRight from "./chevron-right.svg";
 import ChevronDown from "./chevron-down.svg";
 import LayoutDashboard from "./layout-dashboard.svg";
 import X from "./x.svg";
@@ -17,9 +18,11 @@ import EyeOff from "./eye-off.svg";
 import UserRound from "./user-round.svg";
 import Languages from "./language.svg";
 import Check from "./check.svg";
+import EllipsisVertical from "./ellipsis-vertical.svg";
 
 export {
   ChevronLeft,
+  ChevronRight,
   ChevronDown,
   LayoutDashboard,
   X,
@@ -38,4 +41,5 @@ export {
   UserRound,
   Languages,
   Check,
+  EllipsisVertical
 };
