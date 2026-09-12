@@ -1,8 +1,8 @@
 import { ReactNode } from 'react'
 import H1 from './h1';
 import Breadcrumb from './breadcrumb';
-import { BreadcrumbEntry, PageActionItem } from '../types/props';
-import PageActions from './page-actions';
+import { BreadcrumbEntry, ActionButtonItem } from '../types/props';
+import ActionsButton from './actions-button';
 
 /**
  * Reusable page heading component combining the page title with an optional breadcrumb trail and page actions.
@@ -10,7 +10,7 @@ import PageActions from './page-actions';
  * @param children - Page title, rendered inside `H1`.
  * @param breadCrumbItems - Items passed to `Breadcrumb`. When omitted, no breadcrumb is rendered.
  * @param breadCrumbMaxItems - `maxItems` passed to `Breadcrumb`.
- * @param actions - Dropdown menu items passed to `PageActions`. When omitted, no page actions are rendered.
+ * @param actions - Dropdown menu items passed to `ActionsButton`. When omitted, no page actions are rendered.
  *
  * @example
  * <PageHeading breadCrumbItems={[{ label: "Home", path: "/" }, { label: "Users" }]} actions={[{ label: "Add", action: addNew }]}>
@@ -25,7 +25,7 @@ export default function PageHeading({
 }: {
   breadCrumbItems?: BreadcrumbEntry[];
   breadCrumbMaxItems?: number;
-  actions?: PageActionItem[];
+  actions?: ActionButtonItem[];
   children: ReactNode;
 }) {
   return (
@@ -36,7 +36,7 @@ export default function PageHeading({
         {breadCrumbItems && (
           <Breadcrumb items={breadCrumbItems} maxItems={breadCrumbMaxItems} />
         )}
-        {actions && <PageActions actions={actions} />}
+        {actions && <ActionsButton actions={actions} />}
       </div>
     </div>
   )
