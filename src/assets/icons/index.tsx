@@ -19,8 +19,12 @@ import UserRound from "./user-round.svg";
 import Languages from "./language.svg";
 import Check from "./check.svg";
 import EllipsisVertical from "./ellipsis-vertical.svg";
+import ChevronUp from "./chevron-up.svg";
+import Filter from "./filter.svg";
+import Star from "./star.svg";
 
 export {
+  ChevronUp,
   ChevronLeft,
   ChevronRight,
   ChevronDown,
@@ -41,5 +45,7 @@ export {
   UserRound,
   Languages,
   Check,
-  EllipsisVertical
+  EllipsisVertical,
+  Filter, 
+  Star
 };

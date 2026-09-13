@@ -12,6 +12,7 @@ export interface BreadcrumbEntry {
 interface ActionButtonItemBase {
   label: string;
   icon?: ReactNode;
+  variant?: "default" | "danger";
 }
 
 /**
@@ -19,4 +20,7 @@ interface ActionButtonItemBase {
  * `action` and `path` are mutually exclusive: provide exactly one of them.
  */
 export type ActionButtonItem = ActionButtonItemBase &
-  ({ action: () => void; path?: undefined } | { path: string; action?: undefined });
+  (
+    | { action: (id?: string) => void; path?: undefined }
+    | { path: string; action?: undefined }
+  );

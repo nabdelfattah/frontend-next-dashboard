@@ -1,0 +1,113 @@
+"use client";
+
+import { useTranslations } from "next-intl";
+import {
+  Table as TablePrimitive,
+  TableBody,
+  TableCell,
+  TableHeader,
+  TableRow,
+} from "./table-primitives";
+import Pagination from "./pagination";
+import {
+  TableProps
+} from "./types";
+import { buildDisplayColumns, renderCell, resolveRowActions } from "./utils";
+import ActionsButton from "../actions-button";
+
+export type {
+  TableMetaDataEnumOption,
+  TableMetaDataColumn,
+  TablePaging,
+  TableItem,
+  TableData,
+  ImageGroup,
+} from "./types";
+
+
+export default function Table({ tableData, actions, onPageChange }: TableProps) {
+  const t = useTranslations("shared.table");
+  const { paging, metaData, items } = tableData;
+
+  const columns = [...metaData]
+    .filter((column) => column.isPublic !== -1)
+    .sort((a, b) => a.order - b.order); // sorts the columns array according to order
+
+  const displayColumns = buildDisplayColumns(columns);
+
+  const idColumn = metaData.find((column) => column.isPublic === -1);
+  const hasActions = Boolean(actions && actions.length > 0);
+
+  return (
+    <div className="overflow-hidden rounded-xl border border-gray-200 bg-white dark:border-white/[0.05] dark:bg-white/[0.03]">
+      <div className="max-w-full overflow-x-auto overflow-y-hidden">
+        <div className="min-w-[1102px]">
+          <TablePrimitive>
+            <TableHeader className="border-b border-gray-100 dark:border-white/[0.05]">
+              <TableRow className="w-fit">
+                {displayColumns.map(({ column }) => (
+                  <TableCell
+                    key={column.secondaryCode}
+                    isHeader
+                    className="px-5 py-3 font-medium text-gray-500 text-start text-theme-xs whitespace-nowrap dark:text-gray-400"
+                  >
+                    {column.name || column.secondaryCode}
+                  </TableCell>
+                ))}
+                {hasActions && (
+                  <TableCell
+                    isHeader
+                    className="px-5 py-3 font-medium text-gray-500 text-start text-theme-xs whitespace-nowrap dark:text-gray-400"
+                  >
+                    {t("actions")}
+                  </TableCell>
+                )}
+              </TableRow>
+            </TableHeader>
+
+            <TableBody className="divide-y divide-gray-100 dark:divide-white/[0.05]">
+              {items.map((item, index) => {
+                const rowId = idColumn
+                  ? String(item[idColumn.secondaryCode])
+                  : String(index);
+
+                return (
+                  <TableRow key={rowId}>
+                    {displayColumns.map(({ column, imageColumn }) => (
+                      <TableCell
+                        key={column.secondaryCode}
+                        className="px-5 py-4 text-start whitespace-nowrap"
+                      >
+                        {renderCell(column, item, imageColumn)}
+                      </TableCell>
+                    ))}
+                    {hasActions && (
+                      <TableCell className="px-5 py-4 text-start whitespace-nowrap">
+                        <ActionsButton
+                          actions={resolveRowActions(actions, rowId)}
+                        />
+                      </TableCell>
+                    )}
+                  </TableRow>
+                );
+              })}
+            </TableBody>
+          </TablePrimitive>
+        </div>
+      </div>
+
+      {paging.totalPages > 1 && (
+        <div className="flex items-center justify-between border-t border-gray-100 px-5 py-4 dark:border-white/[0.05]">
+          <span className="text-gray-500 text-theme-sm dark:text-gray-400">
+            {`${paging.startItem}-${paging.endItem} of ${paging.totalItems}`}
+          </span>
+          <Pagination
+            currentPage={paging.currentPage}
+            totalPages={paging.totalPages}
+            onPageChange={(page) => onPageChange?.(page)}
+          />
+        </div>
+      )}
+    </div>
+  );
+}

@@ -37,6 +37,27 @@ export default function ActionsButton({
     );
   }
 
+  const nonDangerActions = actions.filter((item) => item.variant !== "danger");
+  const dangerActions = actions.filter((item) => item.variant === "danger");
+
+  const renderAction = (item: ActionButtonItem, key: string) => (
+    <DropdownItem
+      key={key}
+      tag={item.path ? "a" : "button"}
+      href={item.path}
+      onClick={item.action}
+      onItemClick={() => setIsOpen(false)}
+      className={`flex items-center gap-2 rounded-lg ${
+        item.variant === "danger"
+          ? "!text-error-500 hover:!bg-error-50 dark:hover:!bg-error-500/15"
+          : ""
+      }`}
+    >
+      {item.icon && <span className="flex items-center">{item.icon}</span>}
+      {item.label}
+    </DropdownItem>
+  );
+
   return (
     <div className="relative">
       <button
@@ -53,19 +74,15 @@ export default function ActionsButton({
         anchorRef={anchorRef}
         className="flex min-w-[160px] flex-col gap-1 p-2"
       >
-        {actions.map((item, index) => (
-          <DropdownItem
-            key={`${item.label}-${index}`}
-            tag={item.path ? "a" : "button"}
-            href={item.path}
-            onClick={item.action}
-            onItemClick={() => setIsOpen(false)}
-            className="flex items-center gap-2 rounded-lg"
-          >
-            {item.icon && <span className="flex items-center">{item.icon}</span>}
-            {item.label}
-          </DropdownItem>
-        ))}
+        {nonDangerActions.map((item, index) =>
+          renderAction(item, `${item.label}-${index}`)
+        )}
+        {nonDangerActions.length > 0 && dangerActions.length > 0 && (
+          <div className="my-1 h-px bg-gray-200 dark:bg-white/10" />
+        )}
+        {dangerActions.map((item, index) =>
+          renderAction(item, `${item.label}-danger-${index}`)
+        )}
       </Dropdown>
     </div>
   );

@@ -28,7 +28,7 @@ const AppSidebar: React.FC = () => {
     {
       icon: <LayoutDashboard />,
       name: t("dashboard"),
-      subItems: [{ name: t("ecommerce"), path: "/", pro: false }],
+      subItems: [{ name: t("ecommerce"), path: "/", pro: false },{ name: t("table"), path: "/table", pro: true }],
     },
   ];
 

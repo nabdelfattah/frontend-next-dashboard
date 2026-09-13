@@ -32,6 +32,17 @@ const statusColorClasses = {
   busy: "bg-warning-500",
 };
 
+/**
+ * Circular user avatar image with an optional status indicator dot.
+ *
+ * @param src - URL of the avatar image.
+ * @param alt - Alt text for the avatar. Defaults to `"User Avatar"`.
+ * @param size - Avatar size, from `"xsmall"` to `"xxlarge"`. Defaults to `"medium"`.
+ * @param status - Status indicator shown as a dot on the avatar's edge. `"none"` hides it. Defaults to `"none"`.
+ *
+ * @example
+ * <Avatar src="/images/user/user-01.jpg" size="large" status="online" />
+ */
 const Avatar: React.FC<AvatarProps> = ({
   src,
   alt = "User Avatar",
@@ -47,7 +58,7 @@ const Avatar: React.FC<AvatarProps> = ({
         sizes="100vw"
         src={src}
         alt={alt}
-        className="object-cover w-full rounded-full"
+        className="object-cover w-full h-full rounded-full"
       />
 
       {/* Status Indicator */}

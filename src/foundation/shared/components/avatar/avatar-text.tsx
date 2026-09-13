@@ -5,6 +5,17 @@ interface AvatarTextProps {
   className?: string;
 }
 
+/**
+ * Text-based avatar fallback: a circle showing a person's initials, colored with a
+ * pastel tone deterministically derived from their name (the same name always maps
+ * to the same color).
+ *
+ * @param name - Full name. Its first two words' initials are shown, and it seeds the color.
+ * @param className - Additional classes merged onto the circle.
+ *
+ * @example
+ * <AvatarText name="Musharof Chowdhury" />
+ */
 const AvatarText: React.FC<AvatarTextProps> = ({ name, className = "" }) => {
   // Generate initials from name
   const initials = name
