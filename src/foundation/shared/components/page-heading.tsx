@@ -36,7 +36,7 @@ export default function PageHeading({
         {breadCrumbItems && (
           <Breadcrumb items={breadCrumbItems} maxItems={breadCrumbMaxItems} />
         )}
-        {actions && <ActionsButton actions={actions} />}
+        {actions && actions.length > 0 && <ActionsButton actions={actions} />}
       </div>
     </div>
   )

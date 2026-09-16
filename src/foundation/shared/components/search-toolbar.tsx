@@ -234,7 +234,7 @@ export default function SearchToolbar({
         <div ref={anchorRef} className="dropdown-toggle relative">
           <Button
             type="button"
-            variant="outline"
+            variant="primary"
             size="sm"
             onClick={toggleFilter}
             className={hasActiveFilters ? "!border-brand-500 !text-brand-500" : ""}

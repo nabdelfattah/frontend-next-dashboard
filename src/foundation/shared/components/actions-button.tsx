@@ -12,7 +12,7 @@ import useDropdownToggle from "../hooks/use-dropdown-toggle";
  * Each action must be defined in a Client Component — its `action` callback is passed
  * directly to `ActionsButton`, which cannot cross a Server Component boundary.
  *
- * @param actions - Dropdown menu items: `label` (required), an optional `icon` rendered before the label, and either `path` (renders a link) or `action` (called on click) — exactly one of the two is required. When omitted or empty, a static, non-interactive ellipsis is rendered instead.
+ * @param actions - Dropdown menu items. Required — pass at least one. Each item needs a `label` (required), an optional `icon` rendered before the label, and either `path` (renders a link) or `action` (called on click) — exactly one of the two is required.
  *
  * @example
  * <ActionsButton
@@ -25,18 +25,10 @@ import useDropdownToggle from "../hooks/use-dropdown-toggle";
 export default function ActionsButton({
   actions,
 }: {
-  actions?: ActionButtonItem[];
+  actions: ActionButtonItem[];
 }) {
   const { isOpen, toggle, close } = useDropdownToggle();
   const anchorRef = useRef<HTMLButtonElement>(null);
-
-  if (!actions || actions.length === 0) {
-    return (
-      <button className="flex items-center justify-center w-10 h-10 text-muted-foreground border-gray-200 rounded-lg lg:h-11 lg:w-11 transition duration-300 hover:text-dark-900 hover:bg-muted hover:text-foreground">
-        <EllipsisVertical className="h-5 w-5" />
-      </button>
-    );
-  }
 
   const nonDangerActions = actions.filter((item) => item.variant !== "danger");
   const dangerActions = actions.filter((item) => item.variant === "danger");
