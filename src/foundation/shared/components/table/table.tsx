@@ -17,6 +17,9 @@ import {
 import { buildDisplayColumns, renderCell, resolveRowActions } from "./utils";
 import ActionsButton from "../actions-button";
 import HeaderCellMenu from "./header-cell-menu";
+import SelectionBar from "../selection-bar";
+import ConfirmDialog from "../confirm-dialog";
+import Checkbox from "../form/input/checkbox";
 
 export type {
   TableMetaDataEnumOption,
@@ -28,7 +31,13 @@ export type {
 } from "./types";
 
 
-export default function Table({ tableData, actions, onPageChange }: TableProps) {
+export default function Table({
+  tableData,
+  actions,
+  onPageChange,
+  selectable = false,
+  onBulkDelete,
+}: TableProps) {
   const t = useTranslations("shared.table");
   const { paging, metaData, items } = tableData;
 
@@ -45,6 +54,47 @@ export default function Table({ tableData, actions, onPageChange }: TableProps) 
   // TableQuery yet (that lands once server-side wiring is added later).
   const [sort, setSort] = useState<TableSortState | null>(null);
   const [committedFilters, setCommittedFilters] = useState<Record<string, string>>({});
+
+  // Persists across page changes (not reset when `items`/`paging` change) —
+  // only row toggling, select-all, clearing, or a confirmed bulk delete touch it.
+  const [selectedIds, setSelectedIds] = useState<Set<string>>(new Set());
+  const [isConfirmOpen, setIsConfirmOpen] = useState(false);
+
+  const pageRowIds = items.map((item, index) =>
+    idColumn ? String(item[idColumn.secondaryCode]) : String(index)
+  );
+  const selectedOnPageCount = pageRowIds.filter((id) => selectedIds.has(id)).length;
+  const allOnPageSelected =
+    pageRowIds.length > 0 && selectedOnPageCount === pageRowIds.length;
+  const someOnPageSelected = selectedOnPageCount > 0 && !allOnPageSelected;
+
+  const toggleRow = (id: string, checked: boolean) => {
+    setSelectedIds((prev) => {
+      const next = new Set(prev);
+      if (checked) next.add(id);
+      else next.delete(id);
+      return next;
+    });
+  };
+
+  const toggleSelectAllOnPage = (checked: boolean) => {
+    setSelectedIds((prev) => {
+      const next = new Set(prev);
+      pageRowIds.forEach((id) => {
+        if (checked) next.add(id);
+        else next.delete(id);
+      });
+      return next;
+    });
+  };
+
+  const clearSelection = () => setSelectedIds(new Set());
+
+  const handleConfirmBulkDelete = () => {
+    onBulkDelete?.(Array.from(selectedIds));
+    clearSelection();
+    setIsConfirmOpen(false);
+  };
 
   const handleSort = (field: string, order: "asc" | "desc" | null) => {
     setSort(order === null ? null : { field, order });
@@ -75,6 +125,15 @@ export default function Table({ tableData, actions, onPageChange }: TableProps) 
           <TablePrimitive>
             <TableHeader className="border-b border-border">
               <TableRow className="w-fit">
+                {selectable && (
+                  <TableCell isHeader className="w-11 px-5 py-3">
+                    <Checkbox
+                      checked={allOnPageSelected}
+                      indeterminate={someOnPageSelected}
+                      onChange={toggleSelectAllOnPage}
+                    />
+                  </TableCell>
+                )}
                 {displayColumns.map(({ column }) => (
                   <TableCell
                     key={column.secondaryCode}
@@ -117,6 +176,14 @@ export default function Table({ tableData, actions, onPageChange }: TableProps) 
 
                 return (
                   <TableRow key={rowId}>
+                    {selectable && (
+                      <TableCell className="w-11 px-5 py-4 whitespace-nowrap">
+                        <Checkbox
+                          checked={selectedIds.has(rowId)}
+                          onChange={(checked) => toggleRow(rowId, checked)}
+                        />
+                      </TableCell>
+                    )}
                     {displayColumns.map(({ column, imageColumn }) => (
                       <TableCell
                         key={column.secondaryCode}
@@ -151,6 +218,26 @@ export default function Table({ tableData, actions, onPageChange }: TableProps) 
             onPageChange={(page) => onPageChange?.(page)}
           />
         </div>
+      )}
+
+      {selectable && (
+        <>
+          <SelectionBar
+            count={selectedIds.size}
+            onDelete={() => setIsConfirmOpen(true)}
+            onClear={clearSelection}
+          />
+          <ConfirmDialog
+            isOpen={isConfirmOpen}
+            onClose={() => setIsConfirmOpen(false)}
+            onConfirm={handleConfirmBulkDelete}
+            title={t("confirmDeleteTitle")}
+            message={t("confirmDeleteMessage", { count: selectedIds.size })}
+            confirmLabel={t("delete")}
+            cancelLabel={t("cancel")}
+            isDanger
+          />
+        </>
       )}
     </div>
   );

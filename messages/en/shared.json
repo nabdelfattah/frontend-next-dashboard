@@ -5,6 +5,12 @@
     "sortDescending": "Descending",
     "filter": "Filter",
     "apply": "Apply",
-    "clear": "Clear"
+    "clear": "Clear",
+    "selectedCount": "{count} selected",
+    "clearSelection": "Clear selection",
+    "delete": "Delete",
+    "cancel": "Cancel",
+    "confirmDeleteTitle": "Delete selected items",
+    "confirmDeleteMessage": "Are you sure you want to delete {count} selected item(s)? This action cannot be undone."
   }
 }

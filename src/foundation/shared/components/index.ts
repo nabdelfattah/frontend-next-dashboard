@@ -9,6 +9,11 @@ export * from './dropdown/dropdown-item';
 
 export { default as Badge } from './badge';
 export { default as Alert } from './alert';
+export { default as ConfirmDialog } from './confirm-dialog';
+
+export * from './modal';
+
+export { default as SelectionBar } from './selection-bar';
 
 export { default as Table } from './table/table';
 

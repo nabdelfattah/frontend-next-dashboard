@@ -209,10 +209,12 @@
   --color-primary: var(--primary);
   --color-popover-foreground: var(--popover-foreground);
   --color-popover: var(--popover);
+  --color-floating-card: var(--floating-card);
   --color-card-foreground: var(--card-foreground);
   --color-card: var(--card);
   --color-foreground: var(--foreground);
   --color-background: var(--background);
+  --color-modal: var(--modal);
 
   /*
    * Extended semantic tokens. These exist so components can express intent
@@ -836,10 +838,12 @@ span.flatpickr-weekday,
  * looking like an unstyled, generic shadcn app.
  */
 :root {
+  --modal: rgb(0 0 0 / 0.1);
   --background: var(--color-gray-50);
   --foreground: var(--color-gray-800);
   --card: var(--color-white);
   --card-foreground: var(--color-gray-800);
+  --floating-card: var(--color-white);
   --popover: var(--color-white);
   --popover-foreground: var(--color-gray-800);
   --primary: var(--color-brand-500);
@@ -889,11 +893,13 @@ span.flatpickr-weekday,
 }
 
 .dark {
+  --modal: rgb(255 255 255 / 0.1);
   --background: var(--color-gray-900);
   --foreground: rgb(255 255 255 / 0.9);
   /* --card: var(--color-gray-800); */
   --card: rgb(255 255 255 / 0.03);
   --card-foreground: rgb(255 255 255 / 0.9);
+  --floating-card: var(--color-gray-950);
   --popover: var(--color-gray-dark);
   --popover-foreground: rgb(255 255 255 / 0.9);
   --primary: var(--color-brand-500);

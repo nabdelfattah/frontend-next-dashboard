@@ -11,7 +11,7 @@ import {
   EventContentArg,
 } from "@fullcalendar/core";
 import { useModal } from "@shared/hooks/use-modal";
-import { Modal } from "@/components/ui/modal";
+import { Modal } from "@shared/components";
 
 interface CalendarEvent extends EventInput {
   extendedProps: {

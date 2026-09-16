@@ -2,9 +2,7 @@
 import React from "react";
 import ComponentCard from "../../../foundation/shared/components/component-card";
 import Button from "../../../foundation/shared/components/button";
-import { Modal } from "../../ui/modal";
-import Label from "../../form/label";
-import Input from "../../form/input/input-field";
+import { Modal, Label, Input } from "@shared/components";
 import { useModal } from "@shared/hooks/use-modal";
 
 export default function FormInModal() {

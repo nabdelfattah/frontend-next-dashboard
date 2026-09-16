@@ -1,10 +1,8 @@
 "use client";
 import React from "react";
 import { useModal } from "@shared/hooks/use-modal";
-import { Modal } from "../ui/modal";
+import { Modal, Input, Label } from "@shared/components";
 import Button from "../../foundation/shared/components/button";
-import Input from "../form/input/input-field";
-import Label from "../form/label";
 
 export default function UserAddressCard() {
   const { isOpen, openModal, closeModal } = useModal();

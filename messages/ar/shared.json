@@ -5,6 +5,12 @@
     "sortDescending": "تنازلي",
     "filter": "تصفية",
     "apply": "تطبيق",
-    "clear": "مسح"
+    "clear": "مسح",
+    "selectedCount": "{count} محدد",
+    "clearSelection": "إلغاء التحديد",
+    "delete": "حذف",
+    "cancel": "إلغاء",
+    "confirmDeleteTitle": "حذف العناصر المحددة",
+    "confirmDeleteMessage": "هل أنت متأكد أنك تريد حذف {count} عنصر محدد؟ لا يمكن التراجع عن هذا الإجراء."
   }
 }

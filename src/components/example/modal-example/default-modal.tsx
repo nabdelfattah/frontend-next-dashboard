@@ -2,7 +2,7 @@
 import React from "react";
 import ComponentCard from "../../../foundation/shared/components/component-card";
 
-import { Modal } from "../../ui/modal";
+import { Modal } from "@shared/components";
 import Button from "../../../foundation/shared/components/button";
 import { useModal } from "@shared/hooks/use-modal";
 

@@ -23,12 +23,22 @@ export default function Page() {
   },
 ];
 
+  function bulkDelete(ids: string[]){
+    ids.forEach(element => {
+        console.log(element)
+    });
+  }
+
 
   return (
     <div>
       <Table
         tableData={tableData}
         actions={sampleActions}
+        selectable
+        onBulkDelete={(ids) => {
+          bulkDelete(ids);
+        }}
         onPageChange={(page) =>
           setTableData((prev) =>
             prev ? { ...prev, paging: { ...prev.paging, currentPage: page } } : prev
