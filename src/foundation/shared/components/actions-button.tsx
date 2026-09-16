@@ -1,9 +1,10 @@
 "use client";
-import { useRef, useState } from "react";
+import { useRef } from "react";
 import { ActionButtonItem } from "../types/props";
 import { EllipsisVertical } from "@/assets/icons";
 import { Dropdown } from "./dropdown/dropdown";
 import { DropdownItem } from "./dropdown/dropdown-item";
+import useDropdownToggle from "../hooks/use-dropdown-toggle";
 
 /**
  * Page-level actions trigger: an ellipsis button that opens a dropdown menu of actions.
@@ -26,12 +27,12 @@ export default function ActionsButton({
 }: {
   actions?: ActionButtonItem[];
 }) {
-  const [isOpen, setIsOpen] = useState(false);
+  const { isOpen, toggle, close } = useDropdownToggle();
   const anchorRef = useRef<HTMLButtonElement>(null);
 
   if (!actions || actions.length === 0) {
     return (
-      <button className="flex items-center justify-center w-10 h-10 text-gray-500 border-gray-200 rounded-lg dark:text-gray-400 lg:h-11 lg:w-11 transition duration-300 hover:text-dark-900 hover:bg-gray-100 hover:text-gray-700 dark:hover:bg-gray-800 dark:hover:text-white">
+      <button className="flex items-center justify-center w-10 h-10 text-muted-foreground border-gray-200 rounded-lg lg:h-11 lg:w-11 transition duration-300 hover:text-dark-900 hover:bg-muted hover:text-foreground">
         <EllipsisVertical className="h-5 w-5" />
       </button>
     );
@@ -46,10 +47,10 @@ export default function ActionsButton({
       tag={item.path ? "a" : "button"}
       href={item.path}
       onClick={item.action}
-      onItemClick={() => setIsOpen(false)}
+      onItemClick={close}
       className={`flex items-center gap-2 rounded-lg ${
         item.variant === "danger"
-          ? "!text-error-500 hover:!bg-error-50 dark:hover:!bg-error-500/15"
+          ? "!text-error-500 hover:!bg-error-soft"
           : ""
       }`}
     >
@@ -62,15 +63,15 @@ export default function ActionsButton({
     <div className="relative">
       <button
         ref={anchorRef}
-        onClick={() => setIsOpen((prev) => !prev)}
-        className="dropdown-toggle flex items-center justify-center w-10 h-10 text-gray-500 border-gray-200 rounded-lg dark:text-gray-400 lg:h-11 lg:w-11 transition duration-300 hover:text-dark-900 hover:bg-gray-100 hover:text-gray-700 dark:hover:bg-gray-800 dark:hover:text-white"
+        onClick={toggle}
+        className="dropdown-toggle flex items-center justify-center w-10 h-10 text-muted-foreground border-gray-200 rounded-lg lg:h-11 lg:w-11 transition duration-300 hover:text-dark-900 hover:bg-muted hover:text-foreground"
       >
         <EllipsisVertical className="h-5 w-5" />
       </button>
 
       <Dropdown
         isOpen={isOpen}
-        onClose={() => setIsOpen(false)}
+        onClose={close}
         anchorRef={anchorRef}
         className="flex min-w-[160px] flex-col gap-1 p-2"
       >
@@ -78,7 +79,7 @@ export default function ActionsButton({
           renderAction(item, `${item.label}-${index}`)
         )}
         {nonDangerActions.length > 0 && dangerActions.length > 0 && (
-          <div className="my-1 h-px bg-gray-200 dark:bg-white/10" />
+          <div className="my-1 h-px bg-border" />
         )}
         {dangerActions.map((item, index) =>
           renderAction(item, `${item.label}-danger-${index}`)

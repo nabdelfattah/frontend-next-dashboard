@@ -69,17 +69,17 @@ export default function Table({ tableData, actions, onPageChange }: TableProps) 
   };
 
   return (
-    <div className="overflow-hidden rounded-xl border border-gray-200 bg-white dark:border-white/[0.05] dark:bg-white/[0.03] border border-gray-200">
+    <div className="overflow-hidden rounded-xl border border-border bg-card">
       <div className="max-w-full overflow-x-auto overflow-y-hidden">
         <div className="min-w-[1102px]">
           <TablePrimitive>
-            <TableHeader className="border-b border-gray-100 dark:border-white/[0.05]">
+            <TableHeader className="border-b border-border">
               <TableRow className="w-fit">
                 {displayColumns.map(({ column }) => (
                   <TableCell
                     key={column.secondaryCode}
                     isHeader
-                    className="px-5 py-3 font-medium text-gray-500 text-start text-theme-xs whitespace-nowrap dark:text-gray-400"
+                    className="px-5 py-3 font-medium text-muted-foreground text-start text-theme-xs whitespace-nowrap"
                   >
                     <div className="flex items-center gap-2">
                       <span>{column.name || column.secondaryCode}</span>
@@ -101,7 +101,7 @@ export default function Table({ tableData, actions, onPageChange }: TableProps) 
                 {hasActions && (
                   <TableCell
                     isHeader
-                    className="px-5 py-3 font-medium text-gray-500 text-start text-theme-xs whitespace-nowrap dark:text-gray-400"
+                    className="px-5 py-3 font-medium text-muted-foreground text-start text-theme-xs whitespace-nowrap"
                   >
                     {t("actions")}
                   </TableCell>
@@ -109,7 +109,7 @@ export default function Table({ tableData, actions, onPageChange }: TableProps) 
               </TableRow>
             </TableHeader>
 
-            <TableBody className="divide-y divide-gray-100 dark:divide-white/[0.05]">
+            <TableBody className="divide-y divide-border">
               {items.map((item, index) => {
                 const rowId = idColumn
                   ? String(item[idColumn.secondaryCode])
@@ -141,8 +141,8 @@ export default function Table({ tableData, actions, onPageChange }: TableProps) 
       </div>
 
       {paging.totalPages > 1 && (
-        <div className="flex items-center justify-between border-t border-gray-100 px-5 py-4 dark:border-white/[0.05]">
-          <span className="text-gray-500 text-theme-sm dark:text-gray-400">
+        <div className="flex items-center justify-between border-t border-border px-5 py-4">
+          <span className="text-muted-foreground text-theme-sm">
             {`${paging.startItem}-${paging.endItem} of ${paging.totalItems}`}
           </span>
           <Pagination

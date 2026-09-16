@@ -4,7 +4,7 @@ import React, { useRef } from "react";
 import { useTranslations } from "next-intl";
 import { Dropdown } from "@shared/components/dropdown/dropdown";
 import { useThemeConfig } from "@core/providers/theme-config-provider";
-import { useDropdownGroup } from "@layout/header/dropdown-group-context";
+import useDropdownToggle from "@shared/hooks/use-dropdown-toggle";
 import {
   PRIMARY_COLORS,
   SURFACE_COLORS,
@@ -14,7 +14,7 @@ import {
 import { Palette } from "@/assets/icons";
 
 export default function ThemeConfigurator() {
-  const { isOpen, toggle, close } = useDropdownGroup("theme");
+  const { isOpen, toggle, close } = useDropdownToggle();
   const { config, setPrimary, setSurface } = useThemeConfig();
   const t = useTranslations("common.theme");
   const anchorRef = useRef<HTMLButtonElement>(null);
@@ -33,7 +33,7 @@ export default function ThemeConfigurator() {
       <button
         ref={anchorRef}
         onClick={toggleDropdown}
-        className="dropdown-toggle relative flex items-center justify-center text-white transition-colors bg-brand-500 rounded-full transition hover:bg-brand-600 h-11 w-11 dark:border-gray-800 dark:bg-gray-900 dark:text-gray-400 dark:hover:bg-gray-800 dark:hover:text-white"
+        className="dropdown-toggle relative flex items-center justify-center text-white transition-colors bg-brand-500 rounded-full transition hover:bg-brand-600 h-11 w-11"
         aria-label={t("settings")}
       >
         <Palette />
@@ -43,10 +43,10 @@ export default function ThemeConfigurator() {
         isOpen={isOpen}
         onClose={closeDropdown}
         anchorRef={anchorRef}
-        className="flex w-64 flex-col gap-4 rounded-2xl border border-gray-200 bg-white p-4 shadow-theme-lg dark:border-gray-800 dark:bg-gray-dark"
+        className="flex w-64 flex-col gap-4 rounded-2xl border border-border bg-popover p-4 shadow-theme-lg"
       >
         <div>
-          <span className="text-sm font-semibold text-gray-700 dark:text-gray-300">
+          <span className="text-sm font-semibold text-muted-foreground">
             {t("primary")}
           </span>
           <div className="mt-3 flex flex-wrap gap-2.5 justify-between">
@@ -70,7 +70,7 @@ export default function ThemeConfigurator() {
         </div>
 
         <div>
-          <span className="text-sm font-semibold text-gray-700 dark:text-gray-300">
+          <span className="text-sm font-semibold text-muted-foreground">
             {t("surface")}
           </span>
           <div className="mt-3 flex flex-wrap gap-2.5">

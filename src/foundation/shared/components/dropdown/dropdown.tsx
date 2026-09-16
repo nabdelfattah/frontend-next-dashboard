@@ -88,7 +88,7 @@ export const Dropdown: React.FC<DropdownProps> = ({
         // eslint-disable-next-line react-hooks/refs -- documented floating-ui callback-ref API
         ref={refs.setFloating}
         style={floatingStyles}
-        className={`z-99999 overflow-y-auto rounded-xl border border-gray-200 bg-white shadow-theme-lg dark:border-gray-800 dark:bg-gray-dark ${className}`}
+        className={`z-99999 overflow-y-auto rounded-xl border border-border bg-popover shadow-theme-lg ${className}`}
       >
         {children}
       </div>

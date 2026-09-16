@@ -5,7 +5,7 @@ import React from "react";
 export default function NotFoundIllustration() {
   return (
     <svg
-      className="mx-auto w-full text-brand-500 dark:text-brand-400"
+      className="mx-auto w-full text-accent-foreground"
       width="472"
       height="158"
       viewBox="0 0 472 158"

@@ -1,6 +1,7 @@
 "use client";
 
-import { Star } from "@/assets/icons";
+import { useState } from "react";
+import { Star, ChevronUp, ChevronDown } from "@/assets/icons";
 import Input from "../form/input/input-field";
 import Checkbox from "../form/input/checkbox";
 import Select from "../form/select";
@@ -9,6 +10,79 @@ import { TableMetaDataColumn } from "./types";
 
 const OPERATORS = ["=", ">", "<", ">=", "<="] as const;
 type Operator = (typeof OPERATORS)[number];
+
+/**
+ * Number input with its own up/down stepper instead of the browser's native
+ * spinner — the native one renders with a plain white background with no
+ * way to theme it, which looked broken in dark mode. The buttons below are
+ * just Tailwind, so they follow the app theme. Shared by the RATING and
+ * IMAGE_GROUP filter widgets.
+ */
+function NumberStepperInput({
+  defaultValue,
+  onChange,
+  min = 0,
+  max = Infinity,
+  step = 1,
+  decimals = 0,
+}: {
+  defaultValue: string;
+  onChange: (value: string) => void;
+  min?: number;
+  max?: number;
+  step?: number;
+  decimals?: number;
+}) {
+  const [amount, setAmount] = useState(defaultValue);
+  const numeric = Number(amount) || 0;
+
+  const stepBy = (delta: number) => {
+    const clamped = Math.min(max, Math.max(min, numeric + delta));
+    const factor = 10 ** decimals;
+    const next = String(Math.round(clamped * factor) / factor);
+    setAmount(next);
+    onChange(next);
+  };
+
+  return (
+    <div className="relative w-full flex-1">
+      <input
+        type="number"
+        min={min}
+        max={Number.isFinite(max) ? max : undefined}
+        step={step}
+        value={amount}
+        onChange={(e) => {
+          setAmount(e.target.value);
+          onChange(e.target.value);
+        }}
+        className="h-11 w-full rounded-lg border border-input bg-input-background py-2.5 pl-4 pr-8 text-sm text-foreground shadow-theme-xs [appearance:textfield] focus:border-focus-brand focus:outline-hidden focus:ring-3 focus:ring-brand-500/10 [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:appearance-none"
+      />
+      <div className="absolute inset-y-0 right-0 flex w-7 flex-col divide-y divide-input border-l border-input">
+        <button
+          type="button"
+          tabIndex={-1}
+          aria-label="Increase"
+          onClick={() => stepBy(step)}
+          disabled={numeric >= max}
+          className="flex flex-1 items-center justify-center rounded-tr-lg text-muted-foreground hover:bg-muted hover:text-foreground disabled:pointer-events-none disabled:opacity-40"
+        >
+          <ChevronUp className="h-3 w-3" />
+        </button>
+        <button
+          type="button"
+          tabIndex={-1}
+          aria-label="Decrease"
+          onClick={() => stepBy(-step)}
+          disabled={numeric <= min}
+          className="flex flex-1 items-center justify-center rounded-br-lg text-muted-foreground hover:bg-muted hover:text-foreground disabled:pointer-events-none disabled:opacity-40"
+        >
+          <ChevronDown className="h-3 w-3" />
+        </button>
+      </div>
+    </div>
+  );
+}
 
 function parseOperatorValue(raw: string): { operator: Operator; amount: string } {
   const match = raw.match(/^(>=|<=|>|<|=)?(.*)$/);
@@ -89,14 +163,13 @@ export default function FilterWidget({ column, value, onChange }: FilterWidgetPr
       return (
         <div className="flex items-center gap-2 w-full">
           <Star className="h-4 w-4 shrink-0 text-gray-400" />
-          <Input
-          className="w-full flex-1"
-            type="number"
-            min="0"
-            max="5"
-            step={0.1}
+          <NumberStepperInput
             defaultValue={value}
-            onChange={(e) => onChange(e.target.value)}
+            onChange={onChange}
+            min={0}
+            max={5}
+            step={0.1}
+            decimals={1}
           />
         </div>
       );
@@ -111,11 +184,10 @@ export default function FilterWidget({ column, value, onChange }: FilterWidgetPr
               onChange={(nextOperator) => onChange(`${nextOperator}${amount}`)}
             />
           </div>
-          <Input
-            type="number"
-            min="0"
+          <NumberStepperInput
             defaultValue={amount}
-            onChange={(e) => onChange(`${operator}${e.target.value}`)}
+            onChange={(nextAmount) => onChange(`${operator}${nextAmount}`)}
+            min={0}
           />
         </div>
       );

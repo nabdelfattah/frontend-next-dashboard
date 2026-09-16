@@ -5,11 +5,11 @@ import React, { useRef } from "react";
 import { useTranslations } from "next-intl";
 import { Dropdown } from "@shared/components/dropdown/dropdown";
 import { DropdownItem } from "@shared/components/dropdown/dropdown-item";
-import { useDropdownGroup } from "@layout/header/dropdown-group-context";
+import useDropdownToggle from "@shared/hooks/use-dropdown-toggle";
 import { ChevronDown,  CircleUserRound, Settings, Info,LogOut, UserRound   } from "@/assets/icons";
 
 export default function UserDropdown() {
-  const { isOpen, toggle, close } = useDropdownGroup("user");
+  const { isOpen, toggle, close } = useDropdownToggle();
   const t = useTranslations("common.userMenu");
   const anchorRef = useRef<HTMLButtonElement>(null);
 
@@ -34,9 +34,9 @@ function toggleDropdown(e: React.MouseEvent<HTMLButtonElement, MouseEvent>) {
       <button
         ref={anchorRef}
         onClick={toggleDropdown}
-        className="flex items-center text-gray-700 dark:text-gray-400 dropdown-toggle"
+        className="flex items-center text-muted-foreground dropdown-toggle"
       >
-        <span className="flex items-center justify-center me-2 text-gray-500 transition-colors bg-white border border-gray-200 rounded-full hover:text-dark-900 h-11 w-11 hover:bg-gray-100 hover:text-gray-700 dark:border-gray-800 dark:bg-gray-900 dark:text-gray-400 dark:hover:bg-gray-800 dark:hover:text-white">
+        <span className="flex items-center justify-center me-2 text-muted-foreground transition-colors bg-surface border border-border rounded-full hover:text-dark-900 h-11 w-11 hover:bg-muted hover:text-foreground">
           {user.image ? (
             <Image
               width={44}
@@ -51,7 +51,7 @@ function toggleDropdown(e: React.MouseEvent<HTMLButtonElement, MouseEvent>) {
 
         <span className="hidden me-1 font-medium text-theme-sm lg:block">{user.name}</span>
 
-        <ChevronDown className={`stroke-gray-500 dark:stroke-gray-400 transition-transform duration-200 ${
+        <ChevronDown className={`stroke-muted-foreground transition-transform duration-200 ${
             isOpen ? "rotate-180" : ""
           }`}/>
         
@@ -61,24 +61,24 @@ function toggleDropdown(e: React.MouseEvent<HTMLButtonElement, MouseEvent>) {
         isOpen={isOpen}
         onClose={closeDropdown}
         anchorRef={anchorRef}
-        className="flex w-[260px] flex-col rounded-2xl border border-gray-200 bg-white p-3 shadow-theme-lg dark:border-gray-800 dark:bg-gray-dark"
+        className="flex w-[260px] flex-col rounded-2xl border border-border bg-popover p-3 shadow-theme-lg"
       >
         <div>
-          <span className="block font-medium text-gray-700 text-theme-sm dark:text-gray-400">
+          <span className="block font-medium text-muted-foreground text-theme-sm">
             {user.fullName}
           </span>
-          <span className="mt-0.5 block text-theme-xs text-gray-500 dark:text-gray-400">
+          <span className="mt-0.5 block text-theme-xs text-muted-foreground">
             {user.email}
           </span>
         </div>
 
-        <ul className="flex flex-col gap-1 pt-4 pb-3 border-b border-gray-200 dark:border-gray-800">
+        <ul className="flex flex-col gap-1 pt-4 pb-3 border-b border-border">
           <li>
             <DropdownItem
               onItemClick={closeDropdown}
               tag="a"
               href="/profile"
-              className="flex items-center gap-3 px-3 py-2 font-medium text-gray-700 rounded-lg group text-theme-sm hover:bg-gray-100 hover:text-gray-700 dark:text-gray-400 dark:hover:bg-white/5 dark:hover:text-gray-300"
+              className="flex items-center gap-3 px-3 py-2 font-medium text-muted-foreground rounded-lg group text-theme-sm hover:bg-muted hover:text-foreground"
             >
               <CircleUserRound />
               {t("editProfile")}
@@ -89,7 +89,7 @@ function toggleDropdown(e: React.MouseEvent<HTMLButtonElement, MouseEvent>) {
               onItemClick={closeDropdown}
               tag="a"
               href="/profile"
-              className="flex items-center gap-3 px-3 py-2 font-medium text-gray-700 rounded-lg group text-theme-sm hover:bg-gray-100 hover:text-gray-700 dark:text-gray-400 dark:hover:bg-white/5 dark:hover:text-gray-300"
+              className="flex items-center gap-3 px-3 py-2 font-medium text-muted-foreground rounded-lg group text-theme-sm hover:bg-muted hover:text-foreground"
             >
               <Settings  />
               {t("accountSettings")}
@@ -100,7 +100,7 @@ function toggleDropdown(e: React.MouseEvent<HTMLButtonElement, MouseEvent>) {
               onItemClick={closeDropdown}
               tag="a"
               href="/profile"
-              className="flex items-center gap-3 px-3 py-2 font-medium text-gray-700 rounded-lg group text-theme-sm hover:bg-gray-100 hover:text-gray-700 dark:text-gray-400 dark:hover:bg-white/5 dark:hover:text-gray-300"
+              className="flex items-center gap-3 px-3 py-2 font-medium text-muted-foreground rounded-lg group text-theme-sm hover:bg-muted hover:text-foreground"
             >
               <Info />
               {t("support")}
@@ -109,7 +109,7 @@ function toggleDropdown(e: React.MouseEvent<HTMLButtonElement, MouseEvent>) {
         </ul>
         <Link
           href="/signin"
-          className="flex items-center gap-3 px-3 py-2 mt-3 font-medium text-gray-700 rounded-lg group text-theme-sm hover:bg-gray-100 hover:text-gray-700 dark:text-gray-400 dark:hover:bg-white/5 dark:hover:text-gray-300"
+          className="flex items-center gap-3 px-3 py-2 mt-3 font-medium text-muted-foreground rounded-lg group text-theme-sm hover:bg-muted hover:text-foreground"
         >
           <LogOut />
           {t("signOut")}

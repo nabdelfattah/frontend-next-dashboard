@@ -52,9 +52,9 @@ export default function Breadcrumb({
               {showEllipsisBefore && (
                 <>
                   <BreadcrumbItem>
-                    <BreadcrumbEllipsis className="text-gray-500 dark:text-gray-400" />
+                    <BreadcrumbEllipsis className="text-muted-foreground" />
                   </BreadcrumbItem>
-                  <BreadcrumbSeparator className="text-gray-400 dark:text-gray-400 [&>svg]:size-4" />
+                  <BreadcrumbSeparator className="text-muted-foreground [&>svg]:size-4" />
                 </>
               )}
 
@@ -62,19 +62,19 @@ export default function Breadcrumb({
                 {item.path ? (
                   <BreadcrumbLink
                     asChild
-                    className="text-gray-500 dark:text-gray-400"
+                    className="text-muted-foreground"
                   >
                     <Link href={item.path}>{item.label}</Link>
                   </BreadcrumbLink>
                 ) : (
-                  <BreadcrumbPage className="text-gray-800 dark:text-white/90">
+                  <BreadcrumbPage className="text-foreground">
                     {item.label}
                   </BreadcrumbPage>
                 )}
               </BreadcrumbItem>
 
               {!isLast && (
-                <BreadcrumbSeparator className="text-gray-400 dark:text-gray-400 [&>svg]:size-4" />
+                <BreadcrumbSeparator className="text-muted-foreground [&>svg]:size-4" />
               )}
             </Fragment>
           );

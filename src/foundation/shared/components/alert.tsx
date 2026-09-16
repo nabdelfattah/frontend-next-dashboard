@@ -18,26 +18,23 @@ const Alert: React.FC<AlertProps> = ({
   linkHref = "#",
   linkText = "Learn more",
 }) => {
-  // Tailwind classes for each variant
+  // Tailwind classes for each variant — colors resolve through CSS variables
+  // that flip in dark mode (see globals.css), so no dark: variant is needed.
   const variantClasses = {
     success: {
-      container:
-        "border-success-500 bg-success-50 dark:border-success-500/30 dark:bg-success-500/15",
+      container: "border-success-soft-border bg-success-soft",
       icon: "text-success-500",
     },
     error: {
-      container:
-        "border-error-500 bg-error-50 dark:border-error-500/30 dark:bg-error-500/15",
+      container: "border-error-soft-border bg-error-soft",
       icon: "text-error-500",
     },
     warning: {
-      container:
-        "border-warning-500 bg-warning-50 dark:border-warning-500/30 dark:bg-warning-500/15",
+      container: "border-warning-soft-border bg-warning-soft",
       icon: "text-warning-500",
     },
     info: {
-      container:
-        "border-blue-light-500 bg-blue-light-50 dark:border-blue-light-500/30 dark:bg-blue-light-500/15",
+      container: "border-info-soft-border bg-info-soft",
       icon: "text-blue-light-500",
     },
   };
@@ -122,16 +119,16 @@ const Alert: React.FC<AlertProps> = ({
         </div>
 
         <div>
-          <h4 className="mb-1 text-sm font-semibold text-gray-800 dark:text-white/90">
+          <h4 className="mb-1 text-sm font-semibold text-foreground">
             {title}
           </h4>
 
-          <p className="text-sm text-gray-500 dark:text-gray-400">{message}</p>
+          <p className="text-sm text-muted-foreground">{message}</p>
 
           {showLink && (
             <Link
               href={linkHref}
-              className="inline-block mt-3 text-sm font-medium text-gray-500 underline dark:text-gray-400"
+              className="inline-block mt-3 text-sm font-medium text-muted-foreground underline"
             >
               {linkText}
             </Link>

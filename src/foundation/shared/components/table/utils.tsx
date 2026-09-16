@@ -44,7 +44,7 @@ function renderAvatar(column: TableMetaDataColumn, item: TableItem) {
   const name =
     (item.name as string) || (item.employee_name as string) || column.name;
   return (
-    <div className="w-10 h-10 shrink-0 overflow-hidden rounded-full bg-gray-100 dark:bg-white/[0.05] flex items-center justify-center">
+    <div className="w-10 h-10 shrink-0 overflow-hidden rounded-full bg-muted flex items-center justify-center">
       {src ? (
         <Avatar src={src} alt={name} />
       ) : (
@@ -90,13 +90,13 @@ function renderCellValue(column: TableMetaDataColumn, item: TableItem) {
     }
     case "DATE":
       return (
-        <span className="text-gray-500 text-theme-sm dark:text-gray-400">
+        <span className="text-muted-foreground text-theme-sm">
           {formatDate(value)}
         </span>
       );
     case "RATING":
       return (
-        <span className="text-gray-500 text-theme-sm dark:text-gray-400">
+        <span className="text-muted-foreground text-theme-sm">
           {"★".repeat(Number(value) || 0)}
           {"☆".repeat(Math.max(5 - (Number(value) || 0), 0))}
         </span>
@@ -111,7 +111,7 @@ function renderCellValue(column: TableMetaDataColumn, item: TableItem) {
         );
       }
       return (
-        <span className="text-gray-500 text-theme-sm dark:text-gray-400">
+        <span className="text-muted-foreground text-theme-sm">
           {String(value ?? "")}
         </span>
       );
@@ -119,7 +119,7 @@ function renderCellValue(column: TableMetaDataColumn, item: TableItem) {
     case "NUMBER":
     default:
       return (
-        <span className="text-gray-500 text-theme-sm dark:text-gray-400">
+        <span className="text-muted-foreground text-theme-sm">
           {String(value ?? "")}
         </span>
       );

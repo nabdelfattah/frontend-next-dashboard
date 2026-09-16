@@ -1,7 +1,7 @@
 "use client";
-import Checkbox from "@/components/form/input/checkbox";
-import Input from "@/components/form/input/input-field";
-import Label from "@/components/form/label";
+import Checkbox from "@shared/components/form/input/checkbox";
+import Input from "@shared/components/form/input/input-field";
+import Label from "@shared/components/form/label";
 import Button from "@/foundation/shared/components/button";
 import { ChevronLeft, EyeOff, Eye } from "@/assets/icons";
 import { Link } from "@/i18n/navigation";
@@ -17,7 +17,7 @@ export default function SignInForm() {
       <div className="w-full max-w-md sm:pt-10 mx-auto mb-5">
         <Link
           href="/"
-          className="inline-flex items-center text-sm text-gray-500 transition-colors hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-300"
+          className="inline-flex items-center text-sm text-muted-foreground transition-colors hover:text-foreground"
         >
           <ChevronLeft className="rtl:rotate-180" />
           {t("backToDashboard")}
@@ -26,16 +26,16 @@ export default function SignInForm() {
       <div className="flex flex-col justify-center flex-1 w-full max-w-md mx-auto">
         <div>
           <div className="mb-5 sm:mb-8">
-            <h1 className="mb-2 font-semibold text-gray-800 text-title-sm dark:text-white/90 sm:text-title-md">
+            <h1 className="mb-2 font-semibold text-foreground text-title-sm sm:text-title-md">
               {t("heading")}
             </h1>
-            <p className="text-sm text-gray-500 dark:text-gray-400">
+            <p className="text-sm text-muted-foreground">
               {t("subheading")}
             </p>
           </div>
           <div>
             <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 sm:gap-5">
-              <button className="inline-flex items-center justify-center gap-3 py-3 text-sm font-normal text-gray-700 transition-colors bg-gray-100 rounded-lg px-7 hover:bg-gray-200 hover:text-gray-800 dark:bg-white/5 dark:text-white/90 dark:hover:bg-white/10">
+              <button className="inline-flex items-center justify-center gap-3 py-3 text-sm font-normal text-gray-700 transition-colors bg-muted rounded-lg px-7 hover:bg-input hover:text-foreground">
                 <svg
                   width="20"
                   height="20"
@@ -62,7 +62,7 @@ export default function SignInForm() {
                 </svg>
                 {t("googleButton")}
               </button>
-              <button className="inline-flex items-center justify-center gap-3 py-3 text-sm font-normal text-gray-700 transition-colors bg-gray-100 rounded-lg px-7 hover:bg-gray-200 hover:text-gray-800 dark:bg-white/5 dark:text-white/90 dark:hover:bg-white/10">
+              <button className="inline-flex items-center justify-center gap-3 py-3 text-sm font-normal text-gray-700 transition-colors bg-muted rounded-lg px-7 hover:bg-input hover:text-foreground">
                 <svg
                   width="21"
                   className="fill-current"
@@ -78,10 +78,10 @@ export default function SignInForm() {
             </div>
             <div className="relative py-3 sm:py-5">
               <div className="absolute inset-0 flex items-center">
-                <div className="w-full border-t border-gray-200 dark:border-gray-800"></div>
+                <div className="w-full border-t border-border"></div>
               </div>
               <div className="relative flex justify-center text-sm">
-                <span className="p-2 text-gray-400 bg-white dark:bg-gray-900 sm:px-5 sm:py-2">
+                <span className="p-2 text-gray-400 bg-surface sm:px-5 sm:py-2">
                   {t("or")}
                 </span>
               </div>
@@ -108,9 +108,9 @@ export default function SignInForm() {
                       className="absolute z-30 -translate-y-1/2 cursor-pointer end-4 top-1/2"
                     >
                       {showPassword ? (
-                        <Eye className="text-gray-700 dark:text-gray-400" />
+                        <Eye className="text-muted-foreground" />
                       ) : (
-                        <EyeOff className="text-gray-700 dark:text-gray-400" />
+                        <EyeOff className="text-muted-foreground" />
                       )}
                     </span>
                   </div>
@@ -118,13 +118,13 @@ export default function SignInForm() {
                 <div className="flex items-center justify-between">
                   <div className="flex items-center gap-3">
                     <Checkbox checked={isChecked} onChange={setIsChecked} />
-                    <span className="block font-normal text-gray-700 text-theme-sm dark:text-gray-400">
+                    <span className="block font-normal text-muted-foreground text-theme-sm">
                       {t("keepLoggedIn")}
                     </span>
                   </div>
                   <Link
                     href="/reset-password"
-                    className="text-sm text-brand-500 hover:text-brand-600 dark:text-brand-400"
+                    className="text-sm text-accent-foreground hover:text-brand-600"
                   >
                     {t("forgotPassword")}
                   </Link>
@@ -138,11 +138,11 @@ export default function SignInForm() {
             </form>
 
             <div className="mt-5">
-              <p className="text-sm font-normal text-center text-gray-700 dark:text-gray-400 sm:text-start">
+              <p className="text-sm font-normal text-center text-muted-foreground sm:text-start">
                 {t("noAccount")} {""}
                 <Link
                   href="/signup"
-                  className="text-brand-500 hover:text-brand-600 dark:text-brand-400"
+                  className="text-accent-foreground hover:text-brand-600"
                 >
                   {t("signUpLink")}
                 </Link>

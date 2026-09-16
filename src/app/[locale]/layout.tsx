@@ -74,7 +74,7 @@ export default async function LocaleLayout({
           dangerouslySetInnerHTML={{ __html: themeConfigInitScript }}
         />
       </head>
-      <body className="dark:bg-gray-900">
+      <body className="bg-background">
         <Providers direction={dir} locale={locale} messages={messages}>
           {children}
         </Providers>

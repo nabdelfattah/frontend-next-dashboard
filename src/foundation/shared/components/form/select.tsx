@@ -2,6 +2,7 @@
 import React, { useRef, useState } from "react";
 import { Dropdown } from "../dropdown/dropdown";
 import { DropdownItem } from "../dropdown/dropdown-item";
+import useDropdownToggle from "../../hooks/use-dropdown-toggle";
 
 interface Option {
   value: string;
@@ -41,7 +42,7 @@ const Select: React.FC<SelectProps> = ({
   defaultValue = "",
 }) => {
   const [selectedValue, setSelectedValue] = useState<string>(defaultValue);
-  const [isOpen, setIsOpen] = useState(false);
+  const { isOpen, toggle, close } = useDropdownToggle();
   const anchorRef = useRef<HTMLButtonElement>(null);
 
   const selectedLabel = options.find(
@@ -58,11 +59,11 @@ const Select: React.FC<SelectProps> = ({
       <button
         ref={anchorRef}
         type="button"
-        onClick={() => setIsOpen((prev) => !prev)}
-        className={`dropdown-toggle flex h-11 w-full items-center justify-between rounded-lg border border-gray-300 px-4 py-2.5 text-start text-sm shadow-theme-xs outline-hidden transition focus:border-brand-300 focus:ring-3 focus:ring-brand-500/10 dark:border-gray-700 dark:bg-gray-900 dark:focus:border-brand-800 ${
+        onClick={toggle}
+        className={`dropdown-toggle flex h-11 w-full items-center justify-between rounded-lg border border-input bg-input-background px-4 py-2.5 text-start text-sm shadow-theme-xs outline-hidden transition focus:border-focus-brand focus:ring-3 focus:ring-brand-500/10 ${
           selectedLabel
-            ? "text-gray-800 dark:text-white/90"
-            : "text-gray-400 dark:text-gray-400"
+            ? "text-foreground"
+            : "text-muted-foreground"
         } ${className}`}
       >
         <span className="truncate">{selectedLabel ?? placeholder}</span>
@@ -87,7 +88,7 @@ const Select: React.FC<SelectProps> = ({
 
       <Dropdown
         isOpen={isOpen}
-        onClose={() => setIsOpen(false)}
+        onClose={close}
         anchorRef={anchorRef}
         placement="bottom-start"
         className="flex min-w-[12rem] flex-col gap-1 p-2"
@@ -96,10 +97,10 @@ const Select: React.FC<SelectProps> = ({
           <DropdownItem
             key={option.value}
             onClick={() => handleSelect(option.value)}
-            onItemClick={() => setIsOpen(false)}
+            onItemClick={close}
             className={`rounded-lg ${
               option.value === selectedValue
-                ? "bg-gray-100 dark:bg-white/5"
+                ? "bg-muted"
                 : ""
             }`}
           >

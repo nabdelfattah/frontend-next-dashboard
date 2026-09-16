@@ -1,10 +1,11 @@
 "use client";
 
-import { useRef, useState } from "react";
+import { useRef } from "react";
 import { ImageGroup } from "./types";
 import { Dropdown } from "../dropdown/dropdown";
 import AvatarText from "../avatar/avatar-text";
 import Avatar from "../avatar/avatar";
+import useDropdownToggle from "../../hooks/use-dropdown-toggle";
 
 const MAX_VISIBLE = 3;
 const CLOSE_DELAY_MS = 150;
@@ -16,7 +17,7 @@ function GroupAvatar({
 }) {
   return (
     <div
-      className="flex items-center justify-center overflow-hidden rounded-full border-2 border-white bg-gray-100 dark:border-gray-900 dark:bg-white/[0.05]"
+      className="flex items-center justify-center overflow-hidden rounded-full border-2 border-surface bg-muted"
       style={{ width: 32, height: 32 }}
     >
       {member.image ? (
@@ -39,21 +40,21 @@ function GroupAvatar({
  * must keep vertical overflow hidden to avoid an incidental vertical scrollbar).
  */
 export default function ImageGroupCell({ members }: { members: ImageGroup[] }) {
-  const [isOpen, setIsOpen] = useState(false);
+  const { isOpen, open, close } = useDropdownToggle();
   const anchorRef = useRef<HTMLDivElement>(null);
   const closeTimeout = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   const openNow = () => {
     if (closeTimeout.current) clearTimeout(closeTimeout.current);
-    setIsOpen(true);
+    open();
   };
   const closeSoon = () => {
-    closeTimeout.current = setTimeout(() => setIsOpen(false), CLOSE_DELAY_MS);
+    closeTimeout.current = setTimeout(close, CLOSE_DELAY_MS);
   };
 
   if (!members || members.length === 0) {
     return (
-      <span className="text-gray-400 text-theme-sm dark:text-gray-500">—</span>
+      <span className="text-muted-foreground text-theme-sm">—</span>
     );
   }
 
@@ -72,7 +73,7 @@ export default function ImageGroupCell({ members }: { members: ImageGroup[] }) {
           <GroupAvatar key={member.id} member={member} />
         ))}
         {overflowCount > 0 && (
-          <div className="flex h-8 w-8 items-center justify-center overflow-hidden rounded-full border-2 border-white bg-gray-100 text-theme-xs font-medium text-gray-600 dark:border-gray-900 dark:bg-white/[0.08] dark:text-gray-300">
+          <div className="flex h-8 w-8 items-center justify-center overflow-hidden rounded-full border-2 border-surface bg-muted text-theme-xs font-medium text-muted-foreground">
             +{overflowCount}
           </div>
         )}
@@ -80,7 +81,7 @@ export default function ImageGroupCell({ members }: { members: ImageGroup[] }) {
 
       <Dropdown
         isOpen={isOpen}
-        onClose={() => setIsOpen(false)}
+        onClose={close}
         anchorRef={anchorRef}
         className="min-w-[180px] p-2"
       >
@@ -95,7 +96,7 @@ export default function ImageGroupCell({ members }: { members: ImageGroup[] }) {
               className="flex items-center gap-2 rounded-lg px-2 py-1.5"
             >
               <GroupAvatar member={member} />
-              <span className="text-gray-700 text-theme-sm dark:text-gray-300">
+              <span className="text-muted-foreground text-theme-sm">
                 {member.name}
               </span>
             </li>

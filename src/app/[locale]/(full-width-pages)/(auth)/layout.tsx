@@ -5,7 +5,6 @@ import { ThemeProvider } from "@core/providers/theme-provider";
 import Image from "next/image";
 import { Link } from "@/i18n/navigation";
 import { getTranslations } from "next-intl/server";
-import { DropdownGroupProvider } from "@layout/header/dropdown-group-context";
 import LanguageSwitcher from "@layout/header/language-switcher";
 import ThemeConfigurator from "@layout/header/theme-configurator";
 import React from "react";
@@ -18,9 +17,9 @@ export default async function AuthLayout({
   const t = await getTranslations("auth.layout");
 
   return (
-    <div className="relative p-6 bg-white z-1 dark:bg-gray-900 sm:p-0">
+    <div className="relative p-6 bg-surface z-1 sm:p-0">
       <ThemeProvider>
-        <div className="relative flex lg:flex-row w-full h-screen justify-center flex-col  dark:bg-gray-900 sm:p-0">
+        <div className="relative flex lg:flex-row w-full h-screen justify-center flex-col sm:p-0">
           {children}
           <div className="lg:w-1/2 w-full h-full bg-brand-950 dark:bg-white/5 lg:grid items-center hidden">
             <div className="relative items-center justify-center  flex z-1">
@@ -42,10 +41,8 @@ export default async function AuthLayout({
             </div>
           </div>
           <div className="fixed bottom-6 end-6 z-50 hidden items-center gap-3 sm:flex">
-            <DropdownGroupProvider>
-              <ThemeConfigurator />
-              <LanguageSwitcher />
-            </DropdownGroupProvider>
+            <ThemeConfigurator />
+            <LanguageSwitcher />
             <ThemeToggleButton />
           </div>
         </div>

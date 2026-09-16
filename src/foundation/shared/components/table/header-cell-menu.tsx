@@ -8,6 +8,7 @@ import Button from "../button";
 import FilterWidget from "./filter-widget";
 import { TableMetaDataColumn } from "./types";
 import { isFilterable, isSortable } from "./utils";
+import useDropdownToggle from "../../hooks/use-dropdown-toggle";
 
 interface HeaderCellMenuProps {
   column: TableMetaDataColumn;
@@ -39,7 +40,7 @@ export default function HeaderCellMenu({
   onClearFilter,
 }: HeaderCellMenuProps) {
   const t = useTranslations("shared.table");
-  const [isOpen, setIsOpen] = useState(false);
+  const { isOpen, toggle: toggleOpen, close } = useDropdownToggle();
   const [draft, setDraft] = useState(committedFilter ?? "");
   const anchorRef = useRef<HTMLButtonElement>(null);
 
@@ -50,19 +51,19 @@ export default function HeaderCellMenu({
 
   const toggle = () => {
     if (!isOpen) setDraft(committedFilter ?? "");
-    setIsOpen((prev) => !prev);
+    toggleOpen();
   };
 
   const handleApply = () => {
     onApplyFilter(draft);
-    setIsOpen(false);
+    close();
   };
 
   const handleClear = () => {
     setDraft("");
     onClearFilter();
     if (sortOrder !== null) onSort(null);
-    setIsOpen(false);
+    close();
   };
 
   return (
@@ -70,7 +71,7 @@ export default function HeaderCellMenu({
       <button
         ref={anchorRef}
         onClick={toggle}
-        className={`dropdown-toggle flex h-6 w-6 items-center justify-center rounded text-gray-400 transition duration-300 hover:bg-gray-100 hover:text-gray-600 hover:bg-gray-100 hover:text-gray-700 dark:hover:bg-gray-800 dark:hover:text-white ${
+        className={`dropdown-toggle flex h-6 w-6 items-center justify-center rounded text-gray-400 transition duration-300 hover:bg-muted hover:bg-gray-100 hover:text-foreground ${
           sortOrder || committedFilter ? "text-brand-500" : ""
         }`}
       >
@@ -79,20 +80,20 @@ export default function HeaderCellMenu({
 
       <Dropdown
         isOpen={isOpen}
-        onClose={() => setIsOpen(false)}
+        onClose={close}
         anchorRef={anchorRef}
         className="flex w-72 flex-col gap-2 p-3"
       >
         {sortable && (
-          <div className="flex gap-1 rounded-lg bg-gray-100 p-1 dark:bg-white/[0.05]">
+          <div className="flex gap-1 rounded-lg bg-muted p-1">
             <button
               type="button"
               aria-pressed={sortOrder === "asc"}
               onClick={() => onSort(sortOrder === "asc" ? null : "asc")}
               className={`flex flex-1 items-center justify-center gap-1.5 whitespace-nowrap rounded-md px-2 py-1.5 text-sm font-medium transition-colors ${
                 sortOrder === "asc"
-                  ? "bg-white text-brand-500 shadow-theme-xs dark:bg-gray-800"
-                  : "text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-300"
+                  ? "bg-card text-brand-500 shadow-theme-xs"
+                  : "text-muted-foreground hover:text-foreground"
               }`}
             >
               <ChevronUp className="h-4 w-4" />
@@ -104,8 +105,8 @@ export default function HeaderCellMenu({
               onClick={() => onSort(sortOrder === "desc" ? null : "desc")}
               className={`flex flex-1 items-center justify-center gap-1.5 whitespace-nowrap rounded-md px-2 py-1.5 text-sm font-medium transition-colors ${
                 sortOrder === "desc"
-                  ? "bg-white text-brand-500 shadow-theme-xs dark:bg-gray-800"
-                  : "text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-300"
+                  ? "bg-card text-brand-500 shadow-theme-xs"
+                  : "text-muted-foreground hover:text-foreground"
               }`}
             >
               <ChevronDown className="h-4 w-4" />
@@ -115,12 +116,12 @@ export default function HeaderCellMenu({
         )}
 
         {sortable && filterable && (
-          <div className="h-px bg-gray-200 dark:bg-white/10" />
+          <div className="h-px bg-border" />
         )}
 
         {filterable && (
           <div className="flex flex-col gap-2">
-            <span className="flex items-center gap-1.5 text-xs font-medium text-gray-500 dark:text-gray-400">
+            <span className="flex items-center gap-1.5 text-xs font-medium text-muted-foreground">
               <Filter className="h-3.5 w-3.5" />
               {t("filter")}
             </span>
