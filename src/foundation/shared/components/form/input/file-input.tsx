@@ -5,6 +5,15 @@ interface FileInputProps {
   onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
+/**
+ * Styled native file input.
+ *
+ * @param className - Additional classes merged onto the `<input>`.
+ * @param onChange - Native file input change handler.
+ *
+ * @example
+ * <FileInput onChange={(e) => setFile(e.target.files?.[0])} />
+ */
 const FileInput: FC<FileInputProps> = ({ className, onChange }) => {
   return (
     <input

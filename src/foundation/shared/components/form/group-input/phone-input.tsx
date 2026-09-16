@@ -13,6 +13,20 @@ interface PhoneInputProps {
   selectPosition?: "start" | "end"; // New prop for dropdown position
 }
 
+/**
+ * Phone number input with a country-code dropdown attached to either end.
+ *
+ * @param countries - Selectable countries. `code` is the dropdown option (e.g. "US"); `label` is the value written into the phone field when that country is selected (e.g. its dial code).
+ * @param placeholder - Placeholder for the phone field. Defaults to `"+1 (555) 000-0000"`.
+ * @param onChange - Called with the phone field's current value, both when a country is picked and when the field is typed into.
+ * @param selectPosition - Which side the country dropdown sits on. Defaults to `"start"`.
+ *
+ * @example
+ * <PhoneInput
+ *   countries={[{ code: "US", label: "+1" }, { code: "EG", label: "+20" }]}
+ *   onChange={setPhone}
+ * />
+ */
 const PhoneInput: React.FC<PhoneInputProps> = ({
   countries,
   placeholder = "+1 (555) 000-0000",

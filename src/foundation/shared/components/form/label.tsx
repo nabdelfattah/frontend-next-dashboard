@@ -7,6 +7,16 @@ interface LabelProps {
   className?: string;
 }
 
+/**
+ * Reusable form field label.
+ *
+ * @param htmlFor - Id of the form control this label describes.
+ * @param children - Label text/content.
+ * @param className - Additional classes merged onto the label.
+ *
+ * @example
+ * <Label htmlFor="email">Email</Label>
+ */
 const Label: FC<LabelProps> = ({ htmlFor, children, className }) => {
   return (
     <label

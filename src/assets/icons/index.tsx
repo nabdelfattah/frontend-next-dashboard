@@ -22,8 +22,14 @@ import EllipsisVertical from "./ellipsis-vertical.svg";
 import ChevronUp from "./chevron-up.svg";
 import Filter from "./filter.svg";
 import Star from "./star.svg";
+import Calendar from "./calendar.svg";
+import Time from "./time.svg";
+
 
 export {
+
+  Time,
+  Calendar,
   ChevronUp,
   ChevronLeft,
   ChevronRight,

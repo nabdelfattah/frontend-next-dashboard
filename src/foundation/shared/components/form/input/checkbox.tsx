@@ -9,6 +9,19 @@ interface CheckboxProps {
   disabled?: boolean;
 }
 
+/**
+ * Controlled checkbox with a custom checkmark.
+ *
+ * @param label - Optional label text shown next to the checkbox.
+ * @param checked - Whether the checkbox is checked.
+ * @param id - Id applied to the underlying `<input>`.
+ * @param onChange - Called with the new checked state.
+ * @param className - Additional classes merged onto the `<input>`.
+ * @param disabled - Disabled state. Defaults to `false`.
+ *
+ * @example
+ * <Checkbox label="Remember me" checked={remember} onChange={setRemember} />
+ */
 const Checkbox: React.FC<CheckboxProps> = ({
   label,
   checked,

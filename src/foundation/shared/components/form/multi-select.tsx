@@ -14,6 +14,22 @@ interface MultiSelectProps {
   disabled?: boolean;
 }
 
+/**
+ * Multi-value select: a dropdown of checkable options rendered as removable chips.
+ *
+ * @param label - Label shown above the control.
+ * @param options - Selectable options (`value`, `text`).
+ * @param defaultSelected - Initially selected option values. Defaults to `[]`.
+ * @param onChange - Called with the full list of selected values whenever the selection changes.
+ * @param disabled - Disables opening the dropdown. Defaults to `false`.
+ *
+ * @example
+ * <MultiSelect
+ *   label="Countries"
+ *   options={[{ value: "eg", text: "Egypt", selected: false }]}
+ *   onChange={setSelectedCountries}
+ * />
+ */
 const MultiSelect: React.FC<MultiSelectProps> = ({
   label,
   options,

@@ -59,10 +59,14 @@ export const Dropdown: React.FC<DropdownProps> = ({
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       const floatingEl = refs.floating.current;
+      const target = event.target as HTMLElement;
       if (
         floatingEl &&
         !floatingEl.contains(event.target as Node) &&
-        !(event.target as HTMLElement).closest(".dropdown-toggle")
+        !target.closest(".dropdown-toggle") &&
+        // A non-static flatpickr calendar renders on `document.body`, outside
+        // this panel's DOM subtree — don't treat clicking it as "outside".
+        !target.closest(".flatpickr-calendar")
       ) {
         onClose();
       }

@@ -1,5 +1,10 @@
 {
   "table": {
-    "actions": "Actions"
+    "actions": "Actions",
+    "sortAscending": "Ascending",
+    "sortDescending": "Descending",
+    "filter": "Filter",
+    "apply": "Apply",
+    "clear": "Clear"
   }
 }

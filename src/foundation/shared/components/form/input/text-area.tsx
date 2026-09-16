@@ -11,6 +11,21 @@ interface TextareaProps {
   hint?: string; // Hint text to display
 }
 
+/**
+ * Styled `<textarea>` with a disabled/error state and an optional hint.
+ *
+ * @param placeholder - Placeholder text. Defaults to `"Enter your message"`.
+ * @param rows - Number of visible rows. Defaults to `3`.
+ * @param value - Current value (controlled). Defaults to `""`.
+ * @param onChange - Called with the new value on change.
+ * @param className - Additional classes merged onto the `<textarea>`.
+ * @param disabled - Disabled state. Defaults to `false`.
+ * @param error - Renders the error (red) style. Defaults to `false`.
+ * @param hint - Helper text shown below the textarea, colored to match `error`.
+ *
+ * @example
+ * <TextArea value={message} onChange={setMessage} hint="Max 500 characters" />
+ */
 const TextArea: React.FC<TextareaProps> = ({
   placeholder = "Enter your message", // Default placeholder
   rows = 3, // Default number of rows

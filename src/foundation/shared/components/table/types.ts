@@ -56,6 +56,12 @@ export interface ImageGroup {
   image?: string | null;
 }
 
+/** Local (not-yet-emitted) sort state: which column, and in which direction. */
+export interface TableSortState {
+  field: string;
+  order: "asc" | "desc";
+}
+
 // --- Server-driven sort/filter query contract. Not wired up yet. ---
 
 export interface TableQuery {

@@ -1,6 +1,6 @@
 "use client";
 import React from "react";
-import ComponentCard from "../../common/component-card";
+import ComponentCard from "../../../foundation/shared/components/component-card";
 import Button from "../../../foundation/shared/components/button";
 import { Modal } from "../../ui/modal";
 import { useModal } from "@shared/hooks/use-modal";

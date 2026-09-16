@@ -6,6 +6,19 @@ interface FormProps {
   className?: string;
 }
 
+/**
+ * Form wrapper that always prevents the browser's default submission before
+ * calling `onSubmit`.
+ *
+ * @param onSubmit - Called with the submit event after `preventDefault()` has run.
+ * @param children - Form fields.
+ * @param className - Additional classes merged onto the `<form>` element.
+ *
+ * @example
+ * <Form onSubmit={handleSubmit}>
+ *   <Input name="email" />
+ * </Form>
+ */
 const Form: FC<FormProps> = ({ onSubmit, children, className }) => {
   return (
     <form

@@ -10,6 +10,20 @@ interface RadioProps {
   className?: string; // Optional custom classes for styling
 }
 
+/**
+ * Compact variant of `Radio`, without a `disabled` state.
+ *
+ * @param id - Unique id for the radio input, and the `htmlFor` target of its label.
+ * @param name - Radio group name — radios sharing a `name` are mutually exclusive.
+ * @param value - Value of this radio button.
+ * @param checked - Whether this radio button is checked.
+ * @param label - Label text.
+ * @param onChange - Called with `value` when this radio is selected.
+ * @param className - Additional classes merged onto the label.
+ *
+ * @example
+ * <RadioSm id="size-sm" name="size" value="sm" checked={size === "sm"} label="Small" onChange={setSize} />
+ */
 const RadioSm: React.FC<RadioProps> = ({
   id,
   name,

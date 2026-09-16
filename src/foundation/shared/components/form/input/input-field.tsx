@@ -17,6 +17,27 @@ interface InputProps {
   hint?: string; // Optional hint text
 }
 
+/**
+ * Styled text input with built-in disabled/success/error states and an optional hint.
+ *
+ * @param type - HTML input type. Defaults to `"text"`.
+ * @param id - Id applied to the `<input>`.
+ * @param name - Name applied to the `<input>`.
+ * @param placeholder - Placeholder text.
+ * @param defaultValue - Initial value (uncontrolled).
+ * @param onChange - Native input change handler.
+ * @param className - Additional classes merged onto the `<input>`.
+ * @param min - Minimum value, for numeric/date types.
+ * @param max - Maximum value, for numeric/date types.
+ * @param step - Step increment, for numeric types.
+ * @param disabled - Disabled state. Defaults to `false`. Takes precedence over `error`/`success`.
+ * @param success - Renders the success (green) style. Defaults to `false`.
+ * @param error - Renders the error (red) style. Defaults to `false`.
+ * @param hint - Helper text shown below the input, colored to match `error`/`success`.
+ *
+ * @example
+ * <Input type="email" placeholder="you@example.com" error hint="Enter a valid email" />
+ */
 const Input: FC<InputProps> = ({
   type = "text",
   id,
@@ -48,7 +69,7 @@ const Input: FC<InputProps> = ({
   }
 
   return (
-    <div className="relative">
+    <div className="relative  w-full">
       <input
         type={type}
         id={id}

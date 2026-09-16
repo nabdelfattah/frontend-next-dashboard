@@ -11,6 +11,21 @@ interface RadioProps {
   disabled?: boolean; // Optional disabled state for the radio button
 }
 
+/**
+ * Radio button with a custom circular indicator.
+ *
+ * @param id - Unique id for the radio input, and the `htmlFor` target of its label.
+ * @param name - Radio group name — radios sharing a `name` are mutually exclusive.
+ * @param value - Value of this radio button.
+ * @param checked - Whether this radio button is checked.
+ * @param label - Label text.
+ * @param onChange - Called with `value` when this radio is selected.
+ * @param className - Additional classes merged onto the label.
+ * @param disabled - Disabled state. Defaults to `false`.
+ *
+ * @example
+ * <Radio id="plan-free" name="plan" value="free" checked={plan === "free"} label="Free" onChange={setPlan} />
+ */
 const Radio: React.FC<RadioProps> = ({
   id,
   name,

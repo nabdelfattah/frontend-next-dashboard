@@ -9,6 +9,19 @@ interface SwitchProps {
   color?: "blue" | "gray"; // Added prop to toggle color theme
 }
 
+/**
+ * Toggle switch. Uncontrolled — it tracks its own checked state internally, seeded
+ * from `defaultChecked`.
+ *
+ * @param label - Label text shown next to the switch.
+ * @param defaultChecked - Initial checked state. Defaults to `false`.
+ * @param disabled - Disabled state. Defaults to `false`.
+ * @param onChange - Called with the new checked state whenever it's toggled.
+ * @param color - Color theme, `"blue"` or `"gray"`. Defaults to `"blue"`.
+ *
+ * @example
+ * <Switch label="Enable notifications" defaultChecked onChange={setNotify} />
+ */
 const Switch: React.FC<SwitchProps> = ({
   label,
   defaultChecked = false,
