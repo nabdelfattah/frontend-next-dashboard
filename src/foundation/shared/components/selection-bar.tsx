@@ -32,7 +32,7 @@ export default function SelectionBar({ count, onDelete, onClear }: SelectionBarP
           ? "translate-y-0 opacity-100 pointer-events-auto"
           : "translate-y-4 opacity-0 pointer-events-none"
       }`}
-      aria-hidden={!isVisible}
+      inert={!isVisible}
     >
       <div className="flex items-center gap-4 rounded-xl border border-border bg-floating-card px-4 py-3 shadow-theme-lg">
         <span className="text-sm font-medium text-foreground">
