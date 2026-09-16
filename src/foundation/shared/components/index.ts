@@ -1,5 +1,7 @@
 export { default as PageHeading } from './page-heading';
 export { default as H1 } from './h1';
+export { default as H2 } from './h2';
+export { default as Text } from './text';
 export { default as Breadcrumb } from './breadcrumb';
 export { default as ActionsButton } from './actions-button';
 export { default as Button } from './button';
@@ -19,6 +21,8 @@ export { default as Table } from './table/table';
 
 export { default as Avatar } from './avatar/avatar';
 export { default as AvatarText } from './avatar/avatar-text';
+
+export { default as SearchToolbar } from './search-toolbar';
 
 
 export { default as ComponentCard } from './component-card';

@@ -1,6 +1,11 @@
 {
   "table": {
     "actions": "الإجراءات",
+    "previous": "السابق",
+    "next": "التالي",
+    "search": "بحث...",
+    "searchFailedTitle": "فشل البحث",
+    "searchFailedMessage": "حدث خطأ أثناء البحث. يرجى المحاولة مرة أخرى.",
     "sortAscending": "تصاعدي",
     "sortDescending": "تنازلي",
     "filter": "تصفية",

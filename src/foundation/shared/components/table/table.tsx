@@ -31,11 +31,60 @@ export type {
 } from "./types";
 
 
+/**
+ * Generic, column-driven data table for admin/dashboard list pages.
+ *
+ * Everything it renders is derived from `tableData.metaData` — one entry per
+ * column (`secondaryCode`, `name`, `type`, `enum`, `order`, `isPublic`) — and
+ * `tableData.items`, the current page's rows. The table itself never fetches,
+ * sorts, or filters data; it only renders whatever `tableData` it's given and
+ * reports back what the user did with it:
+ *
+ * - **Columns** are built from `metaData`, filtered to `isPublic !== -1` and
+ *   ordered by `order`. The one column with `isPublic === -1` isn't rendered
+ *   at all — it's used internally as each row's id (for React keys, the
+ *   selection set, and per-row actions).
+ * - **Cell rendering** is driven by each column's `type`: `IMAGE` (merged
+ *   into the next column instead of getting its own — e.g. an avatar next to
+ *   a name), `IMAGE_GROUP` (overlapping avatar stack with a hover panel),
+ *   `DATE`, `RATING`, or `STRING`/`NUMBER` (rendered as a `Badge` when the
+ *   column has an `enum`, plain text otherwise).
+ * - **Sorting/filtering** live behind each sortable/filterable column's "⋮"
+ *   header menu (see `isSortable`/`isFilterable` in `./utils`). This is
+ *   currently local-only state — it doesn't affect the rendered `items` or
+ *   emit a query; server-side wiring lands separately.
+ * - **Row actions**: pass `actions` to add a trailing "Actions" column
+ *   rendered via `ActionsButton`. Each entry's `path` gets `/{rowId}`
+ *   appended and each `action` callback is called with the row's id — see
+ *   `resolveRowActions`.
+ * - **Row selection + bulk delete**: pass `onBulkDelete` to turn on a
+ *   leading checkbox column (tri-state "select all" for the current page)
+ *   and a floating bar that appears once at least one row is selected.
+ *   Selection is a `Set` keyed by the hidden id column and persists across
+ *   `tableData` changes (e.g. paging) until cleared. The bar's Delete button
+ *   opens a confirm dialog; accepting it calls `onBulkDelete` with the
+ *   selected ids and clears the selection. There's no separate `selectable`
+ *   flag — passing `onBulkDelete` is what enables selection.
+ * - **Pagination** is rendered from `tableData.paging` (hidden when there's
+ *   only one page) and reported back via `onPageChange`.
+ *
+ * @param tableData - `{ paging, metaData, items }` for the page currently being shown.
+ * @param actions - Optional per-row actions, rendered as a trailing "Actions" column.
+ * @param onPageChange - Called with the requested page number when the user paginates.
+ * @param onBulkDelete - Called with the selected rows' ids after the bulk-delete confirm dialog is accepted. Also what turns on row selection.
+ *
+ * @example
+ * <Table
+ *   tableData={tableData}
+ *   actions={[{ label: "Edit", path: "/users" }]}
+ *   onBulkDelete={(ids) => deleteUsers(ids)}
+ *   onPageChange={(page) => fetchPage(page)}
+ * />
+ */
 export default function Table({
   tableData,
   actions,
   onPageChange,
-  selectable = false,
   onBulkDelete,
 }: TableProps) {
   const t = useTranslations("shared.table");
@@ -49,6 +98,7 @@ export default function Table({
 
   const idColumn = metaData.find((column) => column.isPublic === -1);
   const hasActions = Boolean(actions && actions.length > 0);
+  const selectable = Boolean(onBulkDelete);
 
   // Local-only for now: sorting/filtering doesn't affect `items` or emit a
   // TableQuery yet (that lands once server-side wiring is added later).
@@ -120,7 +170,7 @@ export default function Table({
 
   return (
     <div className="overflow-hidden rounded-xl border border-border bg-card">
-      <div className="max-w-full overflow-x-auto overflow-y-hidden">
+      <div className="max-w-full overflow-x-auto overflow-y-hidden custom-scrollbar">
         <div className="min-w-[1102px]">
           <TablePrimitive>
             <TableHeader className="border-b border-border">

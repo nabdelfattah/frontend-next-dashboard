@@ -5,12 +5,15 @@ export interface TableProps {
   tableData: TableData;
   actions?: ActionButtonItem[];
   onPageChange?: (page: number) => void;
-  /** Turns on the row-selection checkbox column and the floating bulk-action bar. */
-  selectable?: boolean;
   /**
    * Called with the selected rows' ids once the bulk-delete confirm dialog is
    * accepted. The table then clears the selection — actual deletion/refetch
    * is the caller's job.
+   *
+   * Passing this prop is also what turns on row selection: the checkbox
+   * column and the floating bulk-action bar only render when `onBulkDelete`
+   * is provided. There's no separate `selectable` flag — selection without
+   * something to do with it isn't useful.
    */
   onBulkDelete?: (ids: string[]) => void;
 }

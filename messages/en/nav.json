@@ -1,5 +1,8 @@
 {
-  "dashboard": "Dashboard",
-  "ecommerce": "Ecommerce",
-  "table": "Table page"
+  "dashboard": "dashboard",
+  "tables": "Tables",
+  "table1": "Table 1",
+  "table2": "Table 2",
+  "form": "Form",
+  "components": "Components"
 }

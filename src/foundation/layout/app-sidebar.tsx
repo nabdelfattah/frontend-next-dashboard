@@ -28,11 +28,24 @@ const AppSidebar: React.FC = () => {
     {
       icon: <LayoutDashboard />,
       name: t("dashboard"),
-      subItems: [{ name: t("ecommerce"), path: "/", pro: false },{ name: t("table"), path: "/table", pro: true }],
+      path: '/'
     },
   ];
 
-  const othersItems: NavItem[] = [];
+  const othersItems: NavItem[] = [{
+      icon: <LayoutDashboard />,
+      name: t("tables"),
+      subItems: [{ name: t("table1"), path: "/table1", pro: false },{ name: t("table2"), path: "/table2", pro: true }],
+    },
+  {
+      icon: <LayoutDashboard />,
+      name: t("form"),
+      path: '/form'
+    },{
+      icon: <LayoutDashboard />,
+      name: t("components"),
+      path: '/components'
+    }];
 
   const renderMenuItems = (
     navItems: NavItem[],
