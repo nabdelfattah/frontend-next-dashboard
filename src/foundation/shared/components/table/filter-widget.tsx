@@ -4,19 +4,15 @@ import { useState } from "react";
 import { Star, ChevronUp, ChevronDown } from "@/assets/icons";
 import Input from "../form/input/input-field";
 import Checkbox from "../form/input/checkbox";
-import Select from "../form/select";
 import DatePicker from "../form/date-picker";
 import { TableMetaDataColumn } from "./types";
-
-const OPERATORS = ["=", ">", "<", ">=", "<="] as const;
-type Operator = (typeof OPERATORS)[number];
 
 /**
  * Number input with its own up/down stepper instead of the browser's native
  * spinner — the native one renders with a plain white background with no
  * way to theme it, which looked broken in dark mode. The buttons below are
- * just Tailwind, so they follow the app theme. Shared by the RATING and
- * IMAGE_GROUP filter widgets.
+ * just Tailwind, so they follow the app theme. Used by the RATING filter
+ * widget.
  */
 function NumberStepperInput({
   defaultValue,
@@ -84,13 +80,6 @@ function NumberStepperInput({
   );
 }
 
-function parseOperatorValue(raw: string): { operator: Operator; amount: string } {
-  const match = raw.match(/^(>=|<=|>|<|=)?(.*)$/);
-  const operator = (match?.[1] as Operator) || "=";
-  const amount = match?.[2] ?? "";
-  return { operator, amount };
-}
-
 /** Local-time yyyy-mm-dd, avoiding the UTC shift `toISOString()` would introduce. */
 function toIsoDate(date: Date): string {
   const year = date.getFullYear();
@@ -109,8 +98,9 @@ interface FilterWidgetProps {
 /**
  * Renders the right filter input for a column, using the shared form
  * components: checkboxes for an `enum`, a date input for `DATE`, a number
- * input for `RATING`, an operator select + number input for `IMAGE_GROUP`,
- * and a plain text input for everything else.
+ * input for `RATING`, and a plain text input for everything else. Never
+ * called for `IMAGE`/`IMAGE_GROUP` columns — `isFilterable` excludes them,
+ * so `HeaderCellMenu` never renders a filter menu for them at all.
  *
  * `value`/`onChange` carry the draft filter string; the caller (the header
  * cell menu) owns committing it on Apply. The shared `Input`/`Select` are
@@ -173,25 +163,6 @@ export default function FilterWidget({ column, value, onChange }: FilterWidgetPr
           />
         </div>
       );
-    case "IMAGE_GROUP": {
-      const { operator, amount } = parseOperatorValue(value);
-      return (
-        <div className="flex gap-2">
-          <div className="w-24 shrink-0">
-            <Select
-              options={OPERATORS.map((op) => ({ value: op, label: op }))}
-              defaultValue={operator}
-              onChange={(nextOperator) => onChange(`${nextOperator}${amount}`)}
-            />
-          </div>
-          <NumberStepperInput
-            defaultValue={amount}
-            onChange={(nextAmount) => onChange(`${operator}${nextAmount}`)}
-            min={0}
-          />
-        </div>
-      );
-    }
     default:
       return (
         <Input

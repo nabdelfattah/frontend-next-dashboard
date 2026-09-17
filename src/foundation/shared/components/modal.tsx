@@ -51,8 +51,8 @@ export const Modal: React.FC<ModalProps> = ({
   if (!isOpen) return null;
 
   const contentClasses = isFullscreen
-    ? "w-full h-full"
-    : "relative w-full rounded-3xl bg-surface";
+    ? "flex w-full h-full flex-col overflow-hidden"
+    : "relative flex w-full max-h-[90vh] flex-col overflow-hidden rounded-3xl bg-surface";
 
   return (
     <div className="fixed inset-0 flex items-center justify-center overflow-y-auto modal z-99999">
@@ -70,7 +70,7 @@ export const Modal: React.FC<ModalProps> = ({
         {showCloseButton && (
           <button
             onClick={onClose}
-            className="absolute right-3 top-3 z-999 flex h-9.5 w-9.5 items-center justify-center rounded-full bg-muted text-muted-foreground transition-colors hover:bg-muted hover:text-foreground sm:right-6 sm:top-6 sm:h-11 sm:w-11"
+            className="absolute end-3 top-3 z-999 flex h-9.5 w-9.5 items-center justify-center rounded-full bg-muted text-muted-foreground transition-colors hover:bg-muted hover:text-foreground sm:end-6 sm:top-6 sm:h-11 sm:w-11"
           >
             <svg
               width="24"
@@ -88,7 +88,7 @@ export const Modal: React.FC<ModalProps> = ({
             </svg>
           </button>
         )}
-        <div>{children}</div>
+        <div className="min-h-0 overflow-y-auto custom-scrollbar">{children}</div>
       </div>
     </div>
   );

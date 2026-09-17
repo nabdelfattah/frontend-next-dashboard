@@ -24,10 +24,11 @@ import Filter from "./filter.svg";
 import Star from "./star.svg";
 import Calendar from "./calendar.svg";
 import Time from "./time.svg";
+import Search from "./search.svg";
 
 
 export {
-
+  Search,
   Time,
   Calendar,
   ChevronUp,

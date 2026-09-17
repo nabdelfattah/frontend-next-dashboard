@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useTranslations } from "next-intl";
 import {
   Table as TablePrimitive,
@@ -20,6 +20,8 @@ import HeaderCellMenu from "./header-cell-menu";
 import SelectionBar from "../selection-bar";
 import ConfirmDialog from "../confirm-dialog";
 import Checkbox from "../form/input/checkbox";
+import PageSizeSelect, { PAGE_SIZE_OPTIONS, PageSize } from "./page-size-select";
+import { shallowEqualRecord } from "../../utils/shallow-equal-record";
 
 export type {
   TableMetaDataEnumOption,
@@ -50,9 +52,16 @@ export type {
  *   `DATE`, `RATING`, or `STRING`/`NUMBER` (rendered as a `Badge` when the
  *   column has an `enum`, plain text otherwise).
  * - **Sorting/filtering** live behind each sortable/filterable column's "⋮"
- *   header menu (see `isSortable`/`isFilterable` in `./utils`). This is
- *   currently local-only state — it doesn't affect the rendered `items` or
- *   emit a query; server-side wiring lands separately.
+ *   header menu (see `isSortable`/`isFilterable` in `./utils`). The table
+ *   doesn't apply either itself — it reports the change via `onSortChange`/
+ *   `onFilterChange` (and resets to page 1) so a parent page can fold it
+ *   into a real query, typically alongside `SearchToolbar`'s own reports.
+ *   Pass `filters` back down so a column's menu doesn't go stale when the
+ *   same field is changed from elsewhere (e.g. `SearchToolbar`).
+ * - **Rows per page**: a picker next to `Pagination`, fixed to 6/12/24.
+ *   Picking a size resets to page 1 and calls `onPageSizeChange`; the page
+ *   count shown is computed from `tableData.paging.totalItems` for whichever
+ *   size is picked.
  * - **Row actions**: pass `actions` to add a trailing "Actions" column
  *   rendered via `ActionsButton`. Each entry's `path` gets `/{rowId}`
  *   appended and each `action` callback is called with the row's id — see
@@ -70,15 +79,23 @@ export type {
  *
  * @param tableData - `{ paging, metaData, items }` for the page currently being shown.
  * @param actions - Optional per-row actions, rendered as a trailing "Actions" column.
- * @param onPageChange - Called with the requested page number when the user paginates.
+ * @param onPageChange - Called with the requested page number when the user paginates. Never resets itself — this IS the plain pagination click.
  * @param onBulkDelete - Called with the selected rows' ids after the bulk-delete confirm dialog is accepted. Also what turns on row selection.
+ * @param onSortChange - Called with the new sort (`{ field, order }` or `null`) whenever the user sorts a column. Also resets to page 1.
+ * @param onFilterChange - Called with one column's `secondaryCode` and its new value whenever a column filter is applied or cleared. Also resets to page 1.
+ * @param filters - Authoritative filter values, if shared with something else (e.g. `SearchToolbar`) via a parent page. Keeps a column's filter menu from going stale when the field is changed elsewhere.
+ * @param onPageSizeChange - Called with the newly picked rows-per-page value. Also resets to page 1.
  *
  * @example
  * <Table
  *   tableData={tableData}
  *   actions={[{ label: "Edit", path: "/users" }]}
  *   onBulkDelete={(ids) => deleteUsers(ids)}
- *   onPageChange={(page) => fetchPage(page)}
+ *   filters={filters}
+ *   onSortChange={(sort) => setSort(sort)}
+ *   onFilterChange={(field, value) => setFilters((prev) => ({ ...prev, [field]: value }))}
+ *   onPageSizeChange={(size) => setLimit(size)}
+ *   onPageChange={(page) => setPage(page)}
  * />
  */
 export default function Table({
@@ -86,6 +103,10 @@ export default function Table({
   actions,
   onPageChange,
   onBulkDelete,
+  onSortChange,
+  onFilterChange,
+  filters: externalFilters,
+  onPageSizeChange,
 }: TableProps) {
   const t = useTranslations("shared.table");
   const { paging, metaData, items } = tableData;
@@ -96,17 +117,101 @@ export default function Table({
 
   const displayColumns = buildDisplayColumns(columns);
 
+  // ───────────────────────────────────────────────────────────────────────
+  // COLUMNS
+  // ───────────────────────────────────────────────────────────────────────
   const idColumn = metaData.find((column) => column.isPublic === -1);
   const hasActions = Boolean(actions && actions.length > 0);
   const selectable = Boolean(onBulkDelete);
 
-  // Local-only for now: sorting/filtering doesn't affect `items` or emit a
-  // TableQuery yet (that lands once server-side wiring is added later).
+  // ───────────────────────────────────────────────────────────────────────
+  // PAGINATION
+  // Local-only for now: doesn't affect `items`, isn't sent to the API/TableQuery.
+  // `totalItems` still comes from `paging` (the real count), so the page count
+  // it implies is correct; the rows shown don't actually change with it yet.
+  // ───────────────────────────────────────────────────────────────────────
+  const [pageSize, setPageSize] = useState<PageSize>(PAGE_SIZE_OPTIONS[0]);
+  const [currentPage, setCurrentPage] = useState(paging.currentPage);
+
+  const totalPages = Math.max(1, Math.ceil(paging.totalItems / pageSize));
+  const displayPage = Math.min(currentPage, totalPages);
+
+  const handlePageChange = (page: number) => {
+    setCurrentPage(page);
+    onPageChange?.(page);
+  };
+
+  const handlePageSizeChange = (size: PageSize) => {
+    setPageSize(size);
+    setCurrentPage(1);
+    onPageChange?.(1);
+    onPageSizeChange?.(size);
+  };
+
+  // ───────────────────────────────────────────────────────────────────────
+  // SORTING & FILTERING
+  // Local-only for now: doesn't affect `items` or emit a TableQuery yet
+  // (that lands once server-side wiring is added later).
+  // ───────────────────────────────────────────────────────────────────────
   const [sort, setSort] = useState<TableSortState | null>(null);
   const [committedFilters, setCommittedFilters] = useState<Record<string, string>>({});
 
-  // Persists across page changes (not reset when `items`/`paging` change) —
-  // only row toggling, select-all, clearing, or a confirmed bulk delete touch it.
+  // Resyncs from `filters` when it changes from *outside* this table (e.g.
+  // the same field was set via SearchToolbar). Guarded by the equality check
+  // so this never fires from our own edits round-tripping back through the
+  // parent. No remount trick needed here (unlike SearchToolbar's uncontrolled
+  // inputs) — a column's filter widget only ever reads `committedFilter` at
+  // the moment its popover opens, so keeping `committedFilters` in sync is
+  // enough; the trigger's highlighted state (driven straight from
+  // `committedFilters` on every render) updates immediately either way.
+  useEffect(() => {
+    if (!externalFilters) return;
+    if (shallowEqualRecord(externalFilters, committedFilters)) return;
+    setCommittedFilters(externalFilters);
+    // Intentionally only reacting to the prop — `committedFilters` is read
+    // for the equality check, not as a trigger (that would refire on our
+    // own edits).
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [externalFilters]);
+
+  const handleSort = (field: string, order: "asc" | "desc" | null) => {
+    const nextSort = order === null ? null : { field, order };
+    setSort(nextSort);
+    onSortChange?.(nextSort);
+    setCurrentPage(1);
+    onPageChange?.(1);
+  };
+
+  const handleApplyFilter = (field: string, value: string) => {
+    setCommittedFilters((prev) => {
+      if (!value) {
+        const { [field]: _removed, ...rest } = prev;
+        return rest;
+      }
+      return { ...prev, [field]: value };
+    });
+    onFilterChange?.(field, value);
+    setCurrentPage(1);
+    onPageChange?.(1);
+  };
+
+  // Clears the filter for the specified field from the committed filters.
+  const handleClearFilter = (field: string) => {
+    setCommittedFilters((prev) => {
+      const { [field]: _removed, ...rest } = prev;
+      return rest;
+    });
+    onFilterChange?.(field, "");
+    setCurrentPage(1);
+    onPageChange?.(1);
+  };
+
+  // ───────────────────────────────────────────────────────────────────────
+  // ROW SELECTION & BULK DELETE
+  // Selection persists across page changes (not reset when `items`/`paging`
+  // change) — only row toggling, select-all, clearing, or a confirmed bulk
+  // delete touch it.
+  // ───────────────────────────────────────────────────────────────────────
   const [selectedIds, setSelectedIds] = useState<Set<string>>(new Set());
   const [isConfirmOpen, setIsConfirmOpen] = useState(false);
 
@@ -146,33 +251,12 @@ export default function Table({
     setIsConfirmOpen(false);
   };
 
-  const handleSort = (field: string, order: "asc" | "desc" | null) => {
-    setSort(order === null ? null : { field, order });
-  };
-
-  const handleApplyFilter = (field: string, value: string) => {
-    setCommittedFilters((prev) => {
-      if (!value) {
-        const { [field]: _removed, ...rest } = prev;
-        return rest;
-      }
-      return { ...prev, [field]: value };
-    });
-  };
-
-  // Clears the filter for the specified field from the committed filters.
-  const handleClearFilter = (field: string) => {
-    setCommittedFilters((prev) => {
-      const { [field]: _removed, ...rest } = prev;
-      return rest;
-    });
-  };
-
   return (
     <div className="overflow-hidden rounded-xl border border-border bg-card">
       <div className="max-w-full overflow-x-auto overflow-y-hidden custom-scrollbar">
         <div className="min-w-[1102px]">
           <TablePrimitive>
+            {/* ─────────────────────── HEADER ROW ─────────────────────── */}
             <TableHeader className="border-b border-border">
               <TableRow className="w-fit">
                 {selectable && (
@@ -218,6 +302,7 @@ export default function Table({
               </TableRow>
             </TableHeader>
 
+            {/* ─────────────────────── TABLE ROWS ─────────────────────── */}
             <TableBody className="divide-y divide-border">
               {items.map((item, index) => {
                 const rowId = idColumn
@@ -257,19 +342,26 @@ export default function Table({
         </div>
       </div>
 
-      {paging.totalPages > 1 && (
+      {/* ────────────── FOOTER: ROW COUNT, PAGE SIZE & PAGINATION ────────────── */}
+      {paging.totalItems > 0 && (
         <div className="flex items-center justify-between border-t border-border px-5 py-4">
           <span className="text-muted-foreground text-theme-sm">
             {`${paging.startItem}-${paging.endItem} of ${paging.totalItems}`}
           </span>
-          <Pagination
-            currentPage={paging.currentPage}
-            totalPages={paging.totalPages}
-            onPageChange={(page) => onPageChange?.(page)}
-          />
+          <div className="flex items-center gap-4">
+            <PageSizeSelect value={pageSize} onChange={handlePageSizeChange} />
+            {totalPages > 1 && (
+              <Pagination
+                currentPage={displayPage}
+                totalPages={totalPages}
+                onPageChange={handlePageChange}
+              />
+            )}
+          </div>
         </div>
       )}
 
+      {/* ────────────── SELECTION BAR & BULK-DELETE CONFIRM DIALOG ────────────── */}
       {selectable && (
         <>
           <SelectionBar

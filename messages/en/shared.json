@@ -1,6 +1,7 @@
 {
   "table": {
     "actions": "Actions",
+    "rowsPerPage": "Rows per page",
     "previous": "Previous",
     "next": "Next",
     "search": "Search...",

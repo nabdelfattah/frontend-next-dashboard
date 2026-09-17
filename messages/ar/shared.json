@@ -1,6 +1,7 @@
 {
   "table": {
     "actions": "الإجراءات",
+    "rowsPerPage": "صفوف لكل صفحة",
     "previous": "السابق",
     "next": "التالي",
     "search": "بحث...",

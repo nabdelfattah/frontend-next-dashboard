@@ -35,7 +35,10 @@ const AppSidebar: React.FC = () => {
   const othersItems: NavItem[] = [{
       icon: <LayoutDashboard />,
       name: t("tables"),
-      subItems: [{ name: t("table1"), path: "/table1", pro: false },{ name: t("table2"), path: "/table2", pro: true }],
+      subItems: [
+        { name: t("table1"), path: "/table1", pro: false },
+        { name: t("table2"), path: "/table2", pro: true }
+      ],
     },
   {
       icon: <LayoutDashboard />,

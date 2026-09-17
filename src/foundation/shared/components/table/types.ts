@@ -1,9 +1,11 @@
 import { ReactNode } from "react";
 import { ActionButtonItem } from "../../types/props";
+import { PageSize } from "./page-size-select";
 
 export interface TableProps {
   tableData: TableData;
   actions?: ActionButtonItem[];
+  /** Called with the requested page number when the user clicks a page — plain pagination, never resets to page 1 and never touches sort/filters. */
   onPageChange?: (page: number) => void;
   /**
    * Called with the selected rows' ids once the bulk-delete confirm dialog is
@@ -16,6 +18,22 @@ export interface TableProps {
    * something to do with it isn't useful.
    */
   onBulkDelete?: (ids: string[]) => void;
+  /** Called with the new sort state (or `null` when cleared) whenever the user sorts a column. */
+  onSortChange?: (sort: TableSortState | null) => void;
+  /** Called with one column's `secondaryCode` and its new filter value whenever a column filter is applied or cleared. Empty string means cleared — mirrors `SearchToolbar`'s `onFilterFieldChange` so a parent can merge both into one `filters` object by field. */
+  onFilterChange?: (field: string, value: string) => void;
+  /**
+   * The authoritative filter values, if this table's column filters are
+   * shared with something else (e.g. `SearchToolbar`) via a parent page. When
+   * a value here differs from what a column's filter menu last showed for
+   * that field — meaning something else changed it — that column's trigger
+   * and, the next time its menu is opened, its filter widget resync to
+   * match. Omit this prop to use `Table` standalone; its filters then only
+   * ever reflect its own edits.
+   */
+  filters?: Record<string, string>;
+  /** Called with the newly selected rows-per-page value. */
+  onPageSizeChange?: (size: PageSize) => void;
 }
 
 export interface TableMetaDataEnumOption {

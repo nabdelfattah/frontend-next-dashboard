@@ -25,7 +25,8 @@ interface HeaderCellMenuProps {
 /**
  * The "⋮" menu on a sortable/filterable column header: Ascending/Descending
  * sort buttons, plus that column's filter widget with Apply/Clear. Renders
- * nothing for a column that is neither sortable nor filterable (e.g. `IMAGE`).
+ * nothing for a column that is neither sortable nor filterable (e.g. `IMAGE`,
+ * `IMAGE_GROUP`) — no "⋮" trigger shows up for those at all.
  *
  * Filter changes only update a local draft until Apply is clicked — the
  * draft is discarded (reset to the last committed value) whenever the menu

@@ -52,18 +52,13 @@
                 "isPublic": 1,
                 "enum": [
                     {
-                        "value": "active",
-                        "label": "Active",
+                        "value": "ONLINE",
+                        "label": "Online",
                         "color": "success"
                     },
-                    {
-                        "value": "pending",
-                        "label": "Pending",
-                        "color": "info"
-                    },
-                    {
-                        "value": "inActive",
-                        "label": "inActive",
+                                        {
+                        "value": "OFFLINE",
+                        "label": "Offline",
                         "color": "error"
                     }
                 ],
@@ -99,16 +94,29 @@
                 "enum": [
                     {
                         "value": "supervisor",
-                        "label": "Supervisor"
+                        "label": "Supervisor",
+                        "color": "light"
                        
                     },
                     {
                         "value": "accountant",
-                        "label": "Accountant"
+                        "label": "Accountant",
+                        "color": "info"
+                    },
+                    {
+                        "value": "administrator",
+                        "label": "Administrator",
+                        "color": "primary"
+                    },
+                    {
+                        "value": "specialist",
+                        "label": "Specialist",
+                        "color": "warning"
                     },
                     {
                         "value": "manager",
-                        "label": "Manager"
+                        "label": "Manager",
+                        "color": "success"
                     }
                 ],
                 "lookup": "roles"
@@ -154,7 +162,7 @@
                 "employee_phone": "134579",
                 "employee_role": "Specialist",
                 "employee_join_date": "2026-08-19T00:00:00",
-                "employee_rating": 0,
+                "employee_rating": 5,
                 "employee_team": [
                     { "id": "t1", "name": "Omar Adel", "image": null },
                     { "id": "t2", "name": "Sara Youssef", "image": null }
@@ -169,7 +177,7 @@
                 "employee_phone": "234967",
                 "employee_role": "Supervisor",
                 "employee_join_date": "2026-08-26T00:00:00",
-                "employee_rating": 0,
+                "employee_rating": 3,
                 "employee_team": [
                     { "id": "t3", "name": "Ahmed Fathy", "image": null },
                     { "id": "t4", "name": "Laila Hassan", "image": null },
@@ -186,7 +194,7 @@
                 "employee_phone": "10132500720",
                 "employee_role": "Manager",
                 "employee_join_date": "2026-07-26T00:00:00",
-                "employee_rating": 0,
+                "employee_rating": 5,
                 "employee_team": [
                     { "id": "t7", "name": "Hana Samir", "image": null },
                     { "id": "t8", "name": "Karim Nabil", "image": null },
@@ -202,7 +210,7 @@
                 "employee_phone": "10132500720",
                 "employee_role": "Administrator",
                 "employee_join_date": "2026-07-26T00:00:00",
-                "employee_rating": 0
+                "employee_rating": 3
             },
             
             {
@@ -214,7 +222,7 @@
                 "employee_phone": "5544112211",
                 "employee_role": "Manager",
                 "employee_join_date": "2026-09-07T08:28:35.3192754",
-                "employee_rating": 0
+                "employee_rating": 4
             },
            
             {

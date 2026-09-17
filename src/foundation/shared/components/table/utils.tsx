@@ -161,13 +161,16 @@ export function buildDisplayColumns(
   return display;
 }
 
-/** Every column is sortable/filterable server-side except avatar-ish columns. */
+const UNSORTABLE_TYPES = ["icon", "IMAGE", "IMAGE_GROUP"];
+const UNFILTERABLE_TYPES = ["icon", "IMAGE", "IMAGE_GROUP"];
+
+/** Every column is sortable/filterable server-side except image-ish columns (avatars, avatar groups). */
 export function isSortable(column: TableMetaDataColumn): boolean {
-  return column.type !== "icon" && column.type !== "IMAGE";
+  return !UNSORTABLE_TYPES.includes(column.type);
 }
 
 export function isFilterable(column: TableMetaDataColumn): boolean {
-  return column.type !== "icon" && column.type !== "IMAGE";
+  return !UNFILTERABLE_TYPES.includes(column.type);
 }
 
 /** Resolves the shared `actions` config for one row: route actions get `/{id}` appended, callback actions receive the row's id. */
