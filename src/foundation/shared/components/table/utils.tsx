@@ -38,6 +38,14 @@ export function formatDate(value: unknown): string {
   return date.toLocaleDateString();
 }
 
+export const RATING_MAX = 5;
+
+/** Renders a rating as filled/empty stars, clamped to 0…`RATING_MAX`. */
+export function formatRating(value: unknown): string {
+  const score = Math.min(Math.max(Number(value) || 0, 0), RATING_MAX);
+  return "★".repeat(score) + "☆".repeat(RATING_MAX - score);
+}
+
 function renderAvatar(column: TableMetaDataColumn, item: TableItem) {
   const value = item[column.secondaryCode];
   const src = typeof value === "string" ? value : null;
@@ -97,8 +105,7 @@ function renderCellValue(column: TableMetaDataColumn, item: TableItem) {
     case "RATING":
       return (
         <span className="text-muted-foreground text-theme-sm">
-          {"★".repeat(Number(value) || 0)}
-          {"☆".repeat(Math.max(5 - (Number(value) || 0), 0))}
+          {formatRating(value)}
         </span>
       );
     case "STRING": {

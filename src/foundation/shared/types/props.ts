@@ -21,6 +21,6 @@ interface ActionButtonItemBase {
  */
 export type ActionButtonItem = ActionButtonItemBase &
   (
-    | { action: (id?: string) => void; path?: undefined }
+    | { action: (id: string) => void; path?: undefined }
     | { path: string; action?: undefined }
   );

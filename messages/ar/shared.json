@@ -18,5 +18,12 @@
     "cancel": "إلغاء",
     "confirmDeleteTitle": "حذف العناصر المحددة",
     "confirmDeleteMessage": "هل أنت متأكد أنك تريد حذف {count} عنصر محدد؟ لا يمكن التراجع عن هذا الإجراء."
+  },
+  "recordDetails": {
+    "title": "التفاصيل",
+    "loadFailedTitle": "تعذر تحميل التفاصيل",
+    "loadFailedMessage": "حدث خطأ أثناء التحميل. يرجى المحاولة مرة أخرى.",
+    "retry": "إعادة المحاولة",
+    "empty": "لا توجد تفاصيل لعرضها."
   }
 }

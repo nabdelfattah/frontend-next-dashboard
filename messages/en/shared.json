@@ -18,5 +18,12 @@
     "cancel": "Cancel",
     "confirmDeleteTitle": "Delete selected items",
     "confirmDeleteMessage": "Are you sure you want to delete {count} selected item(s)? This action cannot be undone."
+  },
+  "recordDetails": {
+    "title": "Details",
+    "loadFailedTitle": "Couldn't load details",
+    "loadFailedMessage": "Something went wrong while loading the details. Please try again.",
+    "retry": "Try again",
+    "empty": "There are no details to show."
   }
 }

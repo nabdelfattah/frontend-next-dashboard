@@ -25,9 +25,11 @@ import Star from "./star.svg";
 import Calendar from "./calendar.svg";
 import Time from "./time.svg";
 import Search from "./search.svg";
+import Envelope from "./envelope.svg";
 
 
 export {
+  Envelope,
   Search,
   Time,
   Calendar,

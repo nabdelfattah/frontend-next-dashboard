@@ -1,8 +1,13 @@
 "use client";
 
-import { PageHeading, SearchToolbar } from "@/foundation/shared/components";
+import {
+  PageHeading,
+  SearchToolbar,
+  RecordDetails,
+} from "@/foundation/shared/components";
 import { buildSearchDataSchema } from "@/foundation/shared/utils/search-data-schema";
 import { fetchTableData } from "@/foundation/shared/utils/fetch-table-data";
+import { useModal } from "@/foundation/shared/hooks/use-modal";
 import Table, { TableData } from "@/foundation/shared/components/table/table";
 import { TableSortState } from "@/foundation/shared/components/table/types";
 import { PageSize } from "@/foundation/shared/components/table/page-size-select";
@@ -12,6 +17,13 @@ const URL = "/api/trips.json";
 
 export default function Page() {
   const [tableData, setTableData] = useState<TableData | null>(null);
+
+  const {
+    isOpen: isDetailsOpen,
+    openModal: openDetails,
+    closeModal: closeDetails,
+  } = useModal();
+  const [selectedId, setSelectedId] = useState<string | null>(null);
 
   // ─────────────────────────────────────────────────────────────────────
   // COMBINED QUERY — merged between SearchToolbar and Table, one fetch
@@ -36,13 +48,18 @@ export default function Page() {
   ]
 
   const tableActions = [
-    { label: "View Details", path: "/table" },
+    { label: "View Details", action: viewDetails },
     {
       label: "Delete",
       variant: "danger" as const,
-      action: (id?: string) => console.log("delete", id),
+      action: (id: string) => console.log("delete", id),
     },
   ];
+
+  function viewDetails(id: string) {
+    setSelectedId(id);
+    openDetails();
+  }
 
   function addNew(){
     console.log('add new record')
@@ -93,6 +110,13 @@ export default function Page() {
         onPageChange={(value) => setPage(value)}
       />
       </div>
+
+      <RecordDetails
+        isOpen={isDetailsOpen}
+        onClose={closeDetails}
+        route={URL}
+        recordId={selectedId}
+      />
     </div>
   );
 }

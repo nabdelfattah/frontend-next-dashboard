@@ -18,11 +18,14 @@ export * from './modal';
 export { default as SelectionBar } from './selection-bar';
 
 export { default as Table } from './table/table';
+export { default as ReadOnlyTable } from './table/read-only-table';
 
 export { default as Avatar } from './avatar/avatar';
 export { default as AvatarText } from './avatar/avatar-text';
 
 export { default as SearchToolbar } from './search-toolbar';
+
+export { default as RecordDetails } from './record-details';
 
 
 export { default as ComponentCard } from './component-card';

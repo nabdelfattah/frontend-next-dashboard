@@ -1,6 +1,6 @@
 "use client";
 import React from "react";
-import ComponentCard from "../../common/component-card";
+import {ComponentCard} from "@shared/components";
 import FileInput from "../input/file-input";
 import Label from "../label";
 

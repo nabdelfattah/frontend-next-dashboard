@@ -1,6 +1,6 @@
 "use client";
 import React from "react";
-import ComponentCard from "../../common/component-card";
+import {ComponentCard} from "@shared/components";
 import Switch from "../switch/switch";
 
 export default function ToggleSwitch() {

@@ -1,9 +1,9 @@
 "use client";
 import React from "react";
-import ComponentCard from "../../common/component-card";
+import ComponentCard from "@shared/components/component-card";
 import Label from "../label";
 import Input from "../input/input-field";
-import { EnvelopeIcon } from "../../../icons";
+import { Envelope } from "@/assets/icons";
 import PhoneInput from "../group-input/phone-input";
 
 export default function InputGroup() {
@@ -28,7 +28,7 @@ export default function InputGroup() {
               className="pl-[62px]"
             />
             <span className="absolute left-0 top-1/2 -translate-y-1/2 border-r border-border px-3.5 py-3 text-muted-foreground">
-              <EnvelopeIcon />
+              <Envelope className="h-4 w-4" />
             </span>
           </div>
         </div>

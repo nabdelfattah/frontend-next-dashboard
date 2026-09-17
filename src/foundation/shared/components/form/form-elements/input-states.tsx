@@ -1,6 +1,6 @@
 "use client";
 import React, { useState } from "react";
-import ComponentCard from "../../common/component-card";
+import ComponentCard from "@shared/components/component-card";
 import Input from "../input/input-field";
 import Label from "../label";
 

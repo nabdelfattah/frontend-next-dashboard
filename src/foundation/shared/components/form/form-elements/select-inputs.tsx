@@ -1,6 +1,6 @@
 "use client";
 import React, { useState } from "react";
-import ComponentCard from "../../common/component-card";
+import {ComponentCard} from "@shared/components";
 import Label from "../label";
 import Select from "../select";
 import MultiSelect from "../multi-select";
@@ -38,9 +38,9 @@ export default function SelectInputs() {
             placeholder="Select Option"
             onChange={handleSelectChange}
           />
-          <span className="absolute text-muted-foreground -translate-y-1/2 pointer-events-none right-3 top-1/2">
+          {/* <span className="absolute text-muted-foreground -translate-y-1/2 pointer-events-none right-3 top-1/2">
               <ChevronDown/>
-            </span>
+            </span> */}
          </div>
         </div>
         <div className="relative">

@@ -36,9 +36,9 @@ export default function DefaultInputs() {
             placeholder="Select an option"
             onChange={handleSelectChange}
           />
-             <span className="absolute text-muted-foreground -translate-y-1/2 pointer-events-none right-3 top-1/2">
+             {/* <span className="absolute text-muted-foreground -translate-y-1/2 pointer-events-none right-3 top-1/2">
               <ChevronDown/>
-            </span>
+            </span> */}
           </div>
         </div>
         <div>
