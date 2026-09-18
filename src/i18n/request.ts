@@ -1,6 +1,6 @@
 import { hasLocale } from "next-intl";
 import { getRequestConfig } from "next-intl/server";
-import { routing } from "./routing";
+import { routing, timeZone } from "./routing";
 
 export const namespaces = ["common", "nav", "dashboard", "auth", "shared"] as const;
 
@@ -19,6 +19,7 @@ export default getRequestConfig(async ({ requestLocale }) => {
 
   return {
     locale,
+    timeZone,
     messages: Object.fromEntries(entries),
   };
 });

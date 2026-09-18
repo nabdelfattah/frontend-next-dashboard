@@ -6,3 +6,7 @@ export const routing = defineRouting({
 });
 
 export type Locale = (typeof routing.locales)[number];
+
+// Shared by the server request config and the client NextIntlClientProvider so
+// date formatting matches between SSR and hydration.
+export const timeZone = "UTC";
