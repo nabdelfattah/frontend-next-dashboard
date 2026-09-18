@@ -1,8 +1,15 @@
 {
   "dashboard": "لوحة التحكم",
   "tables": "الجداول",
-  "table1": "الجدول الأول",
-  "table2": "الجدول الثاني",
+  "table1": "جدول CRUD",
+  "table2": "جدول ReadOnly",
   "form": "النموذج",
-  "components": "العناصر"
+  "components": "العناصر",
+  "calendar": "النقويم",
+  "auth":"المصادقة",
+"register":"انشاء حساب",
+"login":"تسجيل الدخول",
+"charts":"الرسوم البيانية",
+"lineChart":"رسم بياني خطي",
+"barChart":"مخطط شريطي"
 }

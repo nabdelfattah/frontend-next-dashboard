@@ -24,7 +24,7 @@ This project is a customized version of the free **TailAdmin** Next.js dashboard
 
 **UI Components**
 * **shadcn/ui** — owned (copy-in) UI components built on Radix primitives and Tailwind, RTL-aware
-* Legacy hand-built components from the original TailAdmin template (`src/components/ui`) — see note below
+* Legacy hand-built components from the original TailAdmin template (`src/shared/components`) — see note below
 
 **Charts & Media**
 * **ApexCharts** — charts
@@ -39,7 +39,6 @@ This project is a customized version of the free **TailAdmin** Next.js dashboard
 * **ESLint** — linting
 * **@floating-ui/react** — positioning for dropdowns/tooltips/popovers
 
-> ℹ️ **Two UI kits, on purpose (for now):** `src/components/ui` holds the original hand-built TailAdmin components (Button, Table, Modal, etc.), while `src/foundation/shared/components/ui` holds new components added via `npx shadcn@latest add <name>`. Prefer shadcn for new work — it's Radix-based, RTL-aware out of the box, and easier to extend. Don't mix the two inside the same component.
 
 ### Using TanStack Query, Zustand, and nuqs
 

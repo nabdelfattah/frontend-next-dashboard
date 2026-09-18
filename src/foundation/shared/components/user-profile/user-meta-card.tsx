@@ -2,7 +2,7 @@
 import React from "react";
 import { useModal } from "@shared/hooks/use-modal";
 import { Modal, Input, Label } from "@shared/components";
-import Button from "../../foundation/shared/components/button";
+import {Button} from "@shared/components";
 import Image from "next/image";
 
 

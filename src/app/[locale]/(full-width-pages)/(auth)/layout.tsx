@@ -1,5 +1,5 @@
-import GridShape from "@/components/common/grid-shape";
-import {ThemeToggleButton} from "@/components/common/theme-toggle-button";
+import GridShape from "@shared/components/common/grid-shape";
+import {ThemeToggleButton} from "@shared/components/common/theme-toggle-button";
 
 import { ThemeProvider } from "@core/providers/theme-provider";
 import Image from "next/image";

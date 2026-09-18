@@ -26,9 +26,17 @@ import Calendar from "./calendar.svg";
 import Time from "./time.svg";
 import Search from "./search.svg";
 import Envelope from "./envelope.svg";
+import ArrowDown from "./arrow-down.svg";
+import ArrowUp from "./arrow-up.svg";
+import Box from "./box.svg";
+import Users from "./users.svg";
 
 
 export {
+  ArrowDown,
+ArrowUp,
+Box,
+Users,
   Envelope,
   Search,
   Time,

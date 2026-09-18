@@ -1,5 +1,5 @@
 "use client";
-import { ThemeToggleButton } from "@/components/common/theme-toggle-button";
+import { ThemeToggleButton } from "@shared/components/common/theme-toggle-button";
 import LanguageSwitcher from "@layout/header/language-switcher";
 import NotificationDropdown from "@layout/header/notification-dropdown";
 import ThemeConfigurator from "@layout/header/theme-configurator";

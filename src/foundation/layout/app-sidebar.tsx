@@ -32,7 +32,16 @@ const AppSidebar: React.FC = () => {
     },
   ];
 
-  const othersItems: NavItem[] = [{
+  const othersItems: NavItem[] = [
+    {
+      icon: <LayoutDashboard />,
+      name: t("auth"),
+      subItems: [
+        { name: t("register"), path: "/signup", pro: false },
+        { name: t("login"), path: "/signin", pro: false }
+      ],
+    },
+    {
       icon: <LayoutDashboard />,
       name: t("tables"),
       subItems: [
@@ -40,15 +49,30 @@ const AppSidebar: React.FC = () => {
         { name: t("table2"), path: "/table2", pro: true }
       ],
     },
-  {
+    {
+      icon: <LayoutDashboard />,
+      name: t("charts"),
+      subItems: [
+        { name: t("lineChart"), path: "/line-chart", pro: false },
+        { name: t("barChart"), path: "/bar-chart", pro: true }
+      ],
+    },
+    {
       icon: <LayoutDashboard />,
       name: t("form"),
       path: '/form'
-    },{
+    },
+    {
       icon: <LayoutDashboard />,
       name: t("components"),
       path: '/components'
-    }];
+    },
+    {
+      icon: <LayoutDashboard />,
+      name: t("calendar"),
+      path: '/calendar'
+    }
+  ];
 
   const renderMenuItems = (
     navItems: NavItem[],

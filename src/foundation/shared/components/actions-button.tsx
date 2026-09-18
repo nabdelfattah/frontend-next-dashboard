@@ -38,7 +38,11 @@ export default function ActionsButton({
       key={key}
       tag={item.path ? "a" : "button"}
       href={item.path}
-      onClick={item.action}
+      // `action`'s `(id: string) => void` signature is for the row-action
+      // templates `Table`/`resolveRowActions` accept; by the time an action
+      // reaches this component it's already resolved to a callback that
+      // ignores extra arguments, so calling it with none is safe.
+      onClick={item.action as (() => void) | undefined}
       onItemClick={close}
       className={`flex items-center gap-2 rounded-lg ${
         item.variant === "danger"

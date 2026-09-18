@@ -1,5 +1,5 @@
-import GridShape from "@/components/common/grid-shape";
-import NotFoundIllustration from "@/components/common/not-found-illustration";
+import GridShape from "@shared/components/common/grid-shape";
+import NotFoundIllustration from "@shared/components/common/not-found-illustration";
 import { Link } from "@/i18n/navigation";
 import { getTranslations } from "next-intl/server";
 import React from "react";

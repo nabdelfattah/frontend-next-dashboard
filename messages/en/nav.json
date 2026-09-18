@@ -1,8 +1,15 @@
 {
   "dashboard": "dashboard",
   "tables": "Tables",
-  "table1": "Table 1",
-  "table2": "Table 2",
+  "table1": "CRUD Table",
+  "table2": "ReadOnly Table",
   "form": "Form",
-  "components": "Components"
+  "components": "Components",
+  "calendar": "Calendar",
+  "auth":"Auth",
+"register":"Register",
+"login":"Login",
+"charts":"Charts",
+"lineChart":"Line Chart",
+"barChart":"Bar Chart"
 }

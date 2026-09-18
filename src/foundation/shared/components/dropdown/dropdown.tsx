@@ -23,6 +23,35 @@ interface DropdownProps {
   placement?: Placement;
 }
 
+/**
+ * Floating dropdown panel, anchored to a trigger element and rendered in a
+ * portal so it's never clipped by an `overflow: hidden` ancestor.
+ *
+ * Positions itself relative to `anchorRef`, flipping/shifting to stay inside
+ * the viewport and capping its size to the available space. Closes on an
+ * outside click. The trigger must carry the `dropdown-toggle` class, otherwise
+ * clicking it counts as "outside" and immediately closes what it just opened.
+ * Toggling `isOpen` is the caller's job — usually via `useDropdownToggle`,
+ * which also ensures only one dropdown is open at a time app-wide.
+ *
+ * @param isOpen - Whether the panel is rendered. Renders nothing when `false`.
+ * @param onClose - Called when the user clicks outside the panel.
+ * @param anchorRef - Ref to the trigger element the panel is positioned against.
+ * @param children - Panel content, typically a list of `DropdownItem`s.
+ * @param className - Additional classes merged onto the panel.
+ * @param placement - Preferred side/alignment. Defaults to `"bottom-end"`.
+ *
+ * @example
+ * const { isOpen, toggle, close } = useDropdownToggle();
+ * const anchorRef = useRef<HTMLButtonElement>(null);
+ *
+ * <button ref={anchorRef} className="dropdown-toggle" onClick={toggle}>
+ *   Open menu
+ * </button>
+ * <Dropdown isOpen={isOpen} onClose={close} anchorRef={anchorRef}>
+ *   <DropdownItem onItemClick={close}>Action</DropdownItem>
+ * </Dropdown>
+ */
 export const Dropdown: React.FC<DropdownProps> = ({
   isOpen,
   onClose,
