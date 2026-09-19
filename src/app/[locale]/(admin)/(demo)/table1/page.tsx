@@ -11,9 +11,10 @@ import { useModal } from "@/foundation/shared/hooks/use-modal";
 import Table, { TableData } from "@/foundation/shared/components/table/table";
 import { TableSortState } from "@/foundation/shared/components/table/types";
 import { PageSize } from "@/foundation/shared/components/table/page-size-select";
+import { getApiUrl } from "@/lib/app-config";
 import { useEffect, useState } from "react";
 
-const URL = "/api/trips.json";
+const URL = getApiUrl("trips");
 
 export default function Page() {
   const [tableData, setTableData] = useState<TableData | null>(null);
@@ -35,6 +36,7 @@ export default function Page() {
   const [limit, setLimit] = useState<PageSize>(6);
 
   useEffect(() => {
+    console.log(URL)
     fetchTableData({ search, filters, sort, page, limit }, URL).then(setTableData);
   }, [search, filters, sort, page, limit]);
 

@@ -1,0 +1,274 @@
+{
+  "success": true,
+  "messages": null,
+  "result": {
+    "paging": {
+      "pageTitle": "Employees",
+      "pageSubtitle": null,
+      "totalItems": 19,
+      "startItem": 1,
+      "endItem": 10,
+      "itemsPerPage": 10,
+      "totalPages": 2,
+      "currentPage": 1
+    },
+    "metaData": [
+      {
+        "secondaryCode": "employee_id",
+        "name": "",
+        "icon": null,
+        "order": 1,
+        "type": "NUMBER",
+        "isPublic": -1,
+        "enum": null,
+        "lookup": null
+      },
+      {
+        "secondaryCode": "employee_avatar",
+        "name": "Avatar",
+        "icon": null,
+        "order": 2,
+        "type": "IMAGE",
+        "isPublic": 1,
+        "enum": null,
+        "lookup": null
+      },
+      {
+        "secondaryCode": "employee_name",
+        "name": "Name",
+        "icon": null,
+        "order": 3,
+        "type": "STRING",
+        "isPublic": 1,
+        "enum": null,
+        "lookup": null
+      },
+      {
+        "secondaryCode": "employee_online_status",
+        "name": "Status",
+        "icon": null,
+        "order": 4,
+        "type": "STRING",
+        "isPublic": 1,
+        "enum": [
+          {
+            "value": "ONLINE",
+            "label": "Online",
+            "color": "success"
+          },
+          {
+            "value": "OFFLINE",
+            "label": "Offline",
+            "color": "error"
+          }
+        ],
+        "lookup": null
+      },
+      {
+        "secondaryCode": "employee_email",
+        "name": "Email",
+        "icon": null,
+        "order": 5,
+        "type": "STRING",
+        "isPublic": 0,
+        "enum": null,
+        "lookup": null
+      },
+      {
+        "secondaryCode": "employee_phone",
+        "name": "Phone Number",
+        "icon": null,
+        "order": 6,
+        "type": "STRING",
+        "isPublic": 1,
+        "enum": null,
+        "lookup": null
+      },
+      {
+        "secondaryCode": "employee_role",
+        "name": "Role",
+        "icon": null,
+        "order": 7,
+        "type": "STRING",
+        "isPublic": 1,
+        "enum": [
+          {
+            "value": "supervisor",
+            "label": "Supervisor",
+            "color": "light"
+          },
+          {
+            "value": "accountant",
+            "label": "Accountant",
+            "color": "info"
+          },
+          {
+            "value": "administrator",
+            "label": "Administrator",
+            "color": "primary"
+          },
+          {
+            "value": "specialist",
+            "label": "Specialist",
+            "color": "warning"
+          },
+          {
+            "value": "manager",
+            "label": "Manager",
+            "color": "success"
+          }
+        ],
+        "lookup": "roles"
+      },
+      {
+        "secondaryCode": "employee_join_date",
+        "name": "Join Date",
+        "icon": null,
+        "order": 8,
+        "type": "DATE",
+        "isPublic": 1,
+        "enum": null,
+        "lookup": null
+      },
+      {
+        "secondaryCode": "employee_rating",
+        "name": "Rating",
+        "icon": null,
+        "order": 9,
+        "type": "RATING",
+        "isPublic": 1,
+        "enum": null,
+        "lookup": null
+      },
+      {
+        "secondaryCode": "employee_team",
+        "name": "Team",
+        "icon": null,
+        "order": 10,
+        "type": "IMAGE_GROUP",
+        "isPublic": 1,
+        "enum": null,
+        "lookup": null
+      }
+    ],
+    "items": [
+      {
+        "employee_id": "a856ea2a-6791-4d9b-a56a-51c72ca9c0c4",
+        "employee_avatar": null,
+        "employee_name": "hy",
+        "employee_online_status": "ONLINE",
+        "employee_email": "fggg@g.com",
+        "employee_phone": "134579",
+        "employee_role": "Specialist",
+        "employee_join_date": "2026-08-19T00:00:00",
+        "employee_rating": 5,
+        "employee_team": [
+          {
+            "id": "t1",
+            "name": "Omar Adel",
+            "image": null
+          },
+          {
+            "id": "t2",
+            "name": "Sara Youssef",
+            "image": null
+          }
+        ]
+      },
+      {
+        "employee_id": "e3789cfa-98e4-4b75-a6ad-8893e6a2bb1a",
+        "employee_avatar": null,
+        "employee_name": "jigyh",
+        "employee_online_status": "ONLINE",
+        "employee_email": "Twentiesjukebox@gmail.com",
+        "employee_phone": "234967",
+        "employee_role": "Supervisor",
+        "employee_join_date": "2026-08-26T00:00:00",
+        "employee_rating": 3,
+        "employee_team": [
+          {
+            "id": "t3",
+            "name": "Ahmed Fathy",
+            "image": null
+          },
+          {
+            "id": "t4",
+            "name": "Laila Hassan",
+            "image": null
+          },
+          {
+            "id": "t5",
+            "name": "Youssef Kamal",
+            "image": null
+          },
+          {
+            "id": "t6",
+            "name": "Rana Adel",
+            "image": null
+          }
+        ]
+      },
+      {
+        "employee_id": "bd04cdbb-9165-46a3-8e2e-ce641b9e741b",
+        "employee_avatar": null,
+        "employee_name": "Mona Khaled",
+        "employee_online_status": "ONLINE",
+        "employee_email": "yousef.m.dev1@gmail.com",
+        "employee_phone": "10132500720",
+        "employee_role": "Manager",
+        "employee_join_date": "2026-07-26T00:00:00",
+        "employee_rating": 5,
+        "employee_team": [
+          {
+            "id": "t7",
+            "name": "Hana Samir",
+            "image": null
+          },
+          {
+            "id": "t8",
+            "name": "Karim Nabil",
+            "image": null
+          },
+          {
+            "id": "t9",
+            "name": "Dina Farouk",
+            "image": null
+          }
+        ]
+      },
+      {
+        "employee_id": "a9e5ae90-046d-453a-82cf-f3520abcce65",
+        "employee_avatar": null,
+        "employee_name": "Mona Khaled",
+        "employee_online_status": "ONLINE",
+        "employee_email": "yousef.m.dev1@gmail.com",
+        "employee_phone": "10132500720",
+        "employee_role": "Administrator",
+        "employee_join_date": "2026-07-26T00:00:00",
+        "employee_rating": 3
+      },
+      {
+        "employee_id": "b6dd6a70-9714-42ac-ab4a-1f48be331f74",
+        "employee_avatar": null,
+        "employee_name": "Nada Test 2",
+        "employee_online_status": "ONLINE",
+        "employee_email": "ranin32475@liondapt.com",
+        "employee_phone": "5544112211",
+        "employee_role": "Manager",
+        "employee_join_date": "2026-09-07T08:28:35.3192754",
+        "employee_rating": 4
+      },
+      {
+        "employee_id": "ea5fa68e-5109-49cc-b2c3-d2be8bdff654",
+        "employee_avatar": null,
+        "employee_name": "Nadeen",
+        "employee_online_status": "ONLINE",
+        "employee_email": "ririto1116@hebase.com",
+        "employee_phone": "1122556698",
+        "employee_role": "Manager",
+        "employee_join_date": "2026-09-05T08:03:26.0458342",
+        "employee_rating": 0
+      }
+    ]
+  }
+}

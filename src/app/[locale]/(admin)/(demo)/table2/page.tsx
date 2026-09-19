@@ -2,13 +2,14 @@
 
 import { H2, PageHeading, ReadOnlyTable, Text } from "@/foundation/shared/components";
 import { TableData } from "@/foundation/shared/components/table/table";
+import { getApiUrl } from "@/lib/app-config";
 import React, { useEffect, useState } from "react";
 
 export default function Page() {
   const [tableData, setTableData] = useState<TableData | null>(null);
 
   useEffect(() => {
-    fetch("/api/trips.json")
+    fetch(getApiUrl("trips"))
       .then((res) => res.json())
       .then((json) => setTableData(json.result));
   }, []);
